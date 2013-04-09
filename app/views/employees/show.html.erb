@@ -1,0 +1,80 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Emp:</b>
+  <%= @employee.emp_id %>
+</p>
+
+<p>
+  <b>First name:</b>
+  <%= @employee.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @employee.last_name %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @employee.gender %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @employee.email_id %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @employee.address %>
+</p>
+
+<p>
+  <b>Phone number:</b>
+  <%= @employee.phone_number %>
+</p>
+
+<p>
+  <b>Pan number:</b>
+  <%= @employee.pan_number %>
+</p>
+
+<p>
+  <b>Bank acc no:</b>
+  <%= @employee.bank_acc_no %>
+</p>
+
+<p>
+  <b>Designation:</b>
+  <%= @employee.designation %>
+</p>
+
+<p>
+  <b>Grossctc:</b>
+  <%= @employee.grossCTC %>
+</p>
+
+<p>
+  <b>Date of joining:</b>
+  <%= @employee.date_of_joining %>
+</p>
+
+<p>
+  <b>Date of birth:</b>
+  <%= @employee.date_of_birth %>
+</p>
+
+<p>
+  <b>Date of relieve:</b>
+  <%= @employee.date_of_relieve %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @employee.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>
