@@ -5,6 +5,7 @@ Indiapayroll::Application.routes.draw do
   
   
   match '/signout', :to => 'Sessions#destroy'
+  match '/empinfo' => 'employees#employeeinfo'
   
 
   # The priority is based upon order of creation:

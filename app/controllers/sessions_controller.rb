@@ -10,13 +10,16 @@ class SessionsController < ApplicationController
 
   def create
     user = UserLogin.authenticate(params[:session][:username],params[:session][:password])
-    if user.nil?
+    if user.nil? 
       flash.now[:error] = "Invalid username/password combination."
-      @title = "Sign in"
       render 'new'
-    else
+      elsif  user.is_admin=='y'
       sign_in user
       render "success"
+    else
+      sign_in user 
+      flash[:success] ="Hi #{user.user_name} welcome to India Payroll app"
+      redirect_to empinfo_path
     end
   end
  

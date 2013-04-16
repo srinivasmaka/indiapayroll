@@ -1,5 +1,10 @@
 class EmployeesController < ApplicationController
   include SessionsHelper 
+   layout :resolve_layout
+
+  # ...
+
+
   
   before_filter :authenticate
   
@@ -78,7 +83,8 @@ class EmployeesController < ApplicationController
       end
     end
   end
-
+  
+  
   # DELETE /employees/1
   # DELETE /employees/1.json
   def destroy
@@ -90,4 +96,18 @@ class EmployeesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  # 
+  def employeeinfo
+  end
+    private
+
+  def resolve_layout
+    case action_name
+    when "employeeinfo"
+      "employee"
+    else
+      "application"
+    end
+  end
+
 end
