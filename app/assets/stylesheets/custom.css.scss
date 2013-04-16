@@ -12,6 +12,7 @@ html {
 
 body {
   padding-top: 60px;
+  background-color:#98FB98;
 }
 
 section {
@@ -101,3 +102,10 @@ footer {
   }
 }
 
+ .ui-datepicker 
+    {
+   background: #333;
+   border: 1px solid #555;
+   color: #EEE;   
+   }
+   

@@ -1,6 +1,10 @@
 Indiapayroll::Application.routes.draw do
+  root :to => "sessions#new"
   resources :employees
-  resources :userlogins
+  resources :sessions
+  
+  
+  match '/signout', :to => 'Sessions#destroy'
   
 
   # The priority is based upon order of creation:

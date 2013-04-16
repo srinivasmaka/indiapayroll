@@ -1,7 +1,12 @@
 class EmployeesController < ApplicationController
+  include SessionsHelper 
+  
+  before_filter :authenticate
+  
   # GET /employees
   # GET /employees.json
   def index
+    
     @employees = Employee.all
 
     respond_to do |format|
@@ -43,7 +48,12 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(params[:employee])
 
     respond_to do |format|
-      if @employee.save
+      user =UserLogin.new
+      user.emp_id=@employee.emp_id
+      user.user_name=@employee.first_name
+      user.password="employee"
+      user.is_admin='n'
+      if @employee.save && user.save 
         format.html { redirect_to @employee, :notice=> 'Employee was successfully created.' }
         format.json { render :json=> @employee, :status=>created, :location=> @employee }
       else
