@@ -7,7 +7,9 @@ Indiapayroll::Application.routes.draw do
   match '/signout', :to => 'Sessions#destroy'
   match '/empinfo' => 'employees#employeeinfo'
   
-
+  match "/emp_declarations/calculatehra/:emp_id/:rent_receipts_total" => "emp_declarations#calculatehra", :as=> "calculatehra"
+  resources :emp_declarations
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

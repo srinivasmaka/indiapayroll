@@ -1,0 +1,67 @@
+<h1>Listing Emp Declarations</h1>
+
+<table>
+  <tr>
+    <th>Rent receipts total</th>
+    <th>Rent receipts cal1</th>
+    <th>Rent receipts cal2</th>
+    <th>Children fee 80c</th>
+    <th>Donations 80g</th>
+    <th>Emp</th>
+    <th>Hloan principal 80c</th>
+    <th>Home loan interest</th>
+    <th>House rent</th>
+    <th>Hra status</th>
+    <th>Infrabonds 80c</th>
+    <th>Insurance 80c</th>
+    <th>Interest eduloan 80e</th>
+    <th>Locked for admin</th>
+    <th>Locked for employee</th>
+    <th>Med insurance 80d</th>
+    <th>Medical receipts</th>
+    <th>Mf 80c</th>
+    <th>Nsc 80c</th>
+    <th>Others 80c</th>
+    <th>Ppf 80c</th>
+    <th>Total hra</th>
+    <th>Updated by</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @emp_declarations.each do |emp_declaration| %>
+  <tr>
+    <td><%= emp_declaration.rent_receipts_total %></td>
+    <td><%= emp_declaration.rent_receipts_cal1 %></td>
+    <td><%= emp_declaration.rent_receipts_cal2 %></td>
+    <td><%= emp_declaration.children_fee_80c %></td>
+    <td><%= emp_declaration.donations_80g %></td>
+    <td><%= emp_declaration.emp_id %></td>
+    <td><%= emp_declaration.hloan_principal_80c %></td>
+    <td><%= emp_declaration.home_loan_interest %></td>
+    <td><%= emp_declaration.house_rent %></td>
+    <td><%= emp_declaration.hra_status %></td>
+    <td><%= emp_declaration.infrabonds_80c %></td>
+    <td><%= emp_declaration.insurance_80c %></td>
+    <td><%= emp_declaration.interest_EduLoan_80e %></td>
+    <td><%= emp_declaration.locked_for_admin %></td>
+    <td><%= emp_declaration.locked_for_employee %></td>
+    <td><%= emp_declaration.med_insurance_80d %></td>
+    <td><%= emp_declaration.medical_receipts %></td>
+    <td><%= emp_declaration.mf_80c %></td>
+    <td><%= emp_declaration.nsc_80c %></td>
+    <td><%= emp_declaration.others_80c %></td>
+    <td><%= emp_declaration.ppf_80c %></td>
+    <td><%= emp_declaration.total_hra %></td>
+    <td><%= emp_declaration.updated_by %></td>
+    <td><%= link_to 'Show', emp_declaration %></td>
+    <td><%= link_to 'Edit', edit_emp_declaration_path(emp_declaration) %></td>
+    <td><%= link_to 'Destroy', emp_declaration, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Emp declaration', new_emp_declaration_path %>
