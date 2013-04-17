@@ -96,8 +96,9 @@ class EmployeesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  # 
+  # employee info 
   def employeeinfo
+   @employee=Employee.find_by_emp_id(current_user.emp_id)
   end
     private
 
