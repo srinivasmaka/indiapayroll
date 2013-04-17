@@ -1,4 +1,5 @@
 class EmpDeclarationsController < ApplicationController
+  layout "employee"
   # GET /emp_declarations
   # GET /emp_declarations.json
   def index

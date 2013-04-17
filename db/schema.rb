@@ -55,6 +55,9 @@ ActiveRecord::Schema.define(:version => 20130415110312) do
     t.string   "locked_for_admin"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.decimal  "rent_receipts_total"
+    t.decimal  "rent_receipts_cal1"
+    t.decimal  "rent_receipts_cal2"
   end
 
   create_table "employees", :force => true do |t|

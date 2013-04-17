@@ -6,10 +6,15 @@
       <% if signed_in? %>
       <nav>
         <ul class="nav pull-right">
-          <li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
             <li><%= link_to "Employee Info", empinfo_path %></li>
-            <li><%= link_to "Declarations & Taxes", '#' %></li>
             <li><%= link_to "Pay Slips", '#' %></li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Declarations & Taxes <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "New DeclarationForm", new_emp_declaration_path %></li>
+                <li><%= link_to "Submited Declarations", "" %></li>
             <li><%= link_to "Sign out", signout_path, :method=> "delete" %></li>
         </ul>
       </nav>

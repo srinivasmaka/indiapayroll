@@ -1,12 +1,8 @@
 class EmployeesController < ApplicationController
   include SessionsHelper 
    layout :resolve_layout
-
-  # ...
-
-
-  
-  before_filter :authenticate
+   before_filter :authenticate
+   
   
   # GET /employees
   # GET /employees.json
@@ -110,5 +106,6 @@ class EmployeesController < ApplicationController
       "application"
     end
   end
+  
 
 end
