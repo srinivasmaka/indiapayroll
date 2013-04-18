@@ -1,0 +1,36 @@
+<%= form_for(@tax_slab) do |f| %>
+  <% if @tax_slab.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tax_slab.errors.count, "error") %> prohibited this tax_slab from being saved:</h2>
+
+      <ul>
+      <% @tax_slab.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+ <div class="field">
+    <%= f.label :year %><br />
+    <%= f.text_field :year %>
+  </div>
+  <div class="field">
+    <%= f.label :slab_to %><br />
+    <%= f.text_field :slab_to %>
+  </div>
+  <div class="field">
+    <%= f.label :slab_from %><br />
+    <%= f.text_field :slab_from %>
+  </div>
+  <div class="field">
+    <%= f.label :min_tax %><br />
+    <%= f.text_field :min_tax %>
+  </div>
+  <div class="field">
+    <%= f.label :deduction_percent %><br />
+    <%= f.text_field :deduction_percent %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

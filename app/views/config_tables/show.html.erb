@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Year:</b>
+  <%= @config_table.year %>
+</p>
+
+<p>
+  <b>Hra percent:</b>
+  <%= @config_table.hra_percent %>
+</p>
+
+<p>
+  <b>Basic percent:</b>
+  <%= @config_table.basic_percent %>
+</p>
+
+<p>
+  <b>Conveyance:</b>
+  <%= @config_table.conveyance %>
+</p>
+
+<p>
+  <b>Professional tax:</b>
+  <%= @config_table.professional_tax %>
+</p>
+
+<p>
+  <b>Edu cess:</b>
+  <%= @config_table.edu_cess %>
+</p>
+
+
+<%= link_to 'Edit', edit_config_table_path(@config_table) %> |
+<%= link_to 'Back', config_tables_path %>

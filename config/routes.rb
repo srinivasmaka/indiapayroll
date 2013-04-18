@@ -9,7 +9,8 @@ Indiapayroll::Application.routes.draw do
   
   match "/emp_declarations/calculatehra/:emp_id/:rent_receipts_total" => "emp_declarations#calculatehra", :as=> "calculatehra"
   resources :emp_declarations
-  
+  resources :tax_slabs
+  resources :config_tables  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

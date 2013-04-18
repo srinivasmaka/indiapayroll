@@ -1,0 +1,33 @@
+<h1>Listing Config Tables</h1>
+
+<table>
+  <tr>
+  	<th>Year</th>
+    <th>Hra percent</th>
+    <th>Basic percent</th>
+    <th>Conveyance</th>
+    <th>Professional tax</th>
+    <th>Edu cess</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @config_tables.each do |config_table| %>
+  <tr>
+  	<td><%= config_table.year %></td>
+    <td><%= config_table.hra_percent %></td>
+    <td><%= config_table.basic_percent %></td>
+    <td><%= config_table.conveyance %></td>
+    <td><%= config_table.professional_tax %></td>
+    <td><%= config_table.edu_cess %></td>
+    <td><%= link_to 'Show', config_table %></td>
+    <td><%= link_to 'Edit', edit_config_table_path(config_table) %></td>
+    <td><%= link_to 'Destroy', config_table, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Config table', new_config_table_path %>

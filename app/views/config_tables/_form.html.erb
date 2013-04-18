@@ -1,0 +1,40 @@
+<%= form_for(@config_table) do |f| %>
+  <% if @config_table.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@config_table.errors.count, "error") %> prohibited this config_table from being saved:</h2>
+
+      <ul>
+      <% @config_table.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+ <div class="field">
+    <%= f.label :year %><br />
+    <%= f.text_field :year %>
+  </div>
+  <div class="field">
+    <%= f.label :hra_percent %><br />
+    <%= f.text_field :hra_percent %>
+  </div>
+  <div class="field">
+    <%= f.label :basic_percent %><br />
+    <%= f.text_field :basic_percent %>
+  </div>
+  <div class="field">
+    <%= f.label :conveyance %><br />
+    <%= f.text_field :conveyance %>
+  </div>
+  <div class="field">
+    <%= f.label :professional_tax %><br />
+    <%= f.text_field :professional_tax %>
+  </div>
+  <div class="field">
+    <%= f.label :edu_cess %><br />
+    <%= f.text_field :edu_cess %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
