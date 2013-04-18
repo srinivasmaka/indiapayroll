@@ -10,31 +10,34 @@
       </ul>
     </div>
   <% end %>
+  <div class="row">
+  <div class="span6 offset3">
  <div class="field">
-    <%= f.label :year %><br />
+    <%= f.label :year %>
     <%= f.text_field :year %>
   </div>
   <div class="field">
-    <%= f.label :hra_percent %><br />
+    <%= f.label :hra_percent %>
     <%= f.text_field :hra_percent %>
   </div>
   <div class="field">
-    <%= f.label :basic_percent %><br />
+    <%= f.label :basic_percent %>
     <%= f.text_field :basic_percent %>
   </div>
   <div class="field">
-    <%= f.label :conveyance %><br />
+    <%= f.label :conveyance %>
     <%= f.text_field :conveyance %>
   </div>
   <div class="field">
-    <%= f.label :professional_tax %><br />
+    <%= f.label :professional_tax %>
     <%= f.text_field :professional_tax %>
   </div>
   <div class="field">
-    <%= f.label :edu_cess %><br />
+    <%= f.label :edu_cess %>
     <%= f.text_field :edu_cess %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create New Config" ,:class=> "btn btn-large btn-primary" %>
   </div>
+  </div></div>
 <% end %>

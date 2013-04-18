@@ -10,27 +10,28 @@
       </ul>
     </div>
   <% end %>
+  <div class="row">
+  <div class="span6 offset3">
  <div class="field">
-    <%= f.label :year %><br />
+    <%= f.label :year %>
     <%= f.text_field :year %>
   </div>
   <div class="field">
-    <%= f.label :slab_to %><br />
+    <%= f.label :slab_to %>
     <%= f.text_field :slab_to %>
   </div>
   <div class="field">
-    <%= f.label :slab_from %><br />
+    <%= f.label :slab_from %>
     <%= f.text_field :slab_from %>
   </div>
   <div class="field">
-    <%= f.label :min_tax %><br />
+    <%= f.label :min_tax %>
     <%= f.text_field :min_tax %>
   </div>
   <div class="field">
-    <%= f.label :deduction_percent %><br />
+    <%= f.label :deduction_percent %>
     <%= f.text_field :deduction_percent %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.submit  "Create New Slab", :class=> "btn btn-large btn-primary" %>
+  </div></div>
 <% end %>
