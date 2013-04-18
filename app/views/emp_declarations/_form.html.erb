@@ -32,123 +32,127 @@ $('input[id$="_house_self_occupied_no"]').change(function() {
       </ul>
     </div>
   <% end %>
+  <div class="row">
+  <div class="span6 offset3">
   <div class="section0">
   <div class="field">
-    <%= f.label :Emp_Id %> <br />
+    <%= f.label :Emp_Id %> 
     <%= f.text_field :emp_id %>
   </div>
-  </div><br />
+  </div>
    <div class="field" id="hra_control">
-   	<%= f.label :Would_you_like_to_Avail_HRA %> <br />
-   <%= radio_button(f, "hra_status", "yes", :checked => true )%>   <%= f.label :Yes %>
-   <%= radio_button(f, "hra_status", "no") %>    <%= f.label :No %><br />
+   <%= f.label :Would_you_like_to_Avail_HRA %>
+   <%= radio_button(f, "hra_status", "yes", :checked => true )%>Yes
+   <%= radio_button(f, "hra_status", "no") %> No
+
   </div>
   <div class="section1" id="hra_block">
   <div class="field">
-    <%= f.label :Rent_Receipt_Provided  %>  <br />
+    <%= f.label :Rent_Receipt_Provided  %> 
     <%= f.text_field :rent_receipts_total %>  <%= link_to 'calculatehra', calculatehra_path(1002,10000), :remote => true %> <br />
   </div>
   <div class="field">
-    <%= f.label :calculated_hra_as_per_rule1%> <br />
+    <%= f.label :calculated_hra_as_per_rule1%>
     <%= f.text_field :rent_receipts_cal1 %>
   </div>
   <div class="field">
-    <%= f.label :calculated_hra_as_per_rule2  %> <br />
+    <%= f.label :calculated_hra_as_per_rule2  %>
     <%= f.text_field :rent_receipts_cal2 %>
   </div>
   <div class="field">
-    <%= f.label :HRA_Applicable %> <br />
+    <%= f.label :HRA_Applicable %>
     <%= f.text_field :total_hra %>
   </div>
-  </div><br />
+  </div>
   <div class="section2">
    <div class="field">
-    <%= f.label :medical_receipts %> <br />
+    <%= f.label :medical_receipts %>
     <%= f.text_field :medical_receipts %>
   </div>
-</div> <br />
+</div>
 <div class="section3">
   <div class="field"> 
-    <%= f.label :children_fee_80c %> <br />
+    <%= f.label :children_fee_80c %>
     <%= f.text_field :children_fee_80c %>
   </div>
   <div class="field">
-    <%= f.label :donations_80g %><br />
+    <%= f.label :donations_80g %>
     <%= f.text_field :donations_80g %>
   </div>
   <div class="field">
-    <%= f.label :hloan_principal_80c %><br />
+    <%= f.label :hloan_principal_80c %>
     <%= f.text_field :hloan_principal_80c %>
   </div>
   <div class="field">
-    <%= f.label :donations_80g %><br />
+    <%= f.label :donations_80g %>
     <%= f.text_field :donations_80g %>
   </div>
    <div class="field">
-    <%= f.label :infrabonds_80c %><br />
+    <%= f.label :infrabonds_80c %>
     <%= f.text_field :infrabonds_80c %>
   </div>
   <div class="field">
-    <%= f.label :insurance_80c %><br />
+    <%= f.label :insurance_80c %>
     <%= f.text_field :insurance_80c %>
   </div>
   <div class="field">
-    <%= f.label :interest_EduLoan_80e %><br />
+    <%= f.label :interest_EduLoan_80e %>
     <%= f.text_field :interest_EduLoan_80e %>
   </div>
   <div class="field">
-    <%= f.label :med_insurance_80d %><br />
+    <%= f.label :med_insurance_80d %>
     <%= f.text_field :med_insurance_80d %>
   </div>
    <div class="field">
-    <%= f.label :mf_80c %><br />
+    <%= f.label :mf_80c %>
     <%= f.text_field :mf_80c %>
   </div>
   <div class="field">
-    <%= f.label :nsc_80c %><br />
+    <%= f.label :nsc_80c %>
     <%= f.text_field :nsc_80c %>
   </div>
   <div class="field">
-    <%= f.label :others_80c %><br />
+    <%= f.label :others_80c %>
     <%= f.text_field :others_80c %>
   </div>
   <div class="field">
-    <%= f.label :ppf_80c %><br />
+    <%= f.label :ppf_80c %>
     <%= f.text_field :ppf_80c %>
   </div>
-</div> <br />
+</div>
   <div class="field">
-   <%= f.label :House_self_occupied %> <br />
-   <%= radio_button(f, "house_self_occupied", "yes") %>   <%= f.label :Yes %>
-   <%= radio_button(f, "house_self_occupied", "no",:checked => true) %>    <%= f.label :No %><br />
+   <%= f.label :House_self_occupied %>
+   <%= radio_button(f, "house_self_occupied", "yes") %> Yes
+   <%= radio_button(f, "house_self_occupied", "no",:checked => true) %> No
   </div>
   <div class="section4" id="hrent_block">
   <div class="field">
-    <%= f.label :house_rent %><br />
+    <%= f.label :house_rent %>
     <%= f.text_field :house_rent %>
   </div>
-  </div><br />
+  </div>
 <div class="section5" id="hloan_block">
   <div class="field">
-    <%= f.label :home_loan_interest %><br />
+    <%= f.label :home_loan_interest %>
     <%= f.text_field :home_loan_interest %>
   </div>
-  </div><br />
+  </div>
 <div class="section6">
    <div class="field">
-    <%= f.label :locked_for_admin %><br />
+    <%= f.label :locked_for_admin %>
     <%= f.text_field :locked_for_admin %>
   </div>
   <div class="field">
-    <%= f.label :locked_for_employee %><br />
+    <%= f.label :locked_for_employee %>
     <%= f.text_field :locked_for_employee %>
   </div>
   <div class="field">
-    <%= f.label :updated_by %><br />
+    <%= f.label :updated_by %>
     <%= f.text_field :updated_by %>
   </div>
-</div>  <br />
+</div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit Declaration" ,:class=>"btn btn-large btn-primary" %>
   </div>
+  </div></div>
 <% end %>
