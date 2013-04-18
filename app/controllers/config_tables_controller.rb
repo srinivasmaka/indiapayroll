@@ -1,4 +1,7 @@
 class ConfigTablesController < ApplicationController
+  before_filter :authenticate
+  before_filter :authenticate_admin 
+  
   # GET /config_tables
   # GET /config_tables.json
   def index

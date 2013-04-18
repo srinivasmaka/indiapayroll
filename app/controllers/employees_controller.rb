@@ -2,6 +2,8 @@ class EmployeesController < ApplicationController
   include SessionsHelper 
    layout :resolve_layout
    before_filter :authenticate
+   before_filter :authenticate_admin , :only=>[:new ,:create ,:index]
+   #before_filter :authorise, :except => [:warning, :closed]
    
   
   # GET /employees
@@ -106,6 +108,7 @@ class EmployeesController < ApplicationController
       "application"
     end
   end
+  
   
 
 end

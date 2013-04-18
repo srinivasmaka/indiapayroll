@@ -13,7 +13,9 @@ module SessionsHelper
   def current_user
      @current_user ||= UserLogin.find_by_id(cookies[:remember_token])
   end
-  
+  def is_admin?
+    @current_user.is_admin=='y'
+  end
   def signed_in?
     !current_user.nil?
   end
@@ -30,6 +32,14 @@ module SessionsHelper
   
   def authenticate
     deny_access unless signed_in?
+  end
+  
+  def authenticate_admin
+    deny_access_for_employee unless @current_user.is_admin=='y'
+  end
+  def deny_access_for_employee
+    store_location
+    redirect_to empinfo_path, :notice => "Please sign in as a admin to access  this page."
   end
 
   def deny_access

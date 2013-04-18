@@ -1,5 +1,6 @@
 class EmpDeclarationsController < ApplicationController
   layout "employee"
+  before_filter :authenticate
   # GET /emp_declarations
   # GET /emp_declarations.json
   def index

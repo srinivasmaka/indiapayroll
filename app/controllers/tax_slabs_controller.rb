@@ -1,4 +1,7 @@
 class TaxSlabsController < ApplicationController
+  before_filter :authenticate
+  before_filter :authenticate_admin 
+  
   # GET /tax_slabs
   # GET /tax_slabs.json
   def index
