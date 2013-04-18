@@ -37,7 +37,7 @@ $('input[id$="_house_self_occupied_no"]').change(function() {
   <div class="section0">
   <div class="field">
     <%= f.label :Emp_Id %> 
-    <%= f.text_field :emp_id %>
+    <%= @emp_id %>
   </div>
   </div>
    <div class="field" id="hra_control">
@@ -49,19 +49,19 @@ $('input[id$="_house_self_occupied_no"]').change(function() {
   <div class="section1" id="hra_block">
   <div class="field">
     <%= f.label :Rent_Receipt_Provided  %> 
-    <%= f.text_field :rent_receipts_total %>  <%= link_to 'calculatehra', calculatehra_path(1002,10000), :remote => true %> <br />
+    <%= f.text_field :rent_receipts_total %>  <%= link_to 'calculatehra', calculatehra_path(@emp_id,10000), :remote => true %> <br />
   </div>
   <div class="field">
     <%= f.label :calculated_hra_as_per_rule1%>
-    <%= f.text_field :rent_receipts_cal1 %>
+    <%= f.text_field :rent_receipts_cal1 ,:readonly => true %>
   </div>
   <div class="field">
     <%= f.label :calculated_hra_as_per_rule2  %>
-    <%= f.text_field :rent_receipts_cal2 %>
+    <%= f.text_field :rent_receipts_cal2,:readonly => true  %>
   </div>
   <div class="field">
     <%= f.label :HRA_Applicable %>
-    <%= f.text_field :total_hra %>
+    <%= f.text_field :total_hra,:readonly => true  %>
   </div>
   </div>
   <div class="section2">

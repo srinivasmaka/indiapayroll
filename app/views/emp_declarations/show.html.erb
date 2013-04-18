@@ -1,6 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b>Emp:</b>
+  <%= @emp_declaration.emp_id %>
+</p>
+<p>
+  <b>Hra status:</b>
+  <%= @emp_declaration.hra_status %>
+</p>
+
+<p>
   <b>Rent receipts total:</b>
   <%= @emp_declaration.rent_receipts_total %>
 </p>
@@ -14,6 +23,15 @@
   <b>Rent receipts cal2:</b>
   <%= @emp_declaration.rent_receipts_cal2 %>
 </p>
+<p>
+  <b>Total hra:</b>
+  <%= @emp_declaration.total_hra %>
+</p>
+
+<p>
+  <b>Medical receipts:</b>
+  <%= @emp_declaration.medical_receipts %>
+</p>
 
 <p>
   <b>Children fee 80c:</b>
@@ -21,33 +39,8 @@
 </p>
 
 <p>
-  <b>Donations 80g:</b>
-  <%= @emp_declaration.donations_80g %>
-</p>
-
-<p>
-  <b>Emp:</b>
-  <%= @emp_declaration.emp_id %>
-</p>
-
-<p>
   <b>Hloan principal 80c:</b>
   <%= @emp_declaration.hloan_principal_80c %>
-</p>
-
-<p>
-  <b>Home loan interest:</b>
-  <%= @emp_declaration.home_loan_interest %>
-</p>
-
-<p>
-  <b>House rent:</b>
-  <%= @emp_declaration.house_rent %>
-</p>
-
-<p>
-  <b>Hra status:</b>
-  <%= @emp_declaration.hra_status %>
 </p>
 
 <p>
@@ -58,31 +51,6 @@
 <p>
   <b>Insurance 80c:</b>
   <%= @emp_declaration.insurance_80c %>
-</p>
-
-<p>
-  <b>Interest eduloan 80e:</b>
-  <%= @emp_declaration.interest_EduLoan_80e %>
-</p>
-
-<p>
-  <b>Locked for admin:</b>
-  <%= @emp_declaration.locked_for_admin %>
-</p>
-
-<p>
-  <b>Locked for employee:</b>
-  <%= @emp_declaration.locked_for_employee %>
-</p>
-
-<p>
-  <b>Med insurance 80d:</b>
-  <%= @emp_declaration.med_insurance_80d %>
-</p>
-
-<p>
-  <b>Medical receipts:</b>
-  <%= @emp_declaration.medical_receipts %>
 </p>
 
 <p>
@@ -106,8 +74,41 @@
 </p>
 
 <p>
-  <b>Total hra:</b>
-  <%= @emp_declaration.total_hra %>
+  <b>Med insurance 80d:</b>
+  <%= @emp_declaration.med_insurance_80d %>
+</p>
+
+<p>
+  <b>Interest eduloan 80e:</b>
+  <%= @emp_declaration.interest_EduLoan_80e %>
+</p>
+<p>
+  <b>House Self Occupied:</b>
+  <%= @emp_declaration.house_self_occupied %>
+</p>
+
+<p>
+  <b>Donations 80g:</b>
+  <%= @emp_declaration.donations_80g %>
+</p>
+<p>
+  <b>Home loan interest:</b>
+  <%= @emp_declaration.home_loan_interest %>
+</p>
+
+<p>
+  <b>House rent:</b>
+  <%= @emp_declaration.house_rent %>
+</p>
+
+<p>
+  <b>Locked for admin:</b>
+  <%= @emp_declaration.locked_for_admin %>
+</p>
+
+<p>
+  <b>Locked for employee:</b>
+  <%= @emp_declaration.locked_for_employee %>
 </p>
 
 <p>

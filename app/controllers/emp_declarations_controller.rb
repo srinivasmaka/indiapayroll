@@ -1,5 +1,6 @@
 class EmpDeclarationsController < ApplicationController
   layout "employee"
+  include SessionsHelper
   before_filter :authenticate
   # GET /emp_declarations
   # GET /emp_declarations.json
@@ -26,6 +27,7 @@ class EmpDeclarationsController < ApplicationController
   # GET /emp_declarations/new
   # GET /emp_declarations/new.json
   def new
+    @emp_id = current_user.emp_id
     @emp_declaration = EmpDeclaration.new
 
     respond_to do |format|
@@ -36,6 +38,7 @@ class EmpDeclarationsController < ApplicationController
 
   # GET /emp_declarations/1/edit
   def edit
+    @emp_id = current_user.emp_id
     @emp_declaration = EmpDeclaration.find(params[:id])
   end
 
