@@ -46,7 +46,6 @@ class EmpDeclarationsController < ApplicationController
   # POST /emp_declarations.json
   def create
     @emp_declaration = EmpDeclaration.new(params[:emp_declaration])
-
     respond_to do |format|
       if @emp_declaration.save
         format.html { redirect_to @emp_declaration, :notice => 'Emp declaration was successfully created.' }
@@ -95,10 +94,23 @@ class EmpDeclarationsController < ApplicationController
     @hra_cal1 =  @total_hra-(@basic_sal*0.1)
     @hra_cal2 =  (0.4*@basic_sal)
     @applicable_hra = [@hra_cal1,@hra_cal2,@total_hra].min 
+    
     respond_to do |format|
-    format.js 
+     format.js 
     end
+    
   end
   
+  def populate_declarations
+    @emp_id =  params[:emp_id]
+    @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).first
+    if @emp_declaration.nil?
+    @emp_id = current_user.emp_id
+    @emp_declaration = EmpDeclaration.new
+    render :new
+    else
+    render :edit
+    end    
+  end
   
 end
