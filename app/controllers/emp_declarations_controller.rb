@@ -61,10 +61,11 @@ class EmpDeclarationsController < ApplicationController
   # PUT /emp_declarations/1
   # PUT /emp_declarations/1.json
   def update
-    @emp_declaration = EmpDeclaration.find(params[:id])
+    @emp_id = current_user.emp_id
+    @emp_declaration = EmpDeclaration.new(params[:emp_declaration])
 
     respond_to do |format|
-      if @emp_declaration.update_attributes(params[:emp_declaration])
+      if @emp_declaration.save
         format.html { redirect_to @emp_declaration, :notice => 'Emp declaration was successfully updated.' }
         format.json { head :no_content }
       else
@@ -90,11 +91,12 @@ class EmpDeclarationsController < ApplicationController
     @emp_id =  params[:emp_id]
     @total_hra = params[:rent_receipts_total].to_i
     @employee = Employee.where("emp_id" => @emp_id).first
-    @hra_cal1 =  @total_hra-(@employee.grossCTC.to_i*0.1)
-    @hra_cal2 =  (0.4*@employee.grossCTC.to_i)
+    @basic_sal = (@employee.grossCTC.to_i*0.55)
+    @hra_cal1 =  @total_hra-(@basic_sal*0.1)
+    @hra_cal2 =  (0.4*@basic_sal)
     @applicable_hra = [@hra_cal1,@hra_cal2,@total_hra].min 
     respond_to do |format|
-    format.js
+    format.js 
     end
   end
   
