@@ -1,4 +1,5 @@
 Indiapayroll::Application.routes.draw do
+  
   root :to => "sessions#new"
   resources :employees
   resources :sessions
@@ -12,6 +13,8 @@ Indiapayroll::Application.routes.draw do
   resources :emp_declarations
   resources :tax_slabs
   resources :config_tables  
+
+  match 'consolidated_pay' =>"consolidated_pay#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

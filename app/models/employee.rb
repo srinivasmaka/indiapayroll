@@ -10,5 +10,8 @@ class Employee < ActiveRecord::Base
   validates :email_id, :presence   => true,
                     :format     => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false }
+
+  has_many :payment_histories
+
   
 end
