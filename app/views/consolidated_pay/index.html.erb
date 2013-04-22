@@ -1,0 +1,49 @@
+<h1>Consolidated Pay</h1>
+
+<table class="table table-bordered">
+  <tr class="success">
+    <th>EmpId</th>
+    <th>Employee</th>
+
+    <%for i in 0..11 do 
+    	if i <= 8%>
+    		<th> <%= @month_names[i] + " "+ Time.now.year.to_s %> </th>
+ 		<%else%>
+ 			<th> <%= @month_names[i] + " "+  Time.now.years_since(1).year.to_s %> </th>
+ 		<%end%>	
+    <%end%>	
+     
+     <th>PS1</th>
+     <th>PS2</th>
+     <th>PS3</th>
+     <th>PS4</th>
+     <th>Total</th>
+  </tr>
+
+<% @employees.each do |e| %>
+  <tr class="success">
+  	
+	  <td><%= link_to "#{e.emp_id}", "#" %></td>
+	  <td><%= e.first_name+e.last_name %></td>
+	 
+    <td><%= (@paymentsHash[e.emp_id].apr).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].may).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].jun).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].jul).round(2)%></td>
+    <td><%= (@paymentsHash[e.emp_id].aug).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].sep).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].oct).round(2)%></td>
+    <td><%= (@paymentsHash[e.emp_id].nov).round(2)%></td>
+    <td><%= (@paymentsHash[e.emp_id].dec).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].jan).round(2)%></td>
+    <td><%= (@paymentsHash[e.emp_id].feb).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].mar).round(2)%></td>
+    <td><%= (@paymentsHash[e.emp_id].ps1).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].ps2).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].ps3).round(2)%></td>
+    <td><%= (@paymentsHash[e.emp_id].ps4).round(2) %></td>
+    <td><%= (@paymentsHash[e.emp_id].total).round(2) %></td>
+    
+  </tr>
+  <% end%>
+</table>

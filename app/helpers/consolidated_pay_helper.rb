@@ -1,0 +1,3 @@
+module ConsolidatedPayHelper
+	
+end
