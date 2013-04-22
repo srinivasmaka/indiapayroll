@@ -102,20 +102,9 @@
 </p>
 
 <p>
-  <b>Locked for admin:</b>
-  <%= @emp_declaration.locked_for_admin %>
-</p>
-
-<p>
-  <b>Locked for employee:</b>
-  <%= @emp_declaration.locked_for_employee %>
-</p>
-
-<p>
   <b>Updated by:</b>
   <%= @emp_declaration.updated_by %>
 </p>
 
 
 <%= link_to 'Edit', edit_emp_declaration_path(@emp_declaration) %> |
-<%= link_to 'Back', emp_declarations_path %>

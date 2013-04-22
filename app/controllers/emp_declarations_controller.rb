@@ -62,10 +62,9 @@ class EmpDeclarationsController < ApplicationController
   def update
     @emp_id = current_user.emp_id
     @emp_declaration = EmpDeclaration.new(params[:emp_declaration])
-
     respond_to do |format|
       if @emp_declaration.save
-        format.html { redirect_to @emp_declaration, :notice => 'Emp declaration was successfully updated.' }
+        format.html { render :action => "show" }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -103,7 +102,7 @@ class EmpDeclarationsController < ApplicationController
   
   def populate_declarations
     @emp_id =  params[:emp_id]
-    @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).first
+    @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     if @emp_declaration.nil?
     @emp_id = current_user.emp_id
     @emp_declaration = EmpDeclaration.new
