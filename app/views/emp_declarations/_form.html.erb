@@ -18,6 +18,18 @@ $('input[id$="_house_self_occupied_no"]').change(function() {
 	});
 
 });
+
+function calhra() {
+var empId = $("#emp_declaration_emp_id").val()
+var hra = $("#emp_declaration_rent_receipts_total").val()
+$.ajax({
+url: "/emp_declarations/calculatehra",
+type: "POST",
+data: {emp_id : empId,rent_receipts_total : hra},
+});
+	
+}
+
 </script>
 
 <%= form_for(@emp_declaration) do |f| %>
@@ -37,7 +49,7 @@ $('input[id$="_house_self_occupied_no"]').change(function() {
   <div class="section0">
   <div class="field">
     <%= f.label :Emp_Id %> 
-    <%= @emp_id %>
+	<%= f.text_field :emp_id ,:readonly => true, :value => @emp_id  %>
   </div>
   </div>
    <div class="field" id="hra_control">
@@ -49,11 +61,11 @@ $('input[id$="_house_self_occupied_no"]').change(function() {
   <div class="section1" id="hra_block">
   <div class="field">
     <%= f.label :Rent_Receipt_Provided  %> 
-    <%= f.text_field :rent_receipts_total %>  <%= link_to 'calculatehra', calculatehra_path(@emp_id,10000), :remote => true %> <br />
+    <%= f.text_field :rent_receipts_total %> <a href="#" onclick=calhra() %>calculatehra</a> <br />
   </div>
   <div class="field">
     <%= f.label :calculated_hra_as_per_rule1%>
-    <%= f.text_field :rent_receipts_cal1 ,:readonly => true %>
+    <%= f.text_field :rent_receipts_cal1 ,:readonly => true%>
   </div>
   <div class="field">
     <%= f.label :calculated_hra_as_per_rule2  %>
@@ -138,14 +150,6 @@ $('input[id$="_house_self_occupied_no"]').change(function() {
   </div>
   </div>
 <div class="section6">
-   <div class="field">
-    <%= f.label :locked_for_admin %>
-    <%= f.text_field :locked_for_admin %>
-  </div>
-  <div class="field">
-    <%= f.label :locked_for_employee %>
-    <%= f.text_field :locked_for_employee %>
-  </div>
   <div class="field">
     <%= f.label :updated_by %>
     <%= f.text_field :updated_by %>

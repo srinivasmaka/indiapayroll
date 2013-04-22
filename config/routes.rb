@@ -7,8 +7,7 @@ Indiapayroll::Application.routes.draw do
   
   match '/signout', :to => 'Sessions#destroy'
   match '/empinfo' => 'employees#employeeinfo'
-  
-  match "/emp_declarations/calculatehra/:emp_id/:rent_receipts_total" => "emp_declarations#calculatehra", :as=> "calculatehra"
+  match "/emp_declarations/calculatehra" => "emp_declarations#calculatehra"
   resources :emp_declarations
   resources :tax_slabs
   resources :config_tables  
