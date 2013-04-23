@@ -1,3 +1,11 @@
 class EmpDeclaration < ActiveRecord::Base
-  attr_accessible :rent_receipts_total,:rent_receipts_cal1,:rent_receipts_cal2,:children_fee_80c, :donations_80g, :emp_id, :hloan_principal_80c, :home_loan_interest, :house_rent, :house_self_occupied, :hra_status, :infrabonds_80c, :insurance_80c, :interest_EduLoan_80e, :locked_for_admin, :locked_for_employee, :med_insurance_80d, :medical_receipts, :mf_80c, :nsc_80c, :others_80c, :ppf_80c, :total_hra, :updated_by
+  attr_accessible :rent_receipts_total,:rent_receipts_cal1,:rent_receipts_cal2,:children_fee_80c, :donations_80g,
+   :emp_id, :hloan_principal_80c, :home_loan_interest, :house_rent, :house_self_occupied, :hra_status, :infrabonds_80c,
+    :insurance_80c, :interest_EduLoan_80e, :locked_for_admin, :locked_for_employee, :med_insurance_80d, :medical_receipts,
+     :mf_80c, :nsc_80c, :others_80c, :ppf_80c, :total_hra, :updated_by
+
+validates :rent_receipts_total,:medical_receipts,:children_fee_80c,:donations_80g,
+:hloan_principal_80c,:infrabonds_80c,:insurance_80c,:interest_EduLoan_80e,
+:med_insurance_80d,:mf_80c,:nsc_80c,:others_80c,:ppf_80c,:home_loan_interest, :numericality => true 
+
 end

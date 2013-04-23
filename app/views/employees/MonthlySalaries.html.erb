@@ -1,0 +1,38 @@
+<script type="text/javascript">
+	function calculateNetAmount(){
+	<% @employees.each do |employee| %>
+	var sick_hours =document.getElementById('<%=employee.id%>').value
+	var monthly_sal= '<%=employee.grossCTC%>'/12;
+	document.getElementById('<%=employee.emp_id%>').value=Math.round(monthly_sal-(monthly_sal*sick_hours)/160)
+	<%end%>
+	}
+
+</script>
+
+<h1>Employees Salary Details</h1>
+
+<table class="table table-bordered">
+  <tr class="success">
+    <th>Emp</th>
+    <th>First name</th>
+    <th>Yearly</th>
+    <th>Gross</th>
+    <th>Sick Hours</th>
+    <th>Net Amount</th>
+  </tr>
+
+<% @employees.each do |employee| %>
+  <tr class="success">
+    <td><%=employee.emp_id %></td>
+    <td><%= employee.first_name %></td>
+    <td><%= employee.grossCTC %></td>
+    <td><%= "#{employee.grossCTC}".to_i/12%></td>
+    <td><%=text_field_tag :sick_hours, nil, :placeholder =>'0' ,:id=>"#{employee.id}"  ,:onblur=>"calculateNetAmount()"%></td>
+    <td><%=text_field_tag :net_amount, nil, :readonly=>true ,:id=>"#{employee.emp_id}"%></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+

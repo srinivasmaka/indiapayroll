@@ -7,6 +7,7 @@ Indiapayroll::Application.routes.draw do
   
   match '/signout', :to => 'Sessions#destroy'
   match '/empinfo' => 'employees#employeeinfo'
+  match '/monthly_Salaries' =>'employees#MonthlySalaries'
   match "/emp_declarations/calculatehra" => "emp_declarations#calculatehra", :as => "calculatehra"
   put '/emp_declarations/:id' => "emp_declarations#update", :as=> "emp_declaration_details_update"
   match '/emp_declarations/:emp_id' => "emp_declarations#populate_declarations", :as=> "emp_declaration_details"
