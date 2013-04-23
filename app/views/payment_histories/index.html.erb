@@ -1,0 +1,47 @@
+<h1>Listing payment_histories</h1>
+
+<table>
+  <tr>
+    <th>Emp</th>
+    <th>Period</th>
+    <th>Period type</th>
+    <th>Gross monthly</th>
+    <th>Basic</th>
+    <th>Hra</th>
+    <th>Conveyance</th>
+    <th>Medical allowance</th>
+    <th>Professional tax</th>
+    <th>Loss of hours</th>
+    <th>Tds</th>
+    <th>Tax deducted</th>
+    <th>Net monthly</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @payment_histories.each do |payment_history| %>
+  <tr>
+    <td><%= payment_history.emp_id %></td>
+    <td><%= payment_history.period_id %></td>
+    <td><%= payment_history.period_type %></td>
+    <td><%= payment_history.gross_monthly %></td>
+    <td><%= payment_history.basic %></td>
+    <td><%= payment_history.hra %></td>
+    <td><%= payment_history.conveyance %></td>
+    <td><%= payment_history.medical_allowance %></td>
+    <td><%= payment_history.professional_tax %></td>
+    <td><%= payment_history.loss_of_hours %></td>
+    <td><%= payment_history.tds %></td>
+    <td><%= payment_history.tax_deducted %></td>
+    <td><%= payment_history.net_monthly %></td>
+    <td><%= link_to 'Show', payment_history %></td>
+    <td><%= link_to 'Edit', edit_payment_history_path(payment_history) %></td>
+    <td><%= link_to 'Destroy', payment_history, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payment history', new_payment_history_path %>

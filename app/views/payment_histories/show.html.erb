@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Emp:</b>
+  <%= @payment_history.emp_id %>
+</p>
+
+<p>
+  <b>Period:</b>
+  <%= @payment_history.period_id %>
+</p>
+
+<p>
+  <b>Period type:</b>
+  <%= @payment_history.period_type %>
+</p>
+
+<p>
+  <b>Gross monthly:</b>
+  <%= @payment_history.gross_monthly %>
+</p>
+
+<p>
+  <b>Basic:</b>
+  <%= @payment_history.basic %>
+</p>
+
+<p>
+  <b>Hra:</b>
+  <%= @payment_history.hra %>
+</p>
+
+<p>
+  <b>Conveyance:</b>
+  <%= @payment_history.conveyance %>
+</p>
+
+<p>
+  <b>Medical allowance:</b>
+  <%= @payment_history.medical_allowance %>
+</p>
+
+<p>
+  <b>Professional tax:</b>
+  <%= @payment_history.professional_tax %>
+</p>
+
+<p>
+  <b>Loss of hours:</b>
+  <%= @payment_history.loss_of_hours %>
+</p>
+
+<p>
+  <b>Tds:</b>
+  <%= @payment_history.tds %>
+</p>
+
+<p>
+  <b>Tax deducted:</b>
+  <%= @payment_history.tax_deducted %>
+</p>
+
+<p>
+  <b>Net monthly:</b>
+  <%= @payment_history.net_monthly %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_history_path(@payment_history) %> |
+<%= link_to 'Back', payment_histories_path %>

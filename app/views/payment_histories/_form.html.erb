@@ -1,0 +1,69 @@
+<%= form_for(@payment_history) do |f| %>
+  <% if @payment_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment_history.errors.count, "error") %> prohibited this payment_history from being saved:</h2>
+
+      <ul>
+      <% @payment_history.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :emp_id %><br />
+    <%= f.text_field :emp_id %>
+  </div>
+  <div class="field">
+    <%= f.label :period_id %><br />
+    <%= f.text_field :period_id %>
+  </div>
+  <div class="field">
+    <%= f.label :period_type %><br />
+    <%= f.text_field :period_type %>
+  </div>
+  <div class="field">
+    <%= f.label :gross_monthly %><br />
+    <%= f.text_field :gross_monthly %>
+  </div>
+  <div class="field">
+    <%= f.label :basic %><br />
+    <%= f.text_field :basic %>
+  </div>
+  <div class="field">
+    <%= f.label :hra %><br />
+    <%= f.text_field :hra %>
+  </div>
+  <div class="field">
+    <%= f.label :conveyance %><br />
+    <%= f.text_field :conveyance %>
+  </div>
+  <div class="field">
+    <%= f.label :medical_allowance %><br />
+    <%= f.text_field :medical_allowance %>
+  </div>
+  <div class="field">
+    <%= f.label :professional_tax %><br />
+    <%= f.text_field :professional_tax %>
+  </div>
+  <div class="field">
+    <%= f.label :loss_of_hours %><br />
+    <%= f.text_field :loss_of_hours %>
+  </div>
+  <div class="field">
+    <%= f.label :tds %><br />
+    <%= f.text_field :tds %>
+  </div>
+  <div class="field">
+    <%= f.label :tax_deducted %><br />
+    <%= f.text_field :tax_deducted %>
+  </div>
+  <div class="field">
+    <%= f.label :net_monthly %><br />
+    <%= f.text_field :net_monthly %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
