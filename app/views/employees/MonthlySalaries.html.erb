@@ -3,6 +3,7 @@
 	<% @employees.each do |employee| %>
 	var sick_hours =document.getElementById('<%=employee.id%>').value
 	var monthly_sal= '<%=employee.grossCTC%>'/12;
+	document.getElementById('<%=employee.id%>1').value=Math.round((monthly_sal*sick_hours)/160);
 	document.getElementById('<%=employee.emp_id%>').value=Math.round(monthly_sal-(monthly_sal*sick_hours)/160)
 	<%end%>
 	}
@@ -18,6 +19,7 @@
     <th>Yearly</th>
     <th>Gross</th>
     <th>Sick Hours</th>
+    <th>Deducted Amount</th>
     <th>Net Amount</th>
   </tr>
 
@@ -28,6 +30,7 @@
     <td><%= employee.grossCTC %></td>
     <td><%= "#{employee.grossCTC}".to_i/12%></td>
     <td><%=text_field_tag :sick_hours, nil, :placeholder =>'0' ,:id=>"#{employee.id}"  ,:onblur=>"calculateNetAmount()"%></td>
+    <td><%=text_field_tag :net_amount, nil, :readonly=>true ,:id=>"#{employee.id}1"%></td>
     <td><%=text_field_tag :net_amount, nil, :readonly=>true ,:id=>"#{employee.emp_id}"%></td>
   </tr>
 <% end %>
