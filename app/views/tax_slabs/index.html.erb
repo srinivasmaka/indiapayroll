@@ -3,8 +3,8 @@
 <table>
   <tr>
   	<th>Year</th>
-    <th>Slab to</th>
     <th>Slab from</th>
+    <th>Slab to</th>
     <th>Min tax</th>
     <th>Deduction percent</th>
     <th></th>
@@ -15,8 +15,8 @@
 <% @tax_slabs.each do |tax_slab| %>
   <tr>
   	<td><%= tax_slab.year %></td>
-    <td><%= tax_slab.slab_to %></td>
     <td><%= tax_slab.slab_from %></td>
+    <td><%= tax_slab.slab_to %></td>
     <td><%= tax_slab.min_tax %></td>
     <td><%= tax_slab.deduction_percent %></td>
     <td><%= link_to 'Show', tax_slab %></td>
