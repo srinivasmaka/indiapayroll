@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-  ActiveRecord::Schema.define(:version => 20130423041756) do
+  ActiveRecord::Schema.define(:version => 20130424071002) do
 
   create_table "bonus", :force => true do |t|
     t.string   "empid"
@@ -87,8 +87,9 @@
     t.date     "start_date"
     t.date     "end_date"
     t.string   "period_type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "current_fyear"
   end
 
   create_table "payment_histories", :force => true do |t|
