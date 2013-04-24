@@ -122,8 +122,8 @@ class PaymentHistoriesController < ApplicationController
     @payment_history.loss_of_hours = @loss_of_hours
     @taxble_income = @net_pay - (@tds.to_i + @p_tax)
     @calculated_tax = calculate_tax(@taxble_income)
-    @calculated_tax = @calculated_tax+edu_cess 
-    @payment_history.tax_deducted = @calculated_tax/6
+    @calculated_tax = @calculated_tax 
+    @payment_history.tax_deducted = @calculated_tax
     respond_to do |format|
       if @payment_history.save
         format.html { redirect_to @payment_history, :notice => 'Payment history was successfully created.' }
@@ -137,9 +137,9 @@ class PaymentHistoriesController < ApplicationController
   end
 
   def calculate_tax(net)
-   @tax_slab =  TaxSlab.where("year" => "2013-14").first
+   @s =  TaxSlab.where("year" => "2013-14")
    @t = net
-     @tax_slab.each do |slab|
+     @s.each do |slab|
           if t.to_i >= slab.slab_from.to_i &&  t.to_i < slab.slab_to.to_i
           percentage = slab.deduction_percent
           min_amount = slab.min_tax
@@ -148,7 +148,6 @@ class PaymentHistoriesController < ApplicationController
           end
      end
     @t_s = @tax_slab
-  
   end
   
     
