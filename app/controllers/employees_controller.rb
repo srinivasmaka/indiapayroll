@@ -99,14 +99,7 @@ class EmployeesController < ApplicationController
   def employeeinfo
    @employee=Employee.find_by_emp_id(current_user.emp_id)
   end
-  def MonthlySalaries
-    @employees = Employee.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json=> @employees }
-  end
-  end
+  
     private
 
   def resolve_layout

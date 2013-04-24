@@ -172,6 +172,25 @@ class PaymentHistoriesController < ApplicationController
   @tds = [@section1,@section2,@section3,@section4,@section5,@section6].sum
   
   end
+  def monthly_salaries
+    @employees = Employee.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json=> @employees }
+  end
+  def runpayroll
+    @employee_netamount=Hash.new
+    employees =Employee.all
+    unless employees.empty?
+    employees.each do |employee|
+    
+    @employee_netamount[employee.emp_id]= params[:monthlysal][:"#{employee.emp_id}"]
+    end
+    end
+    @employeedata
+  end
+  end
   
   
 end
