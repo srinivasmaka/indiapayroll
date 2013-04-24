@@ -82,15 +82,27 @@ class PaymentHistoriesController < ApplicationController
   end
 
   def load_payment
-    calculate_hra_components
-    calculate_tds
+    @salary_info=Hash.new
+    employees =Employee.all
+    unless employees.empty?
+    employees.each do |employee|
+    @salary_info[employee.emp_id]= params[:monthlysal][:"#{employee.emp_id}"]
+    end
+    end
+    
+    @payload_hash = Hash.new
+    @salary_info.each do |key, value|
+    @emp_id = key
+    @net_pay = value
+    calculate_hra_and_tds_components(@payload_hash ,@emp_id,@net_pay)
+    end
   end  
 
-  def calculate_hra_components
-    @emp_id =  params[:emp_id]
-    @net_pay = params[:net]
-    @tds = calculate_tds(@emp_id,@net_pay)
-    @config_info = ConfigTable.where("year" => "2013-14")
+  def calculate_hra_and_tds_components(payload_hash,emp_id ,net_pay)
+    @emp_id =  emp_id
+    @net_pay = net_pay
+    @config_info = ConfigTable.where("year" => "2013-14").first
+    @tds = calculate_tds(@emp_id,@net_pay,@config_info)
     @hra_percent = @config_info.hra_percent
     @basic_percent = @config_info.basic_percent
     @p_tax = @config_info.professional_tax
@@ -122,11 +134,11 @@ class PaymentHistoriesController < ApplicationController
         format.json { render :json => @payment_history.errors, :status => :unprocessable_entity }
       end
     end 
-     
+     @payload_hash[@emp_id]= @payment_history
   end
 
   def calculate_tax(net)
-   @s =  TaxSlab.where("year" => "2013-14")
+   @s =  TaxSlab.where("year" => "2013-14").first
    @t = params[:net]
    if @s.valid?
      @s.each do |slab|
@@ -145,13 +157,12 @@ class PaymentHistoriesController < ApplicationController
   
     
       
-  def calculate_tds
-    @emp_id =  params[:emp_id]
-    @net_pay = params[:net]
+  def calculate_tds(emp_id , net_pay,config_info)
+    @emp_id =  emp_id
+    @net_pay = net_pay
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     @section1 = @emp_declaration.total_hra
     @section2 = [@emp_declaration.medical_receipts,15000].min
-    @config_info = ConfigTable.where("year" => "2013-14")
     @section3 = @config_info.conveyance
     @section4_components = [@emp_declaration.insurance_80c,@emp_declaration.ppf_80c,
     @emp_declaration.mf_80c,@emp_declaration.hloan_principal_80c,
@@ -172,6 +183,7 @@ class PaymentHistoriesController < ApplicationController
   @tds = [@section1,@section2,@section3,@section4,@section5,@section6].sum
   
   end
+  
   def monthly_salaries
     @employees = Employee.all
 
@@ -179,18 +191,6 @@ class PaymentHistoriesController < ApplicationController
       format.html # index.html.erb
       format.json { render :json=> @employees }
   end
-  def runpayroll
-    @employee_netamount=Hash.new
-    employees =Employee.all
-    unless employees.empty?
-    employees.each do |employee|
-    
-    @employee_netamount[employee.emp_id]= params[:monthlysal][:"#{employee.emp_id}"]
-    end
-    end
-    @employeedata
   end
-  end
-  
   
 end
