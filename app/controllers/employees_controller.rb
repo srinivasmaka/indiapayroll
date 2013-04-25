@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   include SessionsHelper 
    layout :resolve_layout
-   before_filter :authenticate
+   before_filter :authenticate  ,:except=>[:popup]
    before_filter :authenticate_admin , :only=>[:new ,:create ,:index]
    #before_filter :authorise, :except => [:warning, :closed]
    
@@ -99,12 +99,18 @@ class EmployeesController < ApplicationController
   def employeeinfo
    @employee=Employee.find_by_emp_id(current_user.emp_id)
   end
+  def admin_view
+    employee_id=params[:emp_id]
+    @employee=Employee.find_by_emp_id(employee_id)
+    sign_in(@employee ,"admin")
+    render "employeeinfo"
+  end
   
     private
 
   def resolve_layout
     case action_name
-    when "employeeinfo"
+    when "employeeinfo" ,"admin_view"
       "employee"
     else
       "application"

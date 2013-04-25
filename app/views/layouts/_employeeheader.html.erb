@@ -6,7 +6,9 @@
       <% if signed_in? %>
       <nav>
         <ul class="nav pull-right">
+        	<%if login_as?%>
             <li><%= link_to "Employee Info", empinfo_path %></li>
+            <%end%>
             <li><%= link_to "Pay Slips", '#' %></li>
             
             <li id="fat-menu" class="dropdown">

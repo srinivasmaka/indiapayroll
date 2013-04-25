@@ -1,17 +1,27 @@
 module SessionsHelper
  
  
- def sign_in(user)
+ def sign_in(user ,loginas)
     cookies.permanent[:remember_token] = user.id
+    cookies.permanent[:login_as] =loginas
+    self.login_as =loginas
     self.current_user = user
   end
-    
   def current_user=(user)
     @current_user = user
+  end
+  def login_as
+    @login_as ||=cokkies[:login_as]
   end
   
   def current_user
      @current_user ||= UserLogin.find_by_id(cookies[:remember_token])
+  end
+  def login_as=(user)
+    @login_as =user
+  end
+  def login_as?
+    @login_as=='employee'
   end
   def is_admin?
     @current_user.is_admin=='y'
