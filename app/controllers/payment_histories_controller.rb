@@ -90,18 +90,11 @@ class PaymentHistoriesController < ApplicationController
     @salary_info[employee.emp_id]= params[:monthlysal][:"#{employee.emp_id}"]
     end
     end
-    @salary_info.each do |key, value|
-    @emp_id = key
-    @net_pay = value
-    calculate_hra_and_tds_components(@payload_hash ,@emp_id,@net_pay)
-    end
-  end  
-
-  def calculate_hra_and_tds_components(payload_hash,emp_id ,net_pay)
-    @emp_id =  emp_id
-    @net_pay = net_pay.to_i
     @config_info = ConfigTable.where("year" => "2013-14").first
-    @tds = calculate_tds(@emp_id,@net_pay)
+    @salary_info.each do |key, value|
+    emp_id = key
+    net_pay = value
+    @tds = calculate_tds(emp_id,net_pay)
     @hra_percent = @config_info.hra_percent
     @basic_percent = @config_info.basic_percent
     @p_tax = @config_info.professional_tax
@@ -110,9 +103,9 @@ class PaymentHistoriesController < ApplicationController
     @edu_cess = @config_info.edu_cess
     
     @payment_history = PaymentHistory.new(params[:payment_history])
-    @payment_history.emp_id = @emp_id
-    @payment_history.hra = (@hra_percent * @net_pay)/100 
-    @payment_history.basic = (@basic_percent * @net_pay)/100
+    @payment_history.emp_id = emp_id
+    @payment_history.hra = (@hra_percent * net_pay.to_i)/100 
+    @payment_history.basic = (@basic_percent * net_pay.to_i)/100
     @payment_history.tds = @tds
     @payment_history.period_id = "01201314"
     @payment_history.period_type = "M"
@@ -120,32 +113,32 @@ class PaymentHistoriesController < ApplicationController
     @payment_history.conveyance = @conveyance
     @payment_history.professional_tax = @p_tax
     @payment_history.loss_of_hours = @loss_of_hours
-    @taxble_income = @net_pay - (@tds.to_i + @p_tax)
-    @calculated_tax = calculate_tax(@taxble_income)
+    taxble_income = net_pay.to_i - (@tds.to_i + @p_tax)
+    
+    @calculated_tax = calculate_tax(taxble_income)
     @calculated_tax = @calculated_tax 
     @payment_history.tax_deducted = @calculated_tax
+    @payment_history.save
+    @payload_hash[emp_id]= @payment_history
+    end
     respond_to do |format|
-      if @payment_history.save
-        format.html { redirect_to @payment_history, :notice => 'Payment history was successfully created.' }
-        format.json { render :json => @payment_history, :status => :created, :location => @payment_history }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @payment_history.errors, :status => :unprocessable_entity }
+      format.html # index.html.erb
+      format.json { render :json => @payment_histories }
       end
-    end 
-     @payload_hash[@emp_id]= @payment_history
-  end
+      @payload_hash
+  end  
+
 
   def calculate_tax(net)
    @s =  TaxSlab.where("year" => "2013-14")
    @t = net
      @s.each do |slab|
-          if t.to_i >= slab.slab_from.to_i &&  t.to_i < slab.slab_to.to_i
-          percentage = slab.deduction_percent
-          min_amount = slab.min_tax
-          extra_amount = t.to_i - slab.slab_from.to_i
-          @tax_slab = ((extra_amount/100)*percentage.to_i)+min_amount.to_i + ((c.to_i*extra_amount)/100)
-          end
+        if t.to_i >= slab.slab_from.to_i &&  t.to_i < slab.slab_to.to_i
+        percentage = slab.deduction_percent
+        min_amount = slab.min_tax
+        extra_amount = t.to_i - slab.slab_from.to_i
+        @tax_slab = ((extra_amount/100)*percentage.to_i)+min_amount.to_i + ((c.to_i*extra_amount)/100)
+        end
      end
     @t_s = @tax_slab
   end
@@ -156,18 +149,18 @@ class PaymentHistoriesController < ApplicationController
     @emp_id =  emp_id
     @net_pay = net_pay
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
-    @section1 = @emp_declaration.total_hra
-    @section2 = [@emp_declaration.medical_receipts,15000].min
+    section1 = @emp_declaration.total_hra
+    section2 = [@emp_declaration.medical_receipts,15000].min
     @config_info = ConfigTable.where("year" => "2013-14").first
-    @section3 = @config_info.conveyance
+    section3 = @config_info.conveyance
     sum_section4 = 0
     section4_components = [@emp_declaration.insurance_80c,@emp_declaration.ppf_80c,
     @emp_declaration.mf_80c,@emp_declaration.hloan_principal_80c,
     @emp_declaration.children_fee_80c,@emp_declaration.nsc_80c,
     @emp_declaration.infrabonds_80c,@emp_declaration.others_80c]
     sum_section4 = section4_components.inject{|sum_section4,x| sum_section4 + x }
-    @section4 = [sum_section4,100000].min  
-    @section5 = [ @emp_declaration.donations_80g,@emp_declaration.med_insurance_80d,@emp_declaration.interest_EduLoan_80e].sum
+    section4 = [sum_section4,100000].min  
+    section5 = [ @emp_declaration.donations_80g,@emp_declaration.med_insurance_80d,@emp_declaration.interest_EduLoan_80e].sum
     @house_self_occupied_flag = @emp_declaration.house_self_occupied
     if @house_self_occupied_flag.nil?
       @interst_on_hloan = @emp_declaration.home_loan_interest
@@ -175,10 +168,11 @@ class PaymentHistoriesController < ApplicationController
       @total_ctc = @net_pay + @emp_declaration.house_rent
       @interst_on_hloan = [@emp_declaration.home_loan_interest,150000].min
     end
-  @section6 = @interst_on_hloan
-  @tds = [@section1,@section2,@section3,@section4,@section5,@section6].sum
+  section6 = @interst_on_hloan
+  @tds = [section1,section2,section3,section4,section5,section6].sum
   
   end
+  
   
   def monthly_salaries
     @employees = Employee.all
