@@ -104,6 +104,8 @@ class PaymentHistoriesController < ApplicationController
     
     @payment_history = PaymentHistory.new(params[:payment_history])
     @payment_history.emp_id = emp_id
+    employee =Employee.find_by_emp_id(emp_id)
+    @payment_history.full_name=employee.first_name + employee.last_name
     @payment_history.hra = (@hra_percent * net_pay.to_i)/100 
     @payment_history.basic = (@basic_percent * net_pay.to_i)/100
     @payment_history.tds = @tds
@@ -137,7 +139,7 @@ class PaymentHistoriesController < ApplicationController
         percentage = slab.deduction_percent
         min_amount = slab.min_tax
         extra_amount = t.to_i - slab.slab_from.to_i
-        @tax_slab = ((extra_amount/100)*percentage.to_i)+min_amount.to_i + ((c.to_i*extra_amount)/100)
+        @tax_slab = ((extra_amount/100)*percentage.to_i)+min_amount.to_i 
         end
      end
     @t_s = @tax_slab
