@@ -80,17 +80,29 @@ class PaymentHistoriesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  def current_period_info
+    d = Date.today
+    @prev_month_start_date  = d.prev_month().at_beginning_of_month()
+    @prev_month_end_date = d.prev_month().at_end_of_month()
+    
+    @pay_period = PayPeriod.where("start_date" => @prev_month_start_date , "end_date" => @prev_month_end_date).first
+    @period_id = @pay_period.period_id
+    @current_fyear = @pay_period.current_fyear
+    puts "period_id  #{@period_id} , current fyear  #{@current_fyear}"
+  end
+  
   def load_payment
     @salary_info=Hash.new
     @payload_hash = Hash.new
+    current_period_info
     employees =Employee.all
     unless employees.empty?
     employees.each do |employee|
     @salary_info[employee.emp_id]= params[:monthlysal][:"#{employee.emp_id}"]
     end
     end
-    @config_info = ConfigTable.where("year" => "2013-14").first
+    @config_info = ConfigTable.where("year" => @current_fyear).first
     @salary_info.each do |key, value|
     emp_id = key
     net_pay = value
@@ -109,9 +121,7 @@ class PaymentHistoriesController < ApplicationController
     @payment_history.hra = (@hra_percent * net_pay.to_i)/100 
     @payment_history.basic = (@basic_percent * net_pay.to_i)/100
     @payment_history.tds = @tds
-    @payment_history.period_id = "01201314"
-    @payment_history.period_type = "M"
-    @payment_history.gross_monthly = 12345
+    @payment_history.period_id = @period_id
     @payment_history.conveyance = @conveyance
     @payment_history.professional_tax = @p_tax
     @payment_history.loss_of_hours = @loss_of_hours
@@ -132,7 +142,7 @@ class PaymentHistoriesController < ApplicationController
 
 
   def calculate_tax(net)
-   @s =  TaxSlab.where("year" => "2013-14")
+   @s =  TaxSlab.where("year" => @current_fyear)
    @t = net
      @s.each do |slab|
         if t.to_i >= slab.slab_from.to_i &&  t.to_i < slab.slab_to.to_i
@@ -153,7 +163,7 @@ class PaymentHistoriesController < ApplicationController
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     section1 = @emp_declaration.total_hra
     section2 = [@emp_declaration.medical_receipts,15000].min
-    @config_info = ConfigTable.where("year" => "2013-14").first
+    @config_info = ConfigTable.where("year" => @current_fyear).first
     section3 = @config_info.conveyance
     sum_section4 = 0
     section4_components = [@emp_declaration.insurance_80c,@emp_declaration.ppf_80c,

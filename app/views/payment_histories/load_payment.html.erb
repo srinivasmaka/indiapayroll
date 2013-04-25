@@ -19,10 +19,10 @@
     <td><%=employee.full_name %></td>
     <td><%=  (employee.hra).round(2) %></td>
     <td><%= (employee.basic).round(2) %></td>
-    <td><%= (employee.tds).round(2) %></td>
+    <td><%= (employee.tds) %></td>
     <td><%= employee.special_allowance%></td>
-    <td><%= (employee.conveyance).round(2)%> </td>
-    <td><%= (employee.tax_deducted).round(2) %></td>
+    <td><%= employee.conveyance%> </td>
+    <td><%= (employee.tax_deducted) %></td>
     <td></td>
     
   </tr>
