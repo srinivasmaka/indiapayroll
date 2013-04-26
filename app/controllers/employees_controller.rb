@@ -102,7 +102,8 @@ class EmployeesController < ApplicationController
   def admin_view
     employee_id=params[:emp_id]
     @employee=Employee.find_by_emp_id(employee_id)
-    sign_in(@employee ,"admin")
+    cookies.permanent[:employee] =params[:emp_id]
+    login_as "admin"
     render "employeeinfo"
   end
   

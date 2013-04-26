@@ -14,10 +14,10 @@ class SessionsController < ApplicationController
       flash.now[:error] = "Invalid username/password combination."
       render 'new'
       elsif  user.is_admin=='y'
-      sign_in(user ,"admin")
+      sign_in(user)
       render "success"
     else
-      sign_in(user ,"employee")  
+      sign_in(user)  
       flash[:success] ="Hi #{user.user_name} welcome to India Payroll app"
       redirect_to empinfo_path
     end
@@ -28,6 +28,10 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to new_session_path
     flash[:success] ="succefully logout the PayRoll Application"
+  end
+  def admin_destroy
+    cookies.delete(:employee)
+    render "admin_signout"
   end
   
    end

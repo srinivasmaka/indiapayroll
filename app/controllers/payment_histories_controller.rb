@@ -1,4 +1,5 @@
 class PaymentHistoriesController < ApplicationController
+
   # GET /payment_histories
   # GET /payment_histories.json
   def index
@@ -160,8 +161,8 @@ class PaymentHistoriesController < ApplicationController
     @net_pay = net_pay
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     section1 = @emp_declaration.total_hra
-    section2 = [@emp_declaration.medical_receipts,@config_info.medical_receipts_limit].min
     @config_info = ConfigTable.where("year" => @current_fyear).first
+    section2 = [@emp_declaration.medical_receipts,@config_info.medical_receipts_limit].min
     section3 = @config_info.conveyance
     sum_section4 = 0
     section4_components = [@emp_declaration.insurance_80c,@emp_declaration.ppf_80c,
