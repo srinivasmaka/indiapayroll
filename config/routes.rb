@@ -24,6 +24,8 @@ Indiapayroll::Application.routes.draw do
   resources :config_tables  
 
   match 'consolidated_pay' =>"consolidated_pay#index"
+ match 'bulkedit_emp' => "bulkedit_emp#new"
+ match '/bulkupdate_emp' => "bulkedit_emp#bulk_update"
  
   # The priority is based upon order of creation:
   # first created -> highest priority.

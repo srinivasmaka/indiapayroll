@@ -1,0 +1,39 @@
+<script type="text/javascript">
+	
+
+
+</script>
+  <b>PayPeriod:</b>
+  <%= select(:pay, :period_id, @periodID.collect {|e| [e.period_id, e.id]})%>
+   <%= form_tag bulkupdate_emp_path do %>
+   <table class="table table-bordered">
+   <tr class="success">
+    <th>Emp</th>
+    <th>First name</th>
+    <th>Gross CTC</th>
+    <th>Desiganation</th>
+    <th>Profit Sharing1</th>
+    <th>Profit Sharing2</th>
+    <th>Profit Sharing3</th>
+    <th>Profit Sharing4</th>
+    <th>Others</th>
+   </tr>
+
+<% @employees.each do |employee| %>
+  <tr class="success">
+    <td><%=employee.emp_id %></td>
+    <td><%= employee.first_name %></td>
+  	<td><%=text_field_tag :"#{employee.id}", "#{employee.grossCTC}" %></td>
+    <td><%=text_field_tag :"#{employee.emp_id}", "#{employee.designation}" %></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b1", '0' %></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b2",'0' %></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b3", '0' %></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b4",'0'%></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b5",'0' %></td>
+  </tr>
+<% end %>
+</table>
+
+ <%= submit_tag "Enter", :class=> "btn btn-large btn-primary"  %>
+ <% end %>
+

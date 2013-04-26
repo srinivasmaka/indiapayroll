@@ -12,6 +12,6 @@ class Employee < ActiveRecord::Base
                     :uniqueness => { :case_sensitive => false }
 
   has_many :payment_histories
-
+  has_many :bonus
   
 end

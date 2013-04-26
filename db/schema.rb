@@ -13,13 +13,17 @@
 
 ActiveRecord::Schema.define(:version => 20130426103013) do
 
-  create_table "bonus", :force => true do |t|
-    t.string   "empid"
-    t.decimal  "bonus"
+ create_table "Bonus", :force => true do |t|
+    t.string   "emp_id"
     t.string   "period_id"
     t.string   "period_type"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.decimal  "ps_1"
+    t.decimal  "ps_2"
+    t.decimal  "ps_3"
+    t.decimal  "ps_4"
+    t.decimal  "others"
   end
 
   create_table "config_tables", :force => true do |t|
