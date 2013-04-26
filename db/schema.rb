@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425110336) do
+ActiveRecord::Schema.define(:version => 20130426103013) do
 
   create_table "bonus", :force => true do |t|
     t.string   "empid"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20130425110336) do
     t.decimal  "medical_receipts_limit"
     t.decimal  "limit_80c"
     t.decimal  "h_loan_limit"
+    t.decimal  "medical_allowance"
   end
 
   create_table "emp_declarations", :force => true do |t|
