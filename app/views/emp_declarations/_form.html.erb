@@ -54,8 +54,8 @@ data: {emp_id : empId,rent_receipts_total : hra},
   </div>
    <div class="field" id="hra_control">
    <%= f.label :Would_you_like_to_Avail_HRA %>
-   <%= radio_button(f, "hra_status", "yes", :checked => true )%>Yes
-   <%= radio_button(f, "hra_status", "no") %> No
+   <%= f.radio_button( "hra_status", "yes", :checked => true )%>Yes
+   <%= f.radio_button( "hra_status", "no") %> No
 
   </div>
   <div class="section1" id="hra_block">
@@ -134,8 +134,8 @@ data: {emp_id : empId,rent_receipts_total : hra},
 </div>
   <div class="field">
    <%= f.label :House_self_occupied %>
-   <%= radio_button(f, "house_self_occupied", "yes") %> Yes
-   <%= radio_button(f, "house_self_occupied", "no",:checked => true) %> No
+   <%= f.radio_button( "house_self_occupied", "yes") %> Yes
+   <%= f.radio_button( "house_self_occupied", "no",:checked => true) %> No
   </div>
   <div class="section4" id="hrent_block">
   <div class="field">
