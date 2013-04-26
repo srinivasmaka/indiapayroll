@@ -133,13 +133,13 @@ class PaymentHistoriesController < ApplicationController
     @payment_history.save
     @payload_hash[emp_id]= @payment_history
     end
+ 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @payment_histories }
       end
       @payload_hash
   end  
-
 
   def calculate_tax(net)
    @s =  TaxSlab.where("year" => @current_fyear)
@@ -154,15 +154,13 @@ class PaymentHistoriesController < ApplicationController
      end
     @t_s = @tax_slab
   end
-  
-    
       
   def calculate_tds(emp_id , net_pay)
     @emp_id =  emp_id
     @net_pay = net_pay
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     section1 = @emp_declaration.total_hra
-    section2 = [@emp_declaration.medical_receipts,15000].min
+    section2 = [@emp_declaration.medical_receipts,@config_info.medical_receipts_limit].min
     @config_info = ConfigTable.where("year" => @current_fyear).first
     section3 = @config_info.conveyance
     sum_section4 = 0
@@ -171,14 +169,14 @@ class PaymentHistoriesController < ApplicationController
     @emp_declaration.children_fee_80c,@emp_declaration.nsc_80c,
     @emp_declaration.infrabonds_80c,@emp_declaration.others_80c]
     sum_section4 = section4_components.inject{|sum_section4,x| sum_section4 + x }
-    section4 = [sum_section4,100000].min  
+    section4 = [sum_section4,@config_info.limit_80c].min  
     section5 = [ @emp_declaration.donations_80g,@emp_declaration.med_insurance_80d,@emp_declaration.interest_EduLoan_80e].sum
     @house_self_occupied_flag = @emp_declaration.house_self_occupied
     if @house_self_occupied_flag.nil?
       @interst_on_hloan = @emp_declaration.home_loan_interest
      else
       @total_ctc = @net_pay + @emp_declaration.house_rent
-      @interst_on_hloan = [@emp_declaration.home_loan_interest,150000].min
+      @interst_on_hloan = [@emp_declaration.home_loan_interest,@config_info.h_loan_limit].min
     end
   section6 = @interst_on_hloan
   @tds = [section1,section2,section3,section4,section5,section6].sum
