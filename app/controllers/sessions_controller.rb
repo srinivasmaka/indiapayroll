@@ -14,10 +14,10 @@ class SessionsController < ApplicationController
       flash.now[:error] = "Invalid username/password combination."
       render 'new'
       elsif  user.is_admin=='y'
-      sign_in user
+      sign_in(user ,"admin")
       render "success"
     else
-      sign_in user 
+      sign_in(user ,"employee")  
       flash[:success] ="Hi #{user.user_name} welcome to India Payroll app"
       redirect_to empinfo_path
     end

@@ -1,1 +1,32 @@
-<%=@payload_hash[1005]%> hhhhhh
+<table class="table table-bordered">
+  <tr class="success">
+    <th>Emp ID</th>
+    <th>Full Name</th>
+    <th>HRA</th>
+    <th>Basic</th>
+    <th>TDS</th>
+    <th>Special_allowanace</th>
+    <th>Conveyance</th>
+    <th>Tax Deducted</th>
+    <th> Tax Pending </th>
+    
+  </tr>
+
+<%@payload_hash.each do |eid ,employee |  %>
+	
+	<tr class="success">
+    <td><%=eid%></td>
+    <td><%=employee.full_name %></td>
+    <td><%=  (employee.hra).round(2) %></td>
+    <td><%= (employee.basic).round(2) %></td>
+    <td><%= (employee.tds) %></td>
+    <td><%= employee.special_allowance%></td>
+    <td><%= employee.conveyance%> </td>
+    <td><%= (employee.tax_deducted) %></td>
+    <td></td>
+    
+  </tr>
+<%end%>
+</table>
+
+

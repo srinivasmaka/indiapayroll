@@ -8,9 +8,11 @@ Indiapayroll::Application.routes.draw do
   resources :employees
   resources :sessions
    resources :payment_histories
+   get "employees/popupemployee"
   
   match '/signout', :to => 'Sessions#destroy'
   match '/empinfo' => 'employees#employeeinfo'
+  match '/employee_view_popup' => 'employees#admin_view'
   match '/monthly_Salaries' =>'payment_histories#monthly_salaries'
   match '/monthly_payroll'  =>'payment_histories#load_payment'
   match "/emp_declarations/calculatehra" => "emp_declarations#calculatehra", :as => "calculatehra"

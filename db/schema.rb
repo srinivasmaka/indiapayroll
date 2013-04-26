@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-  ActiveRecord::Schema.define(:version => 20130424071002) do
+ActiveRecord::Schema.define(:version => 20130425081547) do
 
   create_table "bonus", :force => true do |t|
     t.string   "empid"
@@ -107,7 +107,9 @@
     t.decimal  "net_monthly"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.decimal  "tds",               :precision => 10, :scale => 0
+    t.decimal  "tds"
+    t.decimal  "special_allowance"
+    t.string   "full_name"
   end
 
   create_table "tax_slabs", :force => true do |t|

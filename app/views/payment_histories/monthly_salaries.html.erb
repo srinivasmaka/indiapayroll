@@ -9,6 +9,18 @@
 	}
 
 </script>
+
+<script type="text/javascript">
+	var popupWindow=null;
+    function child_open(emp_id){
+	popupWindow =window.open("employee_view_popup?emp_id=" + emp_id,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=750, height=300,top=250,left=100");
+   }
+   function parent_disable() {
+   if(popupWindow && !popupWindow.closed)
+   popupWindow.focus();
+  }
+</script>
+<body onFocus="parent_disable();" onclick="parent_disable();">
 <h1>Employees Salary Details</h1>
   <%= form_for(:monthlysal, :url=> monthly_payroll_path , :class => 'carousel slide' ) do |f| %>
 
@@ -21,21 +33,24 @@
     <th>Sick Hours</th>
     <th>Deducted Amount</th>
     <th>Net Amount</th>
+    <th>Employee View</th>
   </tr>
 
 <% @employees.each do |employee| %>
   <tr class="success">
-    <td><%=employee.emp_id %></td>
+  	<td><%=link_to employee.emp_id, '#', :onclick => 'javascript:child_open("1234")'  %></td>
     <td><%= employee.first_name %></td>
     <td><%= employee.grossCTC %></td>
     <td><%= "#{employee.grossCTC}".to_i/12%></td>
-    <td><%=f.text_field :sick_hours, :placeholder =>'0' ,:id=>"#{employee.id}"  ,:onblur=>"calculateNetAmount()"%></td>
+    <td><%=f.text_field :sick_hours, :placeholder =>'0' ,:id=>"#{employee.id}" , :onblur=>"calculateNetAmount()"%></td>
     <td><%=f.text_field :deducted_amount, :readonly=>true ,:id=>"#{employee.id}1"%></td>
     <td><%=f.text_field :"#{employee.emp_id}",  :readonly=>true ,:id=>"#{employee.emp_id}"%></td>
+    <td><a href="javascript:child_open('<%=employee.emp_id%>')">Employee View</a></td>
+  
   </tr>
 <% end %>
 </table>
 
  <%= f.submit "Run PayRoll", :class=> "btn btn-large btn-primary" %>
  <% end %>
-
+</body>
