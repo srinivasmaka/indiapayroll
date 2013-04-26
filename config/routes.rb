@@ -1,8 +1,8 @@
 Indiapayroll::Application.routes.draw do
   
-  get "payslips/show"
-
-  get "payslips/index"
+  
+  match '/payslips/:id' => 'payslips#show', :as => 'show_payslips'
+  match '/payslips' => 'payslips#index'
 
   root :to => "sessions#new"
   resources :employees

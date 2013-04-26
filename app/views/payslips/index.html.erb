@@ -1,2 +1,23 @@
-<h1>Payslips#index</h1>
-<p>Find me in app/views/payslips/index.html.erb</p>
+<h1>Payslips</h1>
+
+
+
+<table class="table">
+	<thead>
+		<th>Pay Period</th>
+		<th></th>
+		<th></th>
+	</thead>
+	<tbody>
+		
+		<% @paymentRecords.each do |paymentrecord| %>
+		    
+			<tr>
+				<td><%= description_for_payperiod(paymentrecord.period_id) %></td>
+				<td><%= link_to "View PaySlip", show_payslips_path(paymentrecord.period_id) %></td>
+				<td></td>
+			</tr>
+		<%end%>
+
+	</tbody>
+</table>

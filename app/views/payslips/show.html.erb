@@ -3,7 +3,11 @@
    border-left: none;   
    width: 100%;
 }
+.amount {
+	text-align: right;
+}
 </style>
+<%= link_to "BACK", payslips_path %>
 
 <h2>Parabola Software Development Pvt.Ltd.</h2>
 <address style="text-align:center">
@@ -13,7 +17,7 @@ Visakhapatnam – 530017<br/>
 </p>
 </address>
 <hr style="border: solid 2px"/>
-<h4 style="text-align:center"> Payslip for the period  of xxxx</h4>
+<h4 style="text-align:center"> Payslip for the period  of <%= description_for_payperiod(params["id"]) %></h4>
 <br/>
 
 <strong><h3><%= @employee.first_name + @employee.last_name%></h3></strong>
@@ -65,7 +69,7 @@ Visakhapatnam – 530017<br/>
 					</tr>
 					<tr>
 					<td>Leaves</td>
-					<td>Sick hrs<%= %></td><td>Vacation hrs<%= %></td>
+					<td><%= %></td>
 					</tr>
 				</tbody>
 			</table>
@@ -75,72 +79,74 @@ Visakhapatnam – 530017<br/>
 </table>
 
 <div>
-	PayPeriod:
+	<h3>PayPeriod: <%= description_for_payperiod(params["id"]) %> </h3>
 </div>
 
 <table class="table table-bordered">
 	<tr>
 		<td>
-			<div>
+			<div style="width:100%;">
 				<table class="mytable">
 					<th style="width:50%; background: grey;" >Earnings</th>
 					<th style="width:50%; background: grey;" >Amount(INR)</th>
+					<tbody>
 					<tr>
 						<td>Basic Pay</td>
-						<td><%= @paymentHis.first.basic%></td>
+						<td class="amount"><%= @paymentHis.basic%></td>
 					</tr>
 					<tr>
 						<td>Medical Allowance</td>
-						<td><%= @paymentHis.first.medical_allowance%></td>
+						<td class="amount"><%= @paymentHis.medical_allowance%></td>
 					</tr>
 					<tr>
 						<td>House Rent Allowance</td>
-						<td><%= @paymentHis.first.hra%></td>
+						<td class="amount"><%= @paymentHis.hra%></td>
 					</tr>
 					<tr>
 						<td>Conveyance Allowance</td>
-						<td><%= @paymentHis.first.conveyance%></td>
+						<td class="amount"><%= @paymentHis.conveyance%></td>
 					</tr>
 					<tr>
 						<td>Special Allowance</td>
-						<td><%= @special_allowance%></td>
+						<td class="amount"><%= @paymentHis.special_allowance%></td>
 					</tr>
 					<tr>
 						<td>Total Earnings</td>
-						<td><%= @total_earnings%></td>
+						<td class="amount"><%= @total_earnings%></td>
 					</tr>
 					<tr>
 						<td>Previous Balance</td>
-						<td><%= @paymentHis.first.conveyance%></td>
+						<td class="amount"><%= @paymentHis.conveyance%></td>
 					</tr>
+					</tbody>
 				</table>
 			</div>
 		</td>
 		<td>
-			<div>
+			<div style="width:100%;">
 				<table class="mytable">
 					<th style="width:50%; background: grey;" >Deductions</th>
 					<th style="width:50%; background: grey;" >Amount(INR)</th>
 					
 					<tr>
 						<td>TDS</td>
-						<td><%= @paymentHis.first.tds%></td>
+						<td class="amount"><%= @paymentHis.tds%></td>
 					</tr>
 					<tr>
 						<td>Professional Tax</td>
-						<td><%= @paymentHis.first.professional_tax%></td>
+						<td class="amount"><%= @paymentHis.professional_tax%></td>
 					</tr>
 					<tr>
 						<td>Misc</td>
-						<td><%= %></td>
+						<td class="amount"><%= %></td>
 					</tr>
 					<tr>
 						<td>Total Deductions</td>
-						<td><%= @total_deductions%></td>
+						<td class="amount"><%= @total_deductions%></td>
 					</tr>
 					<tr style="float:right;">
-			<td>NetPay(INR)</td>
-			<td><%= @employee.bank_acc_no%></td>
+						<td>NetPay(INR)</td>
+						<td class="amount"><%= @paymentHis.net_monthly%></td>
 				</table>
 			</div>
 
@@ -151,10 +157,8 @@ Visakhapatnam – 530017<br/>
 	
 </table>
 
+<%= link_to "BACK", payslips_path %>
 
-<div class="span12">
-Employer's Signature     Employee's Signature 
-</div>
 
 
 

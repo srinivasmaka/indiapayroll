@@ -1,24 +1,27 @@
 class PayslipsController < ApplicationController
-  include SessionsHelper
+  layout "employee"  
 
   def show
+    
+    @payperiod = PayPeriod.find_by_period_id(params[:id])
+   
   	@employee=Employee.find_by_emp_id(current_user.emp_id)
-  	@paymentHis = PaymentHistory.where("emp_id=? and period_id='01201314'", @employee.emp_id)
-  	tds = @paymentHis.first.tds ? @paymentHis.first.tds : 0
-  	professional_tax = @paymentHis.first.professional_tax ? @paymentHis.first.professional_tax : 0
+  	@paymentHis = PaymentHistory.where("emp_id=? and period_id=?", @employee.emp_id, @payperiod.period_id).first
   	
-  	gross  = @paymentHis[0].gross_monthly ? @paymentHis[0].gross_monthly : 0
-  	basic  = @paymentHis[0].basic ? @paymentHis[0].basic : 0
-  	hra  = @paymentHis[0].hra ? @paymentHis[0].hra : 0
-  	medical_allowance  = @paymentHis[0].medical_allowance ? @paymentHis[0].me : 0
+    tds                = @paymentHis.tds ? @paymentHis.tds : 0
+  	professional_tax   = @paymentHis.professional_tax ? @paymentHis.professional_tax : 0
+  	gross              = @paymentHis.gross_monthly ? @paymentHis.gross_monthly : 0
+  	basic              = @paymentHis.basic ? @paymentHis.basic : 0
+  	hra                = @paymentHis.hra ? @paymentHis.hra : 0
+  	medical_allowance  = @paymentHis.medical_allowance ? @paymentHis.medical_allowance : 0
 
-  	@total_earnings = basic + hra + medical_allowance
+  	@total_earnings    = basic + hra + medical_allowance
 
-  	@special_allowance= 0
+  	@total_deductions  = tds + professional_tax
 
-  	@total_deductions = tds + professional_tax
   end
 
   def index
+    @paymentRecords = PaymentHistory.where("emp_id=?", current_user.emp_id)
   end
 end
