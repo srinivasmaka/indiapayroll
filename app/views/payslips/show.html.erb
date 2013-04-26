@@ -1,0 +1,162 @@
+<style type="text/css"> 
+.mytable th, .mytable td { 
+   border-left: none;   
+   width: 100%;
+}
+</style>
+
+<h2>Parabola Software Development Pvt.Ltd.</h2>
+<address style="text-align:center">
+<p>plot no:100,sector-1<br/>
+M.V.P.Double Road,M.V.P.Colony<br/>
+Visakhapatnam – 530017<br/>
+</p>
+</address>
+<hr style="border: solid 2px"/>
+<h4 style="text-align:center"> Payslip for the period  of xxxx</h4>
+<br/>
+
+<strong><h3><%= @employee.first_name + @employee.last_name%></h3></strong>
+
+
+<table class="table table-bordered">
+	<thead>
+		<th style="width:50%; background: grey;" >Employee Details</th>
+		<th style="width:50%; background: grey;" >Payment and Leave Details</th>
+		
+	</thead>
+	<tr>
+		<td>
+			<div style="width:100%;">
+				<table class="mytable" >
+					<tbody>
+						<tr>
+							<td >Employee Id</td>
+							<td ><%= @employee.emp_id%></td>
+						</tr>
+						<tr>
+							<td>Date of Joining</td>
+							<td><%= @employee.date_of_joining%></td>
+							
+						</tr>
+						<tr>
+							<td>Designation</td>
+							<td><%= @employee.designation%></td>
+						</tr>
+						<tr>
+							<td>PanCard No.</td>
+							<td><%= @employee.pan_number%></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</td>
+	<td>
+		<div style="width:100%;">
+			<table class="mytable" >
+				<tbody>
+					<tr>
+						<td>Bank Account No.</td>
+						<td><%= @employee.bank_acc_no%></td>
+					</tr>
+					<tr>
+					<td>Days Paid</td>
+					<td><%= %></td>
+					</tr>
+					<tr>
+					<td>Leaves</td>
+					<td>Sick hrs<%= %></td><td>Vacation hrs<%= %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</td>
+	<tr>
+</table>
+
+<div>
+	PayPeriod:
+</div>
+
+<table class="table table-bordered">
+	<tr>
+		<td>
+			<div>
+				<table class="mytable">
+					<th style="width:50%; background: grey;" >Earnings</th>
+					<th style="width:50%; background: grey;" >Amount(INR)</th>
+					<tr>
+						<td>Basic Pay</td>
+						<td><%= @paymentHis.first.basic%></td>
+					</tr>
+					<tr>
+						<td>Medical Allowance</td>
+						<td><%= @paymentHis.first.medical_allowance%></td>
+					</tr>
+					<tr>
+						<td>House Rent Allowance</td>
+						<td><%= @paymentHis.first.hra%></td>
+					</tr>
+					<tr>
+						<td>Conveyance Allowance</td>
+						<td><%= @paymentHis.first.conveyance%></td>
+					</tr>
+					<tr>
+						<td>Special Allowance</td>
+						<td><%= @special_allowance%></td>
+					</tr>
+					<tr>
+						<td>Total Earnings</td>
+						<td><%= @total_earnings%></td>
+					</tr>
+					<tr>
+						<td>Previous Balance</td>
+						<td><%= @paymentHis.first.conveyance%></td>
+					</tr>
+				</table>
+			</div>
+		</td>
+		<td>
+			<div>
+				<table class="mytable">
+					<th style="width:50%; background: grey;" >Deductions</th>
+					<th style="width:50%; background: grey;" >Amount(INR)</th>
+					
+					<tr>
+						<td>TDS</td>
+						<td><%= @paymentHis.first.tds%></td>
+					</tr>
+					<tr>
+						<td>Professional Tax</td>
+						<td><%= @paymentHis.first.professional_tax%></td>
+					</tr>
+					<tr>
+						<td>Misc</td>
+						<td><%= %></td>
+					</tr>
+					<tr>
+						<td>Total Deductions</td>
+						<td><%= @total_deductions%></td>
+					</tr>
+					<tr style="float:right;">
+			<td>NetPay(INR)</td>
+			<td><%= @employee.bank_acc_no%></td>
+				</table>
+			</div>
+
+		</tr>
+		</td>
+	</tr>
+		
+	
+</table>
+
+
+<div class="span12">
+Employer's Signature     Employee's Signature 
+</div>
+
+
+
+
+

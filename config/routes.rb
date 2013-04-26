@@ -1,5 +1,9 @@
 Indiapayroll::Application.routes.draw do
   
+  get "payslips/show"
+
+  get "payslips/index"
+
   root :to => "sessions#new"
   resources :employees
   resources :sessions
