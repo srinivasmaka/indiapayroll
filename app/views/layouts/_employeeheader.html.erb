@@ -19,8 +19,6 @@
                 <li><%= link_to "New DeclarationForm", emp_declaration_details_path(:emp_id => employee_view) %></li>
                 <%unless is_admin?%>
             <li><%= link_to "Sign out", signout_path, :method=> "delete" %></li>
-            <%else%>
-            <li><%= link_to "Sign out As Admin", admin_signout_path, :method=> "delete" %></li>
             <%end%>
         </ul>
       </nav>

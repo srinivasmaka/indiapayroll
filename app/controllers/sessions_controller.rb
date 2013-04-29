@@ -29,10 +29,6 @@ class SessionsController < ApplicationController
     redirect_to new_session_path
     flash[:success] ="succefully logout the PayRoll Application"
   end
-  def admin_destroy
-    cookies.delete(:employee)
-    render "admin_signout"
-  end
   
    end
   
