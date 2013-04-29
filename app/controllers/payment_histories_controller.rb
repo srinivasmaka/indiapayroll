@@ -142,7 +142,7 @@ class PaymentHistoriesController < ApplicationController
       end
       @payment_history.tax_deducted = monthly_tax
       @payment_history.net_monthly = net_pay.to_i - monthly_tax
-      @payment_history.save
+      
       @payload_hash[emp_id]= @payment_history
     end
  
@@ -208,6 +208,32 @@ class PaymentHistoriesController < ApplicationController
       format.html # index.html.erb
       format.json { render :json=> @employees }
   end
+  end
+  
+  def save_payment
+    
+    employees =Employee.all
+    unless employees.empty?
+    employees.each do |employee|
+      payment_history = PaymentHistory.new()
+      payment_history.emp_id = params[:monthlypayconfirm][:"#{employee.emp_id}_emp_id"]
+      payment_history.full_name = params[:monthlypayconfirm][:"#{employee.emp_id}_full_name"]
+      payment_history.hra = params[:monthlypayconfirm][:"#{employee.emp_id}_hra"]
+      payment_history.basic = params[:monthlypayconfirm][:"#{employee.emp_id}_basic"]
+      payment_history.tds = params[:monthlypayconfirm][:"#{employee.emp_id}_tds"]
+      payment_history.special_allowance = params[:monthlypayconfirm][:"#{employee.emp_id}_special_allowance"]
+      payment_history.net_monthly = params[:monthlypayconfirm][:"#{employee.emp_id}_net_monthly"]
+      payment_history.tax_deducted = params[:monthlypayconfirm][:"#{employee.emp_id}_tax_deducted"]
+      payment_history.special_allowance = params[:monthlypayconfirm][:"#{employee.emp_id}_special_allowance"]
+      payment_history.save
+    end
+    end
+    
+     respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json=> @employees }
+  end
+  
   end
   
 end
