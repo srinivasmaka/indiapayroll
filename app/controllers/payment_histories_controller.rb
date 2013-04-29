@@ -110,17 +110,18 @@ class PaymentHistoriesController < ApplicationController
       emp_id = key
       net_pay = value
       tds = calculate_tds(emp_id,net_pay)
+      net_pay = @net_pay
       @hra_percent = @config_info.hra_percent
       @basic_percent = @config_info.basic_percent
       @p_tax = @config_info.professional_tax
       conveyance = @config_info.conveyance
       hra_percent = @config_info.hra_percent
-      @edu_cess = @config_info.edu_cess
+      edu_cess_percent = @config_info.edu_cess
       medical_allowance = @config_info.medical_allowance
       @payment_history = PaymentHistory.new(params[:payment_history])
       @payment_history.emp_id = emp_id
       employee =Employee.find_by_emp_id(emp_id)
-      @payment_history.full_name=employee.first_name + employee.last_name
+      @payment_history.full_name=employee.first_name + " " +employee.last_name
       hra = (hra_percent * net_pay.to_i)/100
       @payment_history.hra =  hra
       basic = (@basic_percent * net_pay.to_i)/100
@@ -136,9 +137,10 @@ class PaymentHistoriesController < ApplicationController
       @payment_history.special_allowance = net_pay.to_i - sum_allowances 
       taxble_income = net_pay.to_i - (@tds.to_i + @p_tax)
       calculated_tax = calculate_tax(taxble_income)
+      final_tax_amount = (edu_cess_percent * calculated_tax)/100  
       monthly_tax = 0
-      unless calculated_tax.nil?
-      monthly_tax = calculated_tax/months
+      unless final_tax_amount.nil?
+      monthly_tax = final_tax_amount/months
       end
       @payment_history.tax_deducted = monthly_tax
       @payment_history.net_monthly = net_pay.to_i - monthly_tax
@@ -189,10 +191,11 @@ class PaymentHistoriesController < ApplicationController
     section5_components = [ @emp_declaration.donations_80g,@emp_declaration.med_insurance_80d,@emp_declaration.interest_EduLoan_80e]
     sum_section5 = section5_components.inject{|sum_section5,x| sum_section5 + x }
     @house_self_occupied_flag = @emp_declaration.house_self_occupied
-    if @house_self_occupied_flag.nil?
+    hra_applicable = @emp_declaration.hra_status
+    if (@house_self_occupied_flag == 'yes' && hra_applicable == 'no') 
       @interst_on_hloan = @emp_declaration.home_loan_interest
      else
-      @total_ctc = @net_pay + @emp_declaration.house_rent
+      @net_pay = @net_pay.to_i + @emp_declaration.house_rent
       @interst_on_hloan = [@emp_declaration.home_loan_interest,@config_info.h_loan_limit].min
     end
   section6 = @interst_on_hloan
