@@ -1,8 +1,6 @@
 class RemovebonusFromBonus < ActiveRecord::Migration
-  def up
-     remove_column :Bonus, :bonus
+  def change
+     remove_column :bonus, :bonus
   end
 
-  def down
-  end
 end
