@@ -15,7 +15,8 @@
 			<tr>
 				<td><%= description_for_payperiod(paymentrecord.period_id) %></td>
 				<td><%= link_to "View PaySlip", show_payslips_path(paymentrecord.period_id) %></td>
-				<td></td>
+				<td><%= link_to "Download Pdf", show_payslips_path(paymentrecord.period_id, :format =>'pdf'),
+						 :target=> "_blank" %></a></td>
 			</tr>
 		<%end%>
 

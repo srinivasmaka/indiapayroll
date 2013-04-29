@@ -11,6 +11,8 @@ gem "jquery_datepicker"
 gem 'jquery-rails'
 
 gem 'json'
+gem 'prawn', :git => "git://github.com/prawnpdf/prawn.git", :branch => "master"
+gem "prawnto_2", :require => "prawnto"
 
 # Gems used only for assets and not required
 # in production environments by default.
