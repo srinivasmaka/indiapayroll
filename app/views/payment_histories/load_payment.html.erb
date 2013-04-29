@@ -1,3 +1,7 @@
+
+<h1>Employees Pay Roll Details</h1>
+  <%= form_for(:monthlypayconfirm, :url=> monthly_payroll_confirm_path , :class => 'carousel slide' ) do |f| %>
+
 <table class="table table-bordered">
   <tr class="success">
     <th>Emp ID</th>
@@ -17,18 +21,18 @@
 	
 	<tr class="success">
     <td><%=eid%></td>
-    <td><%=employee.full_name %></td>
-    <td><%=  (employee.hra).round(2) %></td>
-    <td><%= (employee.basic).round(2) %></td>
-    <td><%= (employee.tds) %></td>
-    <td><%= employee.special_allowance%></td>
-    <td><%= employee.conveyance%> </td>
-    <td><%= employee.net_monthly%> </td>
-    <td><%= (employee.tax_deducted) %></td>
-    <td></td>
-    
+<td><%=f.text_field :"#{employee.emp_id}_full_name",  :readonly=>true ,:id=>"#{employee.emp_id}_full_name" , :value=>"#{employee.full_name}"%></td>
+<td><%=f.text_field :"#{employee.emp_id}_hra",  :readonly=>true ,:id=>"#{employee.emp_id}_hra" , :value=>"#{(employee.hra).round(2)}"%></td>
+<td><%=f.text_field :"#{employee.emp_id}_basic",  :readonly=>true ,:id=>"#{employee.emp_id}_basic" , :value=>"#{(employee.basic).round(2)}"%></td>
+<td><%=f.text_field :"#{employee.emp_id}_tds",  :readonly=>true ,:id=>"#{employee.emp_id}_tds" , :value=>"#{employee.tds}"%></td>
+<td><%=f.text_field :"#{employee.emp_id}_special_allowance",  :readonly=>true ,:id=>"#{employee.emp_id}_special_allowance" , :value=>"#{employee.special_allowance}"%></td>
+<td><%=f.text_field :"#{employee.emp_id}_conveyance",  :readonly=>true ,:id=>"#{employee.emp_id}_conveyance" , :value=>"#{employee.conveyance}"%></td>
+<td><%=f.text_field :"#{employee.emp_id}_net_monthly",  :readonly=>true ,:id=>"#{employee.emp_id}_net_monthly" , :value=>"#{employee.net_monthly}"%></td>
+<td><%=f.text_field :"#{employee.emp_id}_tax_deducted",  :readonly=>true ,:id=>"#{employee.emp_id}_tax_deducted" , :value=>"#{employee.tax_deducted}"%></td>
+  <td></td>
   </tr>
 <%end%>
+<tr><%= f.submit "Run PayRoll", :class=> "btn btn-large btn-primary" %></tr>
 </table>
 
-
+ <% end %>
