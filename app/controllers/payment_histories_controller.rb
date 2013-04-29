@@ -108,9 +108,9 @@ class PaymentHistoriesController < ApplicationController
       @config_info = ConfigTable.where("year" => @current_fyear).first
       @salary_info.each do |key, value|
       emp_id = key
-      net_pay = value
-      tds = calculate_tds(emp_id,net_pay)
-      net_pay = @net_pay
+      @net_pay = value
+      tds = calculate_tds(emp_id,@net_pay)
+      @net_pay = @net_pay
       @hra_percent = @config_info.hra_percent
       @basic_percent = @config_info.basic_percent
       @p_tax = @config_info.professional_tax
@@ -122,9 +122,9 @@ class PaymentHistoriesController < ApplicationController
       @payment_history.emp_id = emp_id
       employee =Employee.find_by_emp_id(emp_id)
       @payment_history.full_name=employee.first_name + " " +employee.last_name
-      hra = (hra_percent * net_pay.to_i)/100
+      hra = (hra_percent * @net_pay.to_i)/100
       @payment_history.hra =  hra
-      basic = (@basic_percent * net_pay.to_i)/100
+      basic = (@basic_percent * @net_pay.to_i)/100
       @payment_history.basic = basic
       @payment_history.tds = tds
       @payment_history.period_id = @period_id
@@ -134,16 +134,16 @@ class PaymentHistoriesController < ApplicationController
       sum_allowances = 0
       allowance_components = [basic,medical_allowance,hra,conveyance]
       sum_allowances = allowance_components.inject{|sum_allowances,x| sum_allowances + x }
-      @payment_history.special_allowance = net_pay.to_i - sum_allowances 
-      taxble_income = net_pay.to_i - (@tds.to_i + @p_tax)
+      @payment_history.special_allowance = @net_pay.to_i - sum_allowances 
+      taxble_income = @net_pay.to_i - (@tds.to_i + @p_tax)
       calculated_tax = calculate_tax(taxble_income)
-      final_tax_amount = (edu_cess_percent * calculated_tax)/100  
+      final_tax_amount = (edu_cess_percent * calculated_tax.to_i)/100  
       monthly_tax = 0
       unless final_tax_amount.nil?
       monthly_tax = final_tax_amount/months
       end
       @payment_history.tax_deducted = monthly_tax
-      @payment_history.net_monthly = net_pay.to_i - monthly_tax
+      @payment_history.net_monthly = @net_pay.to_i - monthly_tax
       
       @payload_hash[emp_id]= @payment_history
     end
