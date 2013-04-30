@@ -1,10 +1,10 @@
-<% provide(:title, "Sign in") %>
-<h1>User Login</h1>
-
-    <div class="carousel slide">
-    <div class="row">
-  <div class="span6 offset3">
-    <%= form_for(:session, :url=> sessions_path , :class => 'carousel slide' ) do |f| %>
+  <style>
+  .span12 { width: 940px }
+  </style>
+  <div class="span11  well">
+  		<title>User Login</title> 
+  	<h1>User Login</h1>
+    <%= form_for(:session, :url=> sessions_path , :class => 'form-horizontal' ) do |f| %>
 
       <%= f.label :username %>
       <%= f.text_field :username %>
@@ -16,8 +16,4 @@
     <% end %>
 
       </div>
-      </div>
-      </div>
-</div>
-</div>
 

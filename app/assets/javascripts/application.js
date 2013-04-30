@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require jquery
 //= require jquery-ui
+//= javascript_include_tag "application"
 
 
 

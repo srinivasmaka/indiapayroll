@@ -1,7 +1,7 @@
 <h1>Listing Tax Slabs</h1>
 
-<table class="table table-bordered">
-  <tr>
+<table class="table table-striped">
+  <tr class ="thead">
   	<th>Year</th>
     <th>Slab from</th>
     <th>Slab to</th>
@@ -13,7 +13,7 @@
   </tr>
 
 <% @tax_slabs.each do |tax_slab| %>
-  <tr>
+  <tr class="tdata">
   	<td><%= tax_slab.year %></td>
     <td><%= tax_slab.slab_from %></td>
     <td><%= tax_slab.slab_to %></td>

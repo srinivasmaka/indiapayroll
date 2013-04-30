@@ -1,7 +1,7 @@
 <h1>Listing Config Tables</h1>
 
-<table class="table table-bordered">
-  <tr>
+<table class="table table-striped">
+  <tr class="thead">
   	<th>Year</th>
     <th>Hra percent</th>
     <th>Basic percent</th>
@@ -18,7 +18,7 @@
   </tr>
 
 <% @config_tables.each do |config_table| %>
-  <tr>
+  <tr class="tdata">
   	<td><%= config_table.year %></td>
     <td><%= config_table.hra_percent %></td>
     <td><%= config_table.basic_percent %></td>
