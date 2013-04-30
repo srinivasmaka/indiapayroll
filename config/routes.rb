@@ -25,6 +25,7 @@ Indiapayroll::Application.routes.draw do
   match 'consolidated_pay' =>"consolidated_pay#index"
  match 'bulkedit_emp' => "bulkedit_emp#new"
  match '/bulkupdate_emp' => "bulkedit_emp#bulk_update"
+ match '/monthly_payroll_confirm'  =>'payment_histories#save_payment'
  
   # The priority is based upon order of creation:
   # first created -> highest priority.
