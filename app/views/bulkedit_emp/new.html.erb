@@ -9,12 +9,11 @@ textarea, select {
 
 
 </style>
-  <b>PayPeriod:</b>
-  <%= select(:pay, :period_id, @periodID.collect {|e| [e.period_id, e.id]})%>
    <%= form_tag bulkupdate_emp_path do %>
-   <div class="span3">
-   <table class="table table-bordered">
-   <tr class="thead">
+  <b>Pay Period</b>
+   <%= select_tag 'emp_period_id', options_from_collection_for_select(@periodID, "period_id", "period_id") %>
+    <table class="table table-bordered">
+   <tr class="success">
     <th>Emp</th>
     <th>First name</th>
     <th>Gross CTC</th>
@@ -27,7 +26,7 @@ textarea, select {
    </tr>
 
 <% @employees.each do |employee| %>
-  <tr class="tdata">
+  <tr class="success">
     <td><%=employee.emp_id %></td>
     <td><%= employee.first_name %></td>
   	<td><%=text_field_tag :"#{employee.id}", "#{employee.grossCTC}" %></td>

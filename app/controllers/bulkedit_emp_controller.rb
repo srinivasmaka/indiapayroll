@@ -3,6 +3,7 @@ class BulkeditEmpController < ApplicationController
   def new
  @employees = Employee.all
  @periodID = PayPeriod.all
+
  # find_by_sql("select emp.first_name, emp.emp_id, emp.designation, emp.grossCTC, b.ps_1, b.ps_2, b.ps_3, b.ps_4, b.others from Employees emp inner join bonus b on emp.emp_id = b.emp_id")
  end
    
@@ -15,7 +16,7 @@ class BulkeditEmpController < ApplicationController
           
      bonus=Bonu.new     
      bonus.emp_id= employee.emp_id
-     bonus.period_id = params[:pay_period_id]
+     bonus.period_id = params[:emp_period_id]
      bonus.ps_1 =   params[:"#{employee.emp_id}_b1"]
      bonus.ps_2 =   params[:"#{employee.emp_id}_b2"]
      bonus.ps_3 =   params[:"#{employee.emp_id}_b3"]

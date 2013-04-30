@@ -14,7 +14,7 @@
   <div class="span6 offset3">
  <div class="field">
     <%= f.label :year %>
-    <%= f.text_field :year %>
+    <%= f.collection_select(:id, PayPeriod.find_by_sql("select distinct current_fyear from pay_periods"), :current_fyear, :current_fyear, {:include_blank => 'Please Select'}) %>
   </div>
   <div class="field">
     <%= f.label :hra_percent %>

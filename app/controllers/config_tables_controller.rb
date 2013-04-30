@@ -44,7 +44,7 @@ class ConfigTablesController < ApplicationController
   # POST /config_tables.json
   def create
     @config_table = ConfigTable.new(params[:config_table])
-
+    @config_table.year = params[:config_table][:id] 
     respond_to do |format|
       if @config_table.save
         format.html { redirect_to @config_table, :notice => 'Config table was successfully created.' }
@@ -60,7 +60,7 @@ class ConfigTablesController < ApplicationController
   # PUT /config_tables/1.json
   def update
     @config_table = ConfigTable.find(params[:id])
-
+    @config_table.year = params[:config_table][:id] 
     respond_to do |format|
       if @config_table.update_attributes(params[:config_table])
         format.html { redirect_to @config_table, :notice => 'Config table was successfully updated.' }

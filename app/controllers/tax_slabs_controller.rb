@@ -28,7 +28,6 @@ class TaxSlabsController < ApplicationController
   # GET /tax_slabs/new.json
   def new
     @tax_slab = TaxSlab.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @tax_slab }
@@ -44,7 +43,7 @@ class TaxSlabsController < ApplicationController
   # POST /tax_slabs.json
   def create
     @tax_slab = TaxSlab.new(params[:tax_slab])
-
+    @tax_slab.year = params[:tax_slab][:id] 
     respond_to do |format|
       if @tax_slab.save
         format.html { redirect_to @tax_slab, :notice => 'Tax slab was successfully created.' }
@@ -60,7 +59,7 @@ class TaxSlabsController < ApplicationController
   # PUT /tax_slabs/1.json
   def update
     @tax_slab = TaxSlab.find(params[:id])
-
+    @tax_slab.year = params[:tax_slab][:id] 
     respond_to do |format|
       if @tax_slab.update_attributes(params[:tax_slab])
         format.html { redirect_to @tax_slab, :notice => 'Tax slab was successfully updated.' }
