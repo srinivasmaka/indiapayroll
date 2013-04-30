@@ -1,8 +1,14 @@
-<script type="text/javascript">
-	
+<style>
+
+input[type=text], input[type=password],
+input.text, input.title,
+textarea, select {
+  margin:0.5em 0;
+  width: 75px;
+}
 
 
-</script>
+</style>
   <b>PayPeriod:</b>
   <%= select(:pay, :period_id, @periodID.collect {|e| [e.period_id, e.id]})%>
    <%= form_tag bulkupdate_emp_path do %>
