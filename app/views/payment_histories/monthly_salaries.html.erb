@@ -34,7 +34,7 @@ textarea, select {
   <%= form_for(:monthlysal, :url=> monthly_payroll_path , :class => 'carousel slide' ) do |f| %>
 
 <table class="table table-bordered">
-  <tr class="success">
+  <tr class="thead">
     <th>Emp</th>
     <th>First name</th>
     <th>Yearly</th>
@@ -46,7 +46,7 @@ textarea, select {
   </tr>
 
 <% @employees.each do |employee| %>
-  <tr class="success">
+  <tr class="tdata">
   	<td><%=link_to employee.emp_id, '#', :onclick => 'javascript:child_open("1234")'  %></td>
     <td><%= employee.first_name %></td>
     <td><%= employee.grossCTC %></td>

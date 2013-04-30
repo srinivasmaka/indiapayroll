@@ -1,7 +1,7 @@
 <h1>Listing employees</h1>
 
-<table class="table table-bordered">
-  <tr class="success">
+<table class="table table-striped">
+  <tr class="thead">
     <th>Emp</th>
     <th>First name</th>
     <th>Last name</th>
@@ -16,8 +16,8 @@
   </tr>
 
 <% @employees.each do |employee| %>
-  <tr class="success">
-    <td><%= link_to "#{employee.emp_id}", "#" %></td>
+  <tr class="tdata">
+    <td><%= link_to "#{employee.emp_id}", edit_employee_path(employee) %></td>
     <td><%= employee.first_name %></td>
     <td><%= employee.last_name %></td>
     <td><%= employee.gender %></td>
@@ -28,8 +28,6 @@
     <td><%= employee.designation %></td>
     <td><%= employee.grossCTC %></td>
     <td><%= employee.date_of_joining %></td>
-    <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-    <td><%= link_to 'Destroy', employee, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

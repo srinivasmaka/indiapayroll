@@ -1,7 +1,7 @@
 <h1>Consolidated Pay</h1>
 <div class ="span3">
-<table class="table table-bordered">
-  <tr class="success">
+<table class="table table-striped">
+  <tr class="thead">
     <th>EmpId</th>
     <th>Employee</th>
 
@@ -21,7 +21,7 @@
   </tr>
 
 <% @employees.each do |e| %>
-  <tr class="success">
+  <tr class="tdata">
   	
 	  <td><%= link_to "#{e.emp_id}", "#" %></td>
 	  <td><%= e.first_name+e.last_name %></td>
