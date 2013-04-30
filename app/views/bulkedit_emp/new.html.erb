@@ -6,6 +6,7 @@
   <b>PayPeriod:</b>
   <%= select(:pay, :period_id, @periodID.collect {|e| [e.period_id, e.id]})%>
    <%= form_tag bulkupdate_emp_path do %>
+   <div class="span3">
    <table class="table table-bordered">
    <tr class="success">
     <th>Emp</th>
@@ -36,4 +37,5 @@
 
  <%= submit_tag "Enter", :class=> "btn btn-large btn-primary"  %>
  <% end %>
+ </div>
 

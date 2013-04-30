@@ -1,12 +1,21 @@
 <meta charset="utf-8" />
-<title>jQuery UI Datepicker - Default functionality</title>
+<title>Add Employee</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css" />
 <script>
 $(function() {
-$( "#datepicker" ).datepicker( "option", "showAnim", "slide" );
+$( "#datepicker" ).datepicker();
+});
+function validates
+{
+	
+}
+$(document).ready(function () {
+
+alert(“document ready”);
+
 });
 </script>
 <%= form_for(@employee) do |f| %>
@@ -72,11 +81,11 @@ $( "#datepicker" ).datepicker( "option", "showAnim", "slide" );
   </div>
   <div class="field">
     <%= f.label :date_of_joining %>
-    <%= f.datepicker :date_of_joining %>
+    <%= f.datepicker :date_of_joining , :dateformate=>"dd/mm/yy"%>
   </div>
   <div class="field">
     <%= f.label :date_of_birth %>
-    <%= f.datepicker :date_of_birth %>
+    <%= f.datepicker :date_of_birth  , :dateformate=>"dd/mm/yy"%>
   </div>
   <div class="actions">
     <%= f.submit "create employee " , :class=> "btn btn-large btn-primary" %>
