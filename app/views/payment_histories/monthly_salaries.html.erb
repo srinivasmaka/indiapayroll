@@ -10,10 +10,10 @@ textarea, select {
 <script type="text/javascript">
 	function calculateNetAmount(){
 	<% @employees.each do |employee| %>
-	var sick_hours =document.getElementById('<%=employee.id%>').value
+	var sick_hours =document.getElementById('<%=employee.id%>_sick').value
 	var monthly_sal= '<%=employee.grossCTC%>'/12;
 	document.getElementById('<%=employee.id%>_deducted').value=Math.round((monthly_sal*sick_hours)/160);
-	document.getElementById('<%=employee.emp_id%>').value=Math.round(monthly_sal-(monthly_sal*sick_hours)/160)
+	document.getElementById('<%=employee.emp_id%>_net').value=Math.round(monthly_sal-(monthly_sal*sick_hours)/160)
 	<%end%>
 	}
 
@@ -49,11 +49,11 @@ textarea, select {
   <tr class="tdata">
   	<td><%=link_to employee.emp_id, '#', :onclick => 'javascript:child_open("1234")'  %></td>
     <td><%= employee.first_name %></td>
-    <td><%= employee.grossCTC %></td>
+    <td><%=f.text_field :"#{employee.emp_id}_gross",  :readonly=>true ,:id=>"#{employee.emp_id}_gross", :value=>"#{employee.grossCTC}"  %></td>
     <td><%= "#{employee.grossCTC}".to_i/12%></td>
-    <td><%=f.text_field :sick_hours, :placeholder =>'0' ,:id=>"#{employee.id}" , :onblur=>"calculateNetAmount()"%></td>
+    <td><%=f.text_field :sick_hours, :placeholder =>'0' ,:id=>"#{employee.id}_sick" , :onblur=>"calculateNetAmount()"%></td>
     <td><%=f.text_field :deducted_amount, :readonly=>true ,:id=>"#{employee.id}_deducted"%></td>
-    <td><%=f.text_field :"#{employee.emp_id}",  :readonly=>true ,:id=>"#{employee.emp_id}"%></td>
+    <td><%=f.text_field :"#{employee.emp_id}",  :readonly=>true ,:id=>"#{employee.emp_id}_net"%></td>
     <td><a href="javascript:child_open('<%=employee.emp_id%>')">Employee View</a></td>
   
   </tr>

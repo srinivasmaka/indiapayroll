@@ -99,7 +99,7 @@ class PaymentHistoriesController < ApplicationController
     employees =Employee.all
     unless employees.empty?
     employees.each do |employee|
-    @salary_info[employee.emp_id]= params[:monthlysal][:"#{employee.emp_id}"]
+    @salary_info[employee.emp_id]= params[:monthlysal][:"#{employee.emp_id}_net"]
     end
     end
     d1 = Date.today
@@ -109,7 +109,13 @@ class PaymentHistoriesController < ApplicationController
       @salary_info.each do |key, value|
       emp_id = key
       @net_pay = value
+      gross_ctc = params[:monthlysal][emp_id + "_gross"].to_i
       tds = calculate_tds(emp_id,@net_pay)
+      if tds > 0
+      tds_per_month = tds/12
+      else
+      tds_per_month = 0
+      end
       @net_pay = @net_pay
       @hra_percent = @config_info.hra_percent
       @basic_percent = @config_info.basic_percent
@@ -122,25 +128,29 @@ class PaymentHistoriesController < ApplicationController
       @payment_history.emp_id = emp_id
       employee =Employee.find_by_emp_id(emp_id)
       @payment_history.full_name=employee.first_name + " " +employee.last_name
-      hra = (hra_percent * @net_pay.to_i)/100
-      @payment_history.hra =  hra
-      basic = (@basic_percent * @net_pay.to_i)/100
-      @payment_history.basic = basic
-      @payment_history.tds = tds
+      hra_per_month = (hra_percent * @net_pay.to_i)/100
+      @payment_history.hra =  hra_per_month
+      hra_per_year = (hra_percent * gross_ctc)/100
+      basic_per_month = (@basic_percent * @net_pay.to_i)/100
+      @payment_history.basic = basic_per_month
+      basic_per_year = (@basic_percent * gross_ctc)/100
+      @payment_history.tds = tds_per_month
       @payment_history.period_id = @period_id
-      @payment_history.conveyance = conveyance
-      @payment_history.professional_tax = @p_tax
+      @payment_history.conveyance = conveyance/12
+      @payment_history.professional_tax = @p_tax/12
       @payment_history.loss_of_hours = @loss_of_hours
       sum_allowances = 0
-      allowance_components = [basic,medical_allowance,hra,conveyance]
+      allowance_components = [basic_per_month,medical_allowance/12,hra_per_month,@payment_history.conveyance]
       sum_allowances = allowance_components.inject{|sum_allowances,x| sum_allowances + x }
       @payment_history.special_allowance = @net_pay.to_i - sum_allowances 
-      taxble_income = @net_pay.to_i - (@tds.to_i + @p_tax)
+      taxble_income = gross_ctc - (@tds.to_i + @p_tax + hra_per_year + basic_per_year + medical_allowance + conveyance)
       calculated_tax = calculate_tax(taxble_income)
       final_tax_amount = (edu_cess_percent * calculated_tax.to_i)/100  
       monthly_tax = 0
-      unless final_tax_amount.nil?
-      monthly_tax = final_tax_amount/months
+      if final_tax_amount > 0
+      monthly_tax = final_tax_amount/12
+      else
+        final_tax_amount = 0
       end
       @payment_history.tax_deducted = monthly_tax
       @payment_history.net_monthly = @net_pay.to_i - monthly_tax
@@ -175,6 +185,7 @@ class PaymentHistoriesController < ApplicationController
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     if @emp_declaration.nil?
     @tds = 0
+    @tds_per_month=0
     else
     section1 = @emp_declaration.total_hra
     @config_info = ConfigTable.where("year" => @current_fyear).first
@@ -193,12 +204,12 @@ class PaymentHistoriesController < ApplicationController
     @house_self_occupied_flag = @emp_declaration.house_self_occupied
     hra_applicable = @emp_declaration.hra_status
     if (@house_self_occupied_flag == 'yes' && hra_applicable == 'no') 
-      @interst_on_hloan = @emp_declaration.home_loan_interest
+      interest_on_hloan = @emp_declaration.home_loan_interest
      else
-      @net_pay = @net_pay.to_i + @emp_declaration.house_rent
-      @interst_on_hloan = [@emp_declaration.home_loan_interest,@config_info.h_loan_limit].min
+      @net_pay = @net_pay.to_i + (@emp_declaration.house_rent/12)
+      interest_on_hloan = [@emp_declaration.home_loan_interest,@config_info.h_loan_limit].min
     end
-  section6 = @interst_on_hloan
+  section6 = interest_on_hloan
   @tds = [section1,section2,section3,section4,sum_section5,section6].sum
   end
   end
@@ -214,12 +225,13 @@ class PaymentHistoriesController < ApplicationController
   end
   
   def save_payment
-    
+    current_period_info
     employees =Employee.all
     unless employees.empty?
     employees.each do |employee|
       payment_history = PaymentHistory.new()
       payment_history.emp_id = params[:monthlypayconfirm][:"#{employee.emp_id}_emp_id"]
+      payment_history.period_id = @period_id 
       payment_history.full_name = params[:monthlypayconfirm][:"#{employee.emp_id}_full_name"]
       payment_history.hra = params[:monthlypayconfirm][:"#{employee.emp_id}_hra"]
       payment_history.basic = params[:monthlypayconfirm][:"#{employee.emp_id}_basic"]

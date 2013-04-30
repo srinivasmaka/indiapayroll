@@ -13,7 +13,6 @@
     <th>Conveyance</th>
     <th>Tax Deducted</th>
     <th>Net Monthly</th>
-    <th> Tax Pending </th>
     
   </tr>
 
@@ -29,7 +28,6 @@
 <td><%=f.text_field :"#{employee.emp_id}_conveyance",  :readonly=>true ,:id=>"#{employee.emp_id}_conveyance" , :value=>"#{employee.conveyance}"%></td>
 <td><%=f.text_field :"#{employee.emp_id}_net_monthly",  :readonly=>true ,:id=>"#{employee.emp_id}_net_monthly" , :value=>"#{employee.net_monthly}"%></td>
 <td><%=f.text_field :"#{employee.emp_id}_tax_deducted",  :readonly=>true ,:id=>"#{employee.emp_id}_tax_deducted" , :value=>"#{employee.tax_deducted}"%></td>
-  <td></td>
   </tr>
 <%end%>
 <tr><%= f.submit "Run PayRoll", :class=> "btn btn-large btn-primary" %></tr>
