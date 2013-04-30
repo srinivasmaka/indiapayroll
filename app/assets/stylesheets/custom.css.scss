@@ -75,6 +75,41 @@ p {
     text-decoration: none;
   }
 }
+/* Navigation */
+
+nav {
+  float: right;
+  background: black;
+  padding: 0 0.7em;
+  white-space: nowrap;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  list-style-type: none;
+  display: list-item;
+  padding: 0.2em 0;
+}
+
+nav ul li a {
+  padding: 0 5px;
+  font-weight: italic;
+}
+
+nav ul li a:visited {
+  color: blue;
+}
+
+/*table scorlling*/
+.span3 {  
+    height: 100% !important;
+    width: 100% !important;
+    overflow: scroll;
+}​
 
 /* footer */
 
