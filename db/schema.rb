@@ -98,7 +98,6 @@ ActiveRecord::Schema.define(:version => 20130426103013) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "current_fyear"
-    t.string   "year"
   end
 
   create_table "payment_histories", :force => true do |t|
