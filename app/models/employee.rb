@@ -4,8 +4,9 @@ class Employee < ActiveRecord::Base
   
   validates :first_name,:last_name , :presence => true,
                     :length   => { :maximum => 50 }
+  validates :phone_number ,:presence=> true  ,:length => {:maximum=> 10}
   validates :date_of_birth ,:date_of_joining ,:designation ,:bank_acc_no ,
-                     :grossCTC ,:phone_number ,:pan_number ,:address , :presence => true  
+                     :grossCTC ,:pan_number ,:address , :presence => true  
   validates :emp_id ,:presence=> true ,:uniqueness => true             
   validates :email_id, :presence   => true,
                     :format     => { :with => email_regex },
