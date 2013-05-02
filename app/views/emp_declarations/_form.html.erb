@@ -39,6 +39,7 @@ function calhra() {
 
 </style>
 
+
 <%= form_for(@emp_declaration) do |f| %>
   <% if @emp_declaration.errors.any? %>
     <div id="error_explanation">
@@ -114,18 +115,18 @@ function calhra() {
         </tr>
         <tr>
           <td> </td> <td><div class="hrent_block"> <%= f.label :Annual_rent_from_House_Property %> </div></td>
-           <td><div class="hrent_block"> <%= f.text_field :home_loan_interest %> </div></td> <td></td>
+           <td><div class="hrent_block"> <%= f.text_field :home_loan_interest, :placeholder => "0" %> </div></td> <td></td>
         </tr>
         <tr>
           <td> </td> <td> <%= f.label :Interest_on_Housing_Loan %></td> 
-          <td><%= f.text_field :home_loan_interest %></td> <td></td>
+          <td><%= f.text_field :home_loan_interest, :placeholder => "0" %></td> <td></td>
         </tr>
         <tr>
-          <td> </td> <td> <%= f.label :others %></td> <td><%= text_field_tag :others %></td> <td></td>
+          <td> </td> <td> <%= f.label :others %></td> <td><%= text_field_tag :others, nil, :placeholder => "0"  %></td> <td></td>
         </tr>
         <tr>
           <th> </th> <th>Total Income from House Property </th>
-           <th><%= text_field_tag :total_income_from_house, nil, :disabled=>true %> </th> 
+           <th><%= text_field_tag :total_income_from_house, nil, :disabled=>true, :placeholder => "0" %> </th> 
           <th>  </th>
         <tr>
         <tr>
@@ -133,7 +134,7 @@ function calhra() {
         </tr>
         <tr>
           <td> </td> <td><%= f.label :medical_receipts,"Medical Receipts provided"%> </td> 
-            <td> <%= f.text_field :medical_receipts %> </td> <td>   </td>
+            <td> <%= f.text_field :medical_receipts, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <th>C</th> <th>HRA paid per month   </th>  <th> </th> <th>   </td>
@@ -150,23 +151,23 @@ function calhra() {
           <td></td> <td> <div class="hra_block">
                 <div class="field">
                   <%= f.label :Rent_Receipt_Provided  %> </td> 
-              <td><div class="hra_block"><%= f.text_field :rent_receipts_total %> <a href="#" onclick=calhra() %>calculatehra</a> <br />
+              <td><div class="hra_block"><%= f.text_field :rent_receipts_total, :placeholder => "0" %> <a href="#" onclick=calhra() %>calculatehra</a> <br />
                 </div> </td>
               <td></td>
         </tr>
         <tr>
           <td></td> <td> <div class="hra_block"> <%= f.label :calculated_hra_as_per_rule1%></td></div>
-               <td><div class="hra_block">   <%= f.text_field :rent_receipts_cal1 ,:readonly => true%></td>
+               <td><div class="hra_block">   <%= f.text_field :rent_receipts_cal1 ,:readonly => true, :placeholder => "0"%></td>
              </td> <td></td>
         </tr> 
          <tr>
           <td></td> <td> <div class="hra_block"> <%= f.label :calculated_hra_as_per_rule2%></td></div>
-               <td><div class="hra_block">   <%= f.text_field :rent_receipts_cal2 ,:readonly => true%></td>
+               <td><div class="hra_block">   <%= f.text_field :rent_receipts_cal2 ,:readonly => true, :placeholder => "0"%></td>
              </td> <td></td>
         </tr> 
          <tr>
           <td></td> <td> <div class="hra_block"> <%= f.label :HRA_Applicable%></td></div>
-               <td><div class="hra_block">   <%= f.text_field :total_hra ,:readonly => true%></td>
+               <td><div class="hra_block">   <%= f.text_field :total_hra ,:readonly => true, :placeholder => "0"%></td>
              </td> <td></td>
         </tr> 
         <%#<tr>
@@ -180,51 +181,51 @@ function calhra() {
         </tr>
         <tr>
           <td>1</td> <td> <%= f.label :pf_80c, "Provident Fund" %>  </td> 
-           <td> <%= f.text_field :pf_80c %> </td> <td>   </td>
+           <td> <%= f.text_field :pf_80c, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>2</td> <td> <%= f.label :emp_contr_new_pension_scheme, "Employees Contributionunder New Pension Scheme" %> </td>  
-          <td> <%= f.text_field :emp_contr_new_pension_scheme %> </td> <td>   </td>
+          <td> <%= f.text_field :emp_contr_new_pension_scheme, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>3</td> <td> <%= f.label :contr_pension_plan,"Public Provident Fund" %>  </td> 
-           <td> <%= f.text_field :contr_pension_plan %> </td> <td>   </td>
+           <td> <%= f.text_field :contr_pension_plan, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>4</td> <td> <%= f.label :ppf_80c,"Contributon to Certain pension plans" %>  </td> 
-           <td> <%= f.text_field :ppf_80c %> </td> <td>   </td>
+           <td> <%= f.text_field :ppf_80c, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>5</td><td><%= f.label :hloan_principal_80c, "Housing Loan Repayment Principal(payable in F.Y. 2013-14)" %>  </td>  
-          <td> <%= f.text_field :hloan_principal_80c %> </td> <td>   </td>
+          <td> <%= f.text_field :hloan_principal_80c, :placeholder => "0" %> </td> <td>   </td>
         </tr>
          <tr>
           <td>6</td> <td> <%= f.label :insurance_80c,"Insurance Premium" %>  </td> 
-           <td><%= f.text_field :insurance_80c %> </td> <td>   </td>
+           <td><%= f.text_field :insurance_80c, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>7</td> <td> <%= f.label :term_deposit, "Term Ddeposit With Schedule Bank" %>  </td>
-          <td> <%= f.text_field :term_deposit %> </td> <td>   </td>
+          <td> <%= f.text_field :term_deposit, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>8</td> <td> <%= f.label :nsc_80c,"National Savings Scheme/Certificate" %>  </td> 
-           <td> <%= f.text_field :nsc_80c %> </td> <td>   </td>
+           <td> <%= f.text_field :nsc_80c, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>9</td> <td> <%= f.label :mf_80c,"Mutual Funds" %>  </td>  
-          <td> <%= f.text_field :mf_80c %> </td> <td>   </td>
+          <td> <%= f.text_field :mf_80c, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>10</td> <td> <%= f.label :children_fee_80c,"Children Education Expenses/Tution fee" %>  </td>
-            <td><%= f.text_field :children_fee_80c %> </td> <td>   </td>
+            <td><%= f.text_field :children_fee_80c, :placeholder => "0" %> </td> <td>   </td>
         </tr>
         <tr>
           <td>11</td> <td> <%= f.label :others, "Others, (Please specify if any)" %>  </td> 
-          <td> <%= f.text_field :others_80c %></td> <td>   </td>
+          <td> <%= f.text_field :others_80c, :placeholder => "0" %></td> <td>   </td>
         </tr>
         <tr>
           <th> </th> <th>Total Investments U/S 80C - limited to Rs 1,00,000/- only </th>
-           <th> <%= text_field_tag :total_investments, nil, :disabled=>true%> </th> <th>   </th>
+           <th> <%= text_field_tag :total_investments, nil, :disabled=>true, placeholder: "0" %> </th> <th>   </th>
         </tr>
 
 
@@ -236,29 +237,29 @@ function calhra() {
         <tr>
           <td>1</td><td><%=f.label :med_insurance_80d,"80D - Medical Insurance Premium (Maximum Rs. 15,000 
               (Rs. 20,000 for senior citizens" %>  </td>
-          <td> <%= f.text_field :med_insurance_80d %></td> <td>   </td>
+          <td> <%= f.text_field :med_insurance_80d, :placeholder => "0"%></td> <td>   </td>
         </tr>
         <tr>
           <td>2</td> <td> <%= f.label :medical_expenditure_80ddb,"80DDB - Expenditure on Medical Treatment for specified disease" %>  </td>
-          <td> <%= f.text_field :medical_expenditure_80ddb %></td> <td>   </td>
+          <td> <%= f.text_field :medical_expenditure_80ddb, :placeholder => "0" %></td> <td>   </td>
         </tr>
         <tr>
-          <td>3</td> <td> <%= f.label :interest_EduLoan_80e,"80E - Repayment of Interest against Educational Loan " %>  </td>  <td> <%= f.text_field :interest_EduLoan_80e %></td> <td>   </td>
+          <td>3</td> <td> <%= f.label :interest_EduLoan_80e,"80E - Repayment of Interest against Educational Loan " %>  </td>  <td> <%= f.text_field :interest_EduLoan_80e, :placeholder => "0" %></td> <td>   </td>
         </tr>
         <tr>
           <td>4</td> <td> <%= f.label :donations_80g, "80G -  Donations (only for Prime Minister’s National Relief Fund, the Chief Minister’s Relief Fund or the Lieutenant Governor’s Relief Fund)" %>  </td>
-          <td> <%= f.text_field :donations_80g %></td> <td>   </td>
+          <td> <%= f.text_field :donations_80g, :placeholder => "0" %></td> <td>   </td>
         </tr>
         <tr>
           <td>5</td> <td> <%= f.label :permanent_ph_disability_80u, "80U-Permanent Physical Disability (Normal Rs. 50000/- and Severe Rs.1,00,000/-)" %>  </td>
-          <td> <%= f.text_field :permanent_ph_disability_80u %></td> <td>   </td>
+          <td> <%= f.text_field :permanent_ph_disability_80u, :placeholder => "0" %></td> <td>   </td>
         </tr>
         <tr>
           <td>6</td> <td> <%= f.label :other_deductions, "Others, (Please sepcify if any)" %>  </td>
-          <td> <%= f.text_field :other_deductions %></td> <td>   </td>
+          <td> <%= f.text_field :other_deductions, :placeholder => "0" %></td> <td>   </td>
         </tr>
         <tr>
-          <th> </th> <th> Total Deductions</th>  <th><%= text_field_tag :total_deductions ,nil, :disabled=>true%> </th> <th>   </th>
+          <th> </th> <th> Total Deductions</th>  <th><%= text_field_tag :total_deductions ,nil, :disabled=>true, placeholder: "0" %> </th> <th>   </th>
         </tr>
         <%#   ##########   PREVIOUS EMPLOYMENT SALARY  ############%>
         <tr>
@@ -268,7 +269,7 @@ function calhra() {
         </tr>
         <tr>
           <td></td><td><%=f.label :med_insurance_80d,"If Yes, Form 16 from previous employer or Form 12 B attached" %>  </td>
-          <td><%= f.text_field :pre_employment_salary %></td> <td><%= f.text_field :pre_employment_tds %> </td>
+          <td><%= f.text_field :pre_employment_salary, :placeholder => "0" %></td> <td><%= f.text_field :pre_employment_tds, :placeholder => "0" %> </td>
         </tr>
 
       </table>
