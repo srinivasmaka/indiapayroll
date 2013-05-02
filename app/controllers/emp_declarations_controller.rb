@@ -102,6 +102,7 @@ class EmpDeclarationsController < ApplicationController
   
   def populate_declarations
     @emp_id =  params[:emp_id]
+    @emp = Employee.find_by_emp_id(@emp_id)
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     if @emp_declaration.nil?
     @emp_id = current_user.emp_id

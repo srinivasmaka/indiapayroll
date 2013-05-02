@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426103013) do
+ActiveRecord::Schema.define(:version => 20130430131222) do
 
  create_table "Bonus", :force => true do |t|
     t.string   "emp_id"
@@ -63,11 +63,20 @@ ActiveRecord::Schema.define(:version => 20130426103013) do
     t.string   "updated_by"
     t.string   "locked_for_employee"
     t.string   "locked_for_admin"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.decimal  "rent_receipts_total"
     t.decimal  "rent_receipts_cal1"
     t.decimal  "rent_receipts_cal2"
+    t.decimal  "pf_80c"
+    t.decimal  "emp_contr_new_pension_scheme"
+    t.decimal  "contr_pension_plan"
+    t.decimal  "term_deposit"
+    t.decimal  "medical_expenditure_80ddb"
+    t.decimal  "permanent_ph_disability_80u"
+    t.decimal  "pre_employment_salary"
+    t.decimal  "pre_employment_tds"
+    t.decimal  "other_deductions"
   end
 
   create_table "employees", :force => true do |t|
@@ -98,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20130426103013) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "current_fyear"
+    t.string   "year"
   end
 
   create_table "payment_histories", :force => true do |t|
