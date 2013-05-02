@@ -19,6 +19,7 @@ Indiapayroll::Application.routes.draw do
   put '/emp_declarations/:id' => "emp_declarations#update", :as=> "emp_declaration_details_update"
   match '/emp_declarations/:emp_id' => "emp_declarations#populate_declarations", :as=> "emp_declaration_details"
   get 'emp_declarations/:id' => 'emp_declarations#show', :as=>"emp_declaration"
+  resources :emp_declarations
   resources :tax_slabs
   resources :config_tables  
 
