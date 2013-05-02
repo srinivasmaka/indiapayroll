@@ -62,12 +62,18 @@ class EmpDeclarationsController < ApplicationController
   def update
     @emp_id = current_user.emp_id
     @emp_declaration = EmpDeclaration.new(params[:emp_declaration])
+    @emp_declaration.emp_id = @emp_id
+    if is_admin? == 'y'
+        @emp_declaration.updated_by = "Admin"
+    else
+        @emp_declaration.updated_by = "Employee"
+    end
     respond_to do |format|
       if @emp_declaration.save
         format.html { render :action => "show" }
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => "populate_declarations" }
         format.json { render :json => @emp_declaration.errors, :status => :unprocessable_entity }
       end
     end
