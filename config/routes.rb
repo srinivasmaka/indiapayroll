@@ -18,7 +18,7 @@ Indiapayroll::Application.routes.draw do
   match "/emp_declarations/calculatehra" => "emp_declarations#calculatehra", :as => "calculatehra"
   put '/emp_declarations/:id' => "emp_declarations#update", :as=> "emp_declaration_details_update"
   match '/emp_declarations/:emp_id' => "emp_declarations#populate_declarations", :as=> "emp_declaration_details"
-  resources :emp_declarations
+  get 'emp_declarations/:id' => 'emp_declarations#show', :as=>"emp_declaration"
   resources :tax_slabs
   resources :config_tables  
 
