@@ -1,9 +1,17 @@
+<style>
 
+input[type=text], input[type=password],
+input.text, input.title,
+textarea, select {
+  margin:0.5em 0;
+  width: 75px;
+}
+</style>
 <h1>Employees Pay Roll Details</h1>
   <%= form_for(:monthlypayconfirm, :url=> monthly_payroll_confirm_path , :class => 'carousel slide' ) do |f| %>
 
 <table class="table table-bordered">
-  <tr class="success">
+  <tr class="thead">
     <th>Emp ID</th>
     <th>Full Name</th>
     <th>HRA</th>
@@ -18,7 +26,7 @@
 
 <%@payload_hash.each do |eid ,employee |  %>
 	
-	<tr class="success">
+	<tr class="tdata">
     <td><%=eid%></td>
 <td><%=f.text_field :"#{employee.emp_id}_full_name",  :readonly=>true ,:id=>"#{employee.emp_id}_full_name" , :value=>"#{employee.full_name}"%></td>
 <td><%=f.text_field :"#{employee.emp_id}_hra",  :readonly=>true ,:id=>"#{employee.emp_id}_hra" , :value=>"#{(employee.hra).round(2)}"%></td>
@@ -30,7 +38,7 @@
 <td><%=f.text_field :"#{employee.emp_id}_tax_deducted",  :readonly=>true ,:id=>"#{employee.emp_id}_tax_deducted" , :value=>"#{employee.tax_deducted}"%></td>
   </tr>
 <%end%>
-<tr><%= f.submit "Run PayRoll", :class=> "btn btn-large btn-primary" %></tr>
-</table>
 
+</table>
+<%= f.submit "Run PayRoll", :class=> "btn btn-large btn-primary" %>
  <% end %>
