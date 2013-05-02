@@ -29,10 +29,10 @@ textarea, select {
    popupWindow.focus();
   }
 </script>
-<body onFocus="parent_disable();" onclick="parent_disable();">
-<h1>Employees Salary Details</h1>
+<body onFocus="parent_disable();" onclick="parent_disable();" , onload="calculateNetAmount()">
+<h1>Employees Salary Details </h1>
   <%= form_for(:monthlysal, :url=> monthly_payroll_path , :class => 'carousel slide' ) do |f| %>
-
+  <h6> Start Date: <%= current_period_info[:prev_month_start_date]%>  EndDate: <%= current_period_info[:prev_month_end_date]%></h6> 
 <table class="table table-bordered">
   <tr class="thead">
     <th>Emp</th>
@@ -47,7 +47,7 @@ textarea, select {
 
 <% @employees.each do |employee| %>
   <tr class="tdata">
-  	<td><%=link_to employee.emp_id, '#', :onclick => 'javascript:child_open("1234")'  %></td>
+  	<td><%=link_to employee.emp_id, '#', :onclick => "javascript:child_open('#{employee.emp_id}')"  %></td>
     <td><%= employee.first_name %></td>
     <td><%=f.text_field :"#{employee.emp_id}_gross",  :readonly=>true ,:id=>"#{employee.emp_id}_gross", :value=>"#{employee.grossCTC}"  %></td>
     <td><%= "#{employee.grossCTC}".to_i/12%></td>
