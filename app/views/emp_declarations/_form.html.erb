@@ -2,19 +2,19 @@
 $(document).ready(function() {
 	
 $('input[id$="_hra_status_yes"]').change(function() {
-		 $("#hra_block").toggle();
+		 $(".hra_block").toggle();
 	});
 	
 $('input[id$="_hra_status_no"]').change(function() {
-		 $("#hra_block").toggle();
+		 $(".hra_block").toggle();
 	});
 
 $('input[id$="_house_self_occupied_yes"]').change(function() {
-		 $("#hrent_block").toggle();
+		 $(".hrent_block").toggle();
 	});
 
 $('input[id$="_house_self_occupied_no"]').change(function() {
-		 $("#hrent_block").toggle();
+		 $(".hrent_block").toggle();
 	});
 
 });
@@ -28,7 +28,7 @@ function calhra() {
   type: "POST",
   data: {emp_id : empId,rent_receipts_total : hra},
   });
-  	
+
 }
 
 </script>
@@ -107,28 +107,26 @@ function calhra() {
              <%= f.radio_button( "house_self_occupied", "yes") %> Yes
              <%= f.radio_button( "house_self_occupied", "no",:checked => true) %> No
             </div>
-            <div class="section4" id="hrent_block">
-            <div class="field">
-              <%= f.label :Annual_rent_from_House_Property %>
-              <%= f.text_field :house_rent %>
-            </div>
-            </div>
-            <div class="section5" id="hloan_block">
-              <div class="field">
-              <%= f.label :Interest_on_Housing_Loan %>
-              <%= f.text_field :home_loan_interest %>
-              </div>
-              <div class="field">
-              <%= f.label :others %>
-              <%= text_field_tag :others %>
-              </div>
-            </div>
+            
           </td> 
           <td>  </td>
           <td>   </td>
         </tr>
         <tr>
-          <th> </th> <th>Total Income from House Property </th>  <th>  </th> <th>   </th>
+          <td> </td> <td><div class="hrent_block"> <%= f.label :Annual_rent_from_House_Property %> </div></td>
+           <td><div class="hrent_block"> <%= f.text_field :home_loan_interest %> </div></td> <td></td>
+        </tr>
+        <tr>
+          <td> </td> <td> <%= f.label :Interest_on_Housing_Loan %></td> 
+          <td><%= f.text_field :home_loan_interest %></td> <td></td>
+        </tr>
+        <tr>
+          <td> </td> <td> <%= f.label :others %></td> <td><%= text_field_tag :others %></td> <td></td>
+        </tr>
+        <tr>
+          <th> </th> <th>Total Income from House Property </th>
+           <th><%= text_field_tag :total_income_from_house, nil, :disabled=>true %> </th> 
+          <th>  </th>
         <tr>
         <tr>
           <th> B </th> <th>Medical Reciepts </th>  <th>  </th> <th>   </th>
@@ -138,37 +136,42 @@ function calhra() {
             <td> <%= f.text_field :medical_receipts %> </td> <td>   </td>
         </tr>
         <tr>
-          <th>C</th> <th>HRA paid per month   </th>  <th> Rent(p.m.) </th> <th>   </td>
+          <th>C</th> <th>HRA paid per month   </th>  <th> </th> <th>   </td>
         </tr>
         <tr>
           <td></td><td> <div class="field" id="hra_control">
                  <%= f.label :Would_you_like_to_Avail_HRA %>
                  <%= f.radio_button( "hra_status", "yes", :checked => true )%>Yes
                  <%= f.radio_button( "hra_status", "no") %> No
-                </div>
-                <div class="section1" id="hra_block">
-                <div class="field">
-                  <%= f.label :Rent_Receipt_Provided  %> 
-                  <%= f.text_field :rent_receipts_total %> <a href="#" onclick=calhra() %>calculatehra</a> <br />
-                </div>
-                <div class="field">
-                  <%= f.label :calculated_hra_as_per_rule1%>
-                  <%= f.text_field :rent_receipts_cal1 ,:readonly => true%>
-                </div>
-                <div class="field">
-                  <%= f.label :calculated_hra_as_per_rule2  %>
-                  <%= f.text_field :rent_receipts_cal2,:readonly => true  %>
-                </div>
-                <div class="field">
-                  <%= f.label :HRA_Applicable %>
-                  <%= f.text_field :total_hra,:readonly => true  %>
-                </div></td>  
-        <td></td> <td></td>
+                </div>                
+          <td></td> <td></td>
         </tr>
-         
         <tr>
-          <th> </th> <th>Total Rent paid per annum </th>  <th>  </th> <th>   </th>
+          <td></td> <td> <div class="hra_block">
+                <div class="field">
+                  <%= f.label :Rent_Receipt_Provided  %> </td> 
+              <td><div class="hra_block"><%= f.text_field :rent_receipts_total %> <a href="#" onclick=calhra() %>calculatehra</a> <br />
+                </div> </td>
+              <td></td>
         </tr>
+        <tr>
+          <td></td> <td> <div class="hra_block"> <%= f.label :calculated_hra_as_per_rule1%></td></div>
+               <td><div class="hra_block">   <%= f.text_field :rent_receipts_cal1 ,:readonly => true%></td>
+             </td> <td></td>
+        </tr> 
+         <tr>
+          <td></td> <td> <div class="hra_block"> <%= f.label :calculated_hra_as_per_rule2%></td></div>
+               <td><div class="hra_block">   <%= f.text_field :rent_receipts_cal2 ,:readonly => true%></td>
+             </td> <td></td>
+        </tr> 
+         <tr>
+          <td></td> <td> <div class="hra_block"> <%= f.label :HRA_Applicable%></td></div>
+               <td><div class="hra_block">   <%= f.text_field :total_hra ,:readonly => true%></td>
+             </td> <td></td>
+        </tr> 
+        <%#<tr>
+          <th> </th> <th>Total Rent paid per annum </th>  <th>  </th> <th>   </th>
+        </tr> %>
 
         <%# ############## INVESTMENTS <SECTION></SECTION> 80C  ################# %>
         
@@ -221,7 +224,7 @@ function calhra() {
         </tr>
         <tr>
           <th> </th> <th>Total Investments U/S 80C - limited to Rs 1,00,000/- only </th>
-           <th>  </th> <th>   </th>
+           <th> <%= text_field_tag :total_investments, nil, :disabled=>true%> </th> <th>   </th>
         </tr>
 
 
@@ -255,7 +258,7 @@ function calhra() {
           <td> <%= f.text_field :other_deductions %></td> <td>   </td>
         </tr>
         <tr>
-          <th> </th> <th> Total Deductions</th>  <th><%= text_field_tag :total%> </th> <th>   </th>
+          <th> </th> <th> Total Deductions</th>  <th><%= text_field_tag :total_deductions ,nil, :disabled=>true%> </th> <th>   </th>
         </tr>
         <%#   ##########   PREVIOUS EMPLOYMENT SALARY  ############%>
         <tr>
