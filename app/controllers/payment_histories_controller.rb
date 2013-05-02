@@ -230,7 +230,7 @@ class PaymentHistoriesController < ApplicationController
     unless employees.empty?
     employees.each do |employee|
       payment_history = PaymentHistory.new()
-      payment_history.emp_id = params[:monthlypayconfirm][:"#{employee.emp_id}_emp_id"]
+      payment_history.emp_id = employee.emp_id
       payment_history.period_id = @period_id 
       payment_history.full_name = params[:monthlypayconfirm][:"#{employee.emp_id}_full_name"]
       payment_history.hra = params[:monthlypayconfirm][:"#{employee.emp_id}_hra"]
