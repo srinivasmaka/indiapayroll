@@ -128,19 +128,19 @@ class PaymentHistoriesController < ApplicationController
       @payment_history.emp_id = emp_id
       employee =Employee.find_by_emp_id(emp_id)
       @payment_history.full_name=employee.first_name + " " +employee.last_name
-      hra_per_month = @section1/12
-      @payment_history.hra =  hra_per_month
+      calculatehra(@net_pay,emp_id,gross_ctc)
+      @payment_history.hra =  @hra_per_month
       basic_per_year = (@basic_percent * gross_ctc)/100
       basic_per_month = (@basic_percent * @net_pay.to_i)/100
-      hra_per_year = @section1
+      hra_per_year = @hra_per_year
       @payment_history.basic = basic_per_month
       @payment_history.tds = tds_per_month
       @payment_history.period_id = @period_id
       @payment_history.conveyance = conveyance/12
-      @payment_history.professional_tax = @p_tax/12
+      @payment_history.professional_tax = p_tax/12
       @payment_history.loss_of_hours = @loss_of_hours
       sum_allowances = 0
-      allowance_components = [basic_per_month,medical_allowance/12,hra_per_month,@payment_history.conveyance]
+      allowance_components = [basic_per_month,medical_allowance/12,@hra_per_month,@payment_history.conveyance]
       sum_allowances = allowance_components.inject{|sum_allowances,x| sum_allowances + x }
       @payment_history.special_allowance = @net_pay.to_i - sum_allowances 
       taxble_income = gross_ctc - (@tds.to_i + p_tax)
@@ -164,6 +164,29 @@ class PaymentHistoriesController < ApplicationController
       end
       @payload_hash
   end  
+  
+  def calculatehra(net,emp_id,gross_ctc) 
+    current_period_info
+    config_info = ConfigTable.where("year" => @current_fyear).first
+    @emp_declaration = EmpDeclaration.where("emp_id" => emp_id).order(:updated_at).reverse_order.first
+    if @emp_declaration.nil? 
+    @hra_per_year = 0
+    @hra_per_month = 0
+    else
+    total_hra = @emp_declaration.rent_receipts_total
+    basic = config_info.basic_percent
+    hra = config_info.hra_percent
+    basic_sal_per_month = (net.to_i*basic)/100
+    hra_cal1_per_month =  (total_hra/12)-(basic_sal_per_month*0.1)
+    hra_cal2_per_month =  (0.4*basic_sal_per_month)
+    @hra_per_month = [hra_cal1_per_month,hra_cal2_per_month,(total_hra/12)].min
+    basic_sal_per_year = (gross_ctc*basic)/100
+    hra_cal1_per_year =  total_hra-(basic_sal_per_year*0.1)
+    hra_cal2_per_year =  (0.4*basic_sal_per_year)
+    @hra_per_year = [hra_cal1_per_year,hra_cal2_per_year,total_hra].min
+    end  
+  end
+  
 
   def calculate_tax(net)
    @s =  TaxSlab.where("year" => @current_fyear)
@@ -207,7 +230,6 @@ class PaymentHistoriesController < ApplicationController
     if (@house_self_occupied_flag == 'yes' && hra_applicable == 'no') 
       interest_on_hloan = @emp_declaration.home_loan_interest
      elsif (@house_self_occupied_flag == 'no' && hra_applicable == 'yes')
-      @net_pay = @net_pay.to_i + (@emp_declaration.house_rent/12)
       interest_on_hloan = [@emp_declaration.home_loan_interest,@config_info.h_loan_limit].min
      else
     end
