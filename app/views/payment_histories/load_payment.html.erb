@@ -34,8 +34,12 @@ textarea, select {
 <td><%=f.text_field :"#{employee.emp_id}_tds",  :readonly=>true ,:id=>"#{employee.emp_id}_tds" , :value=>"#{employee.tds}"%></td>
 <td><%=f.text_field :"#{employee.emp_id}_special_allowance",  :readonly=>true ,:id=>"#{employee.emp_id}_special_allowance" , :value=>"#{employee.special_allowance}"%></td>
 <td><%=f.text_field :"#{employee.emp_id}_conveyance",  :readonly=>true ,:id=>"#{employee.emp_id}_conveyance" , :value=>"#{employee.conveyance}"%></td>
-<td><%=f.text_field :"#{employee.emp_id}_net_monthly",  :readonly=>true ,:id=>"#{employee.emp_id}_net_monthly" , :value=>"#{employee.net_monthly}"%></td>
 <td><%=f.text_field :"#{employee.emp_id}_tax_deducted",  :readonly=>true ,:id=>"#{employee.emp_id}_tax_deducted" , :value=>"#{employee.tax_deducted}"%></td>
+<td><%=f.text_field :"#{employee.emp_id}_net_monthly",  :readonly=>true ,:id=>"#{employee.emp_id}_net_monthly" , :value=>"#{employee.net_monthly}"%></td>
+  <%= hidden_field_tag(:id=>"#{employee.emp_id}_sick" ,:value=>"#{employee.loss_of_hours}") %>
+  <%= hidden_field_tag(:id=>"#{employee.emp_id}_conveyance" ,:value=>"#{employee.conveyance}") %>
+  <%= hidden_field_tag(:id=>"#{employee.emp_id}_medical_allowance" ,:value=>"#{employee.medical_allowance}") %>
+  <%= hidden_field_tag(:id=>"#{employee.emp_id}_professional_tax" ,:value=>"#{employee.professional_tax}") %>
   </tr>
 <%end%>
 

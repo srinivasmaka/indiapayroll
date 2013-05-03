@@ -106,46 +106,47 @@ class PaymentHistoriesController < ApplicationController
     d2 = Date.new(@current_fyear[0,4].to_i+1,03,30)
     months = (d2.year*12+d2.month) - (d1.year*12+d1.month)
       @config_info = ConfigTable.where("year" => @current_fyear).first
+      @basic_percent = @config_info.basic_percent
+      hra_percent = @config_info.hra_percent
+      p_tax = @config_info.professional_tax
+      conveyance = @config_info.conveyance
+      edu_cess_percent = @config_info.edu_cess
+      medical_allowance = @config_info.medical_allowance
+      
       @salary_info.each do |key, value|
       emp_id = key
-      @net_pay = value
+      @net_pay = params[:monthlysal][emp_id + "_net"].to_i
       gross_ctc = params[:monthlysal][emp_id + "_gross"].to_i
-      tds = calculate_tds(emp_id,@net_pay)
+      loss_of_hours = params[:monthlysal][emp_id + "_sick"].to_i
+      tds = calculate_tds(emp_id)
       if tds > 0
       tds_per_month = tds/12
       else
       tds_per_month = 0
       end
-      @net_pay = @net_pay
-      @hra_percent = @config_info.hra_percent
-      @basic_percent = @config_info.basic_percent
-      p_tax = @config_info.professional_tax
-      conveyance = @config_info.conveyance
-      hra_percent = @config_info.hra_percent
-      edu_cess_percent = @config_info.edu_cess
-      medical_allowance = @config_info.medical_allowance
       @payment_history = PaymentHistory.new(params[:payment_history])
       @payment_history.emp_id = emp_id
       employee =Employee.find_by_emp_id(emp_id)
       @payment_history.full_name=employee.first_name + " " +employee.last_name
-      calculatehra(@net_pay,emp_id,gross_ctc)
-      @payment_history.hra =  @hra_per_month
+      calculatehra(emp_id,gross_ctc)
       basic_per_year = (@basic_percent * gross_ctc)/100
-      basic_per_month = (@basic_percent * @net_pay.to_i)/100
+      basic_per_month = basic_per_year/12
       hra_per_year = @hra_per_year
+      @payment_history.hra =  @hra_per_year/12
       @payment_history.basic = basic_per_month
       @payment_history.tds = tds_per_month
       @payment_history.period_id = @period_id
       @payment_history.conveyance = conveyance/12
       @payment_history.professional_tax = p_tax/12
-      @payment_history.loss_of_hours = @loss_of_hours
+      @payment_history.loss_of_hours = loss_of_hours
+      @payment_history.medical_allowance = medical_allowance/12
       sum_allowances = 0
-      allowance_components = [basic_per_month,medical_allowance/12,@hra_per_month,@payment_history.conveyance]
+      allowance_components = [basic_per_year,medical_allowance,@hra_per_year,conveyance]
       sum_allowances = allowance_components.inject{|sum_allowances,x| sum_allowances + x }
-      @payment_history.special_allowance = @net_pay.to_i - sum_allowances 
+      @payment_history.special_allowance = (gross_ctc - sum_allowances)/12 
       taxble_income = gross_ctc - (@tds.to_i + p_tax)
-      calculated_tax = calculate_tax(taxble_income)
-      final_tax_amount = (edu_cess_percent * calculated_tax.to_i)/100  
+      @t_s = calculate_tax(taxble_income)
+      final_tax_amount = @t_s.to_i+((edu_cess_percent/100) * @t_s.to_i) 
       monthly_tax = 0
       if final_tax_amount > 0
       monthly_tax = final_tax_amount/12
@@ -153,7 +154,7 @@ class PaymentHistoriesController < ApplicationController
         final_tax_amount = 0
       end
       @payment_history.tax_deducted = monthly_tax
-      @payment_history.net_monthly = @net_pay.to_i - monthly_tax
+      @payment_history.net_monthly = (gross_ctc.to_i)/12 - monthly_tax
       
       @payload_hash[emp_id]= @payment_history
     end
@@ -165,7 +166,7 @@ class PaymentHistoriesController < ApplicationController
       @payload_hash
   end  
   
-  def calculatehra(net,emp_id,gross_ctc) 
+  def calculatehra(emp_id,gross_ctc) 
     current_period_info
     config_info = ConfigTable.where("year" => @current_fyear).first
     @emp_declaration = EmpDeclaration.where("emp_id" => emp_id).order(:updated_at).reverse_order.first
@@ -176,10 +177,6 @@ class PaymentHistoriesController < ApplicationController
     total_hra = @emp_declaration.rent_receipts_total
     basic = config_info.basic_percent
     hra = config_info.hra_percent
-    basic_sal_per_month = (net.to_i*basic)/100
-    hra_cal1_per_month =  (total_hra/12)-(basic_sal_per_month*0.1)
-    hra_cal2_per_month =  (0.4*basic_sal_per_month)
-    @hra_per_month = [hra_cal1_per_month,hra_cal2_per_month,(total_hra/12)].min
     basic_sal_per_year = (gross_ctc*basic)/100
     hra_cal1_per_year =  total_hra-(basic_sal_per_year*0.1)
     hra_cal2_per_year =  (0.4*basic_sal_per_year)
@@ -190,7 +187,7 @@ class PaymentHistoriesController < ApplicationController
 
   def calculate_tax(net)
    @s =  TaxSlab.where("year" => @current_fyear)
-   @t = net
+   t = net
      @s.each do |slab|
         if t.to_i >= slab.slab_from.to_i &&  t.to_i < slab.slab_to.to_i
         percentage = slab.deduction_percent
@@ -199,12 +196,11 @@ class PaymentHistoriesController < ApplicationController
         @tax_slab = ((extra_amount/100)*percentage.to_i)+min_amount.to_i 
         end
      end
-    @t_s = @tax_slab
+     @tax_slab
   end
       
-  def calculate_tds(emp_id , net_pay)
+  def calculate_tds(emp_id)
     @emp_id =  emp_id
-    @net_pay = net_pay
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     if @emp_declaration.nil?
     @tds = 0
@@ -261,9 +257,12 @@ class PaymentHistoriesController < ApplicationController
       payment_history.basic = params[:monthlypayconfirm][:"#{employee.emp_id}_basic"]
       payment_history.tds = params[:monthlypayconfirm][:"#{employee.emp_id}_tds"]
       payment_history.special_allowance = params[:monthlypayconfirm][:"#{employee.emp_id}_special_allowance"]
+      payment_history.conveyance = params[:monthlypayconfirm][:"#{employee.emp_id}_conveyance"]
+      payment_history.medical_allowance = params[:monthlypayconfirm][:"#{employee.emp_id}_medical_allowance"]
+      payment_history.professional_tax = params[:monthlypayconfirm][:"#{employee.emp_id}_professional_tax"]
       payment_history.net_monthly = params[:monthlypayconfirm][:"#{employee.emp_id}_net_monthly"]
       payment_history.tax_deducted = params[:monthlypayconfirm][:"#{employee.emp_id}_tax_deducted"]
-      payment_history.special_allowance = params[:monthlypayconfirm][:"#{employee.emp_id}_special_allowance"]
+      payment_history.loss_of_hours = params[:monthlypayconfirm][:"#{employee.emp_id}_sick"]
       payment_history.save
     end
     end
