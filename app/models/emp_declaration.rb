@@ -8,6 +8,8 @@ class EmpDeclaration < ActiveRecord::Base
 
 validates :rent_receipts_total,:medical_receipts,:children_fee_80c,:donations_80g,
 :hloan_principal_80c,:insurance_80c,:interest_EduLoan_80e,
-:med_insurance_80d,:mf_80c,:nsc_80c,:others_80c,:ppf_80c,:home_loan_interest, :numericality => true 
+:med_insurance_80d,:mf_80c,:nsc_80c,:others_80c,:ppf_80c,:home_loan_interest, :pf_80c, 
+:emp_contr_new_pension_scheme, :contr_pension_plan, :term_deposit, :medical_expenditure_80ddb,
+:permanent_ph_disability_80u, :numericality => true 
 
 end
