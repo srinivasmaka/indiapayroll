@@ -119,7 +119,7 @@ class PaymentHistoriesController < ApplicationController
       @net_pay = @net_pay
       @hra_percent = @config_info.hra_percent
       @basic_percent = @config_info.basic_percent
-      @p_tax = @config_info.professional_tax
+      p_tax = @config_info.professional_tax
       conveyance = @config_info.conveyance
       hra_percent = @config_info.hra_percent
       edu_cess_percent = @config_info.edu_cess
@@ -128,12 +128,12 @@ class PaymentHistoriesController < ApplicationController
       @payment_history.emp_id = emp_id
       employee =Employee.find_by_emp_id(emp_id)
       @payment_history.full_name=employee.first_name + " " +employee.last_name
-      hra_per_month = (hra_percent * @net_pay.to_i)/100
+      hra_per_month = @section1/12
       @payment_history.hra =  hra_per_month
-      hra_per_year = (hra_percent * gross_ctc)/100
-      basic_per_month = (@basic_percent * @net_pay.to_i)/100
-      @payment_history.basic = basic_per_month
       basic_per_year = (@basic_percent * gross_ctc)/100
+      basic_per_month = (@basic_percent * @net_pay.to_i)/100
+      hra_per_year = @section1
+      @payment_history.basic = basic_per_month
       @payment_history.tds = tds_per_month
       @payment_history.period_id = @period_id
       @payment_history.conveyance = conveyance/12
@@ -143,7 +143,7 @@ class PaymentHistoriesController < ApplicationController
       allowance_components = [basic_per_month,medical_allowance/12,hra_per_month,@payment_history.conveyance]
       sum_allowances = allowance_components.inject{|sum_allowances,x| sum_allowances + x }
       @payment_history.special_allowance = @net_pay.to_i - sum_allowances 
-      taxble_income = gross_ctc - (@tds.to_i + @p_tax + hra_per_year + basic_per_year + medical_allowance + conveyance)
+      taxble_income = gross_ctc - (@tds.to_i + p_tax)
       calculated_tax = calculate_tax(taxble_income)
       final_tax_amount = (edu_cess_percent * calculated_tax.to_i)/100  
       monthly_tax = 0
@@ -187,30 +187,32 @@ class PaymentHistoriesController < ApplicationController
     @tds = 0
     @tds_per_month=0
     else
-    section1 = @emp_declaration.total_hra
+    @section1 = @emp_declaration.total_hra
     @config_info = ConfigTable.where("year" => @current_fyear).first
     section3 = @config_info.conveyance
+    section7 = @config_info.medical_allowance
     section2 = [@emp_declaration.medical_receipts,@config_info.medical_receipts_limit].min
     sum_section4 = 0
     sum_section5 = 0
     section4_components = [@emp_declaration.insurance_80c,@emp_declaration.ppf_80c,
-    @emp_declaration.mf_80c,@emp_declaration.hloan_principal_80c,
-    @emp_declaration.children_fee_80c,@emp_declaration.nsc_80c,
-    @emp_declaration.infrabonds_80c,@emp_declaration.others_80c]
+                          @emp_declaration.mf_80c,@emp_declaration.hloan_principal_80c,
+                          @emp_declaration.children_fee_80c,@emp_declaration.nsc_80c]                    
     sum_section4 = section4_components.inject{|sum_section4,x| sum_section4 + x }
     section4 = [sum_section4,@config_info.limit_80c].min  
     section5_components = [ @emp_declaration.donations_80g,@emp_declaration.med_insurance_80d,@emp_declaration.interest_EduLoan_80e]
     sum_section5 = section5_components.inject{|sum_section5,x| sum_section5 + x }
     @house_self_occupied_flag = @emp_declaration.house_self_occupied
     hra_applicable = @emp_declaration.hra_status
+    interest_on_hloan =0
     if (@house_self_occupied_flag == 'yes' && hra_applicable == 'no') 
       interest_on_hloan = @emp_declaration.home_loan_interest
-     else
+     elsif (@house_self_occupied_flag == 'no' && hra_applicable == 'yes')
       @net_pay = @net_pay.to_i + (@emp_declaration.house_rent/12)
       interest_on_hloan = [@emp_declaration.home_loan_interest,@config_info.h_loan_limit].min
+     else
     end
   section6 = interest_on_hloan
-  @tds = [section1,section2,section3,section4,sum_section5,section6].sum
+  @tds = [@section1,section2,section3,section4,sum_section5,section6,section7].sum
   end
   end
   

@@ -95,11 +95,27 @@ class EmpDeclarationsController < ApplicationController
     end
   end
   
+  def current_period_info
+    d = Date.today
+    @prev_month_start_date  = d.prev_month().at_beginning_of_month()
+    @prev_month_end_date = d.prev_month().at_end_of_month()
+    
+    @pay_period = PayPeriod.where("start_date" => @prev_month_start_date , "end_date" => @prev_month_end_date).first
+    @period_id = @pay_period.period_id
+    @current_fyear = @pay_period.current_fyear
+    puts "period_id  #{@period_id} , current fyear  #{@current_fyear}"
+  end
+  
+  
   def calculatehra 
     @emp_id =  params[:emp_id]
     @total_hra = params[:rent_receipts_total].to_i
-    @employee = Employee.where("emp_id" => @emp_id).first
-    @basic_sal = (@employee.grossCTC.to_i*0.55)
+    current_period_info
+    config_info = ConfigTable.where("year" => @current_fyear).first
+    basic = config_info.basic_percent
+    hra = config_info.hra_percent
+    employee = Employee.where("emp_id" => @emp_id).first
+    @basic_sal = (employee.grossCTC.to_i*basic)/100
     @hra_cal1 =  @total_hra-(@basic_sal*0.1)
     @hra_cal2 =  (0.4*@basic_sal)
     @applicable_hra = [@hra_cal1,@hra_cal2,@total_hra].min 
