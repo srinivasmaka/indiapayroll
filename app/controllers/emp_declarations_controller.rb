@@ -27,7 +27,7 @@ class EmpDeclarationsController < ApplicationController
   # GET /emp_declarations/new
   # GET /emp_declarations/new.json
   def new
-    @emp_id = current_user.emp_id
+    @emp_id = employee_view
     @emp_declaration = EmpDeclaration.new
 
     respond_to do |format|
@@ -38,14 +38,14 @@ class EmpDeclarationsController < ApplicationController
 
   # GET /emp_declarations/1/edit
   def edit
-    @emp_id = current_user.emp_id
+    @emp_id = employee_view
     @emp_declaration = EmpDeclaration.find(params[:id])
   end
 
   # POST /emp_declarations
   # POST /emp_declarations.json
   def create
-    @emp_id = current_user.emp_id
+    @emp_id = employee_view
     @emp_declaration = EmpDeclaration.new(params[:emp_declaration])
     @emp_declaration.emp_id = @emp_id
     @emp = Employee.find_by_emp_id(@emp_id)
@@ -63,7 +63,7 @@ class EmpDeclarationsController < ApplicationController
   # PUT /emp_declarations/1
   # PUT /emp_declarations/1.json
   def update
-    @emp_id = current_user.emp_id
+    @emp_id = employee_view
     @emp = Employee.find_by_emp_id(@emp_id)
     @emp_declaration = EmpDeclaration.new(params[:emp_declaration])
     @emp_declaration.emp_id = @emp_id
@@ -127,7 +127,7 @@ class EmpDeclarationsController < ApplicationController
   end
   
   def populate_declarations
-    @emp_id = current_user.emp_id
+    @emp_id = employee_view
     @emp = Employee.find_by_emp_id(@emp_id)
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     if @emp_declaration.nil?
