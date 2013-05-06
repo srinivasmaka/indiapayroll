@@ -14,7 +14,7 @@
   <div class="span6 offset3">
  <div class="field">
     <%= f.label :year %>
-    <%= f.collection_select(:id, PayPeriod.find_by_sql("select distinct current_fyear from pay_periods"), :current_fyear, :current_fyear, {:include_blank => 'Please Select'}) %>
+    <%= f.collection_select(:id, PayPeriod.find_by_sql("select distinct current_fyear from pay_periods"), :current_fyear, :current_fyear, :prompt => true, :selected => @tax_slab.year) %>
   </div>
   <div class="field">
     <%= f.label :slab_from %>
