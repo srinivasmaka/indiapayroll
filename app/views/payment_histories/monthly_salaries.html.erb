@@ -32,7 +32,8 @@ textarea, select {
 <body onFocus="parent_disable();" onclick="parent_disable();" , onload="calculateNetAmount()">
 <h1>Employees Salary Details </h1>
   <%= form_for(:monthlysal, :url=> monthly_payroll_path , :class => 'carousel slide' ) do |f| %>
-  <h6> Start Date: <%= current_period_info[:prev_month_start_date]%>  EndDate: <%= current_period_info[:prev_month_end_date]%></h6> 
+  <h6> Running Payroll : <%= current_period_info[:current_month]%> </h6>
+  <h6> Current Financial Year : <%= current_period_info[:current_fyear]%> </h6> 
 <table class="table table-bordered">
   <tr class="thead">
     <th>Emp</th>

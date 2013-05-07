@@ -3,7 +3,6 @@ class EmployeesController < ApplicationController
    layout :resolve_layout
    before_filter :authenticate  ,:except=>[:popup]
    before_filter :authenticate_admin , :only=>[:new ,:create ,:index]
-   #before_filter :authorise, :except => [:warning, :closed]
    
   
   # GET /employees

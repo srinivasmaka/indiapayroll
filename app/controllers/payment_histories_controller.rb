@@ -1,6 +1,7 @@
 class PaymentHistoriesController < ApplicationController
   # GET /payment_histories
   # GET /payment_histories.json
+  #before_filter :deny_payroll ,:only =>[:monthly_salaries] 
   def index
     @payment_histories = PaymentHistory.all
 
@@ -82,14 +83,20 @@ class PaymentHistoriesController < ApplicationController
   end
   
   def current_period_info
-    d = Date.today
-    @prev_month_start_date  = d.prev_month().at_beginning_of_month()
-    @prev_month_end_date = d.prev_month().at_end_of_month()
-    
-    @pay_period = PayPeriod.where("start_date" => @prev_month_start_date , "end_date" => @prev_month_end_date).first
-    @period_id = @pay_period.period_id
-    @current_fyear = @pay_period.current_fyear
-    puts "period_id  #{@period_id} , current fyear  #{@current_fyear}"
+    starting_period_id="1"+"#{Time.now.year}"+"#{(Time.now.year+1).to_s[2..4]}"
+    @current_fyear="#{Time.now.year}-""#{(Time.now.year+1).to_s[2..4]}"
+    if PaymentHistory.find_by_period_id(starting_period_id).nil?
+      @period_id=starting_period_id
+    else
+      last_record=PaymentHistory.last.period_id
+      unless PaymentHistory.last.period_id[0..last_record.length-7].to_i+1 > 12
+        period_month=PaymentHistory.last.period_id[0..last_record.length-7].to_i+1
+      else
+        period_month =1
+      end 
+      @period_id="#{period_month}"+"#{Time.now.year}"+"#{(Time.now.year+1).to_s[2..4]}"
+      @current_fyear="#{Time.now.year}-""#{(Time.now.year+1).to_s[2..4]}"
+    end
   end
   
   def load_payment
@@ -264,7 +271,7 @@ class PaymentHistoriesController < ApplicationController
       payment_history.tax_deducted = params[:monthlypayconfirm][:"#{employee.emp_id}_tax_deducted"]
       payment_history.loss_of_hours = params[:monthlypayconfirm][:"#{employee.emp_id}_sick"]
       payment_history.save
-    end
+      end
     end
     
      respond_to do |format|
@@ -273,5 +280,11 @@ class PaymentHistoriesController < ApplicationController
   end
   
   end
+  # def deny_payroll
+    # unless PaymentHistory.find_by_period_id(@period_id)
+      # flash[:error]="payment already Done "
+      # render "sessions/success"
+    # end
+  # end
   
 end

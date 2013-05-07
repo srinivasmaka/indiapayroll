@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130430131222) do
 
- create_table "Bonus", :force => true do |t|
+  create_table "Bonus", :force => true do |t|
     t.string   "emp_id"
     t.string   "period_id"
     t.string   "period_type"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20130430131222) do
     t.string   "email_id"
     t.text     "address"
     t.integer  "phone_number"
-    t.integer  "pan_number"
+    t.string   "pan_number"
     t.integer  "bank_acc_no"
     t.string   "designation"
     t.string   "grossCTC"
@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(:version => 20130430131222) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "current_fyear"
-    t.string   "year"
   end
 
   create_table "payment_histories", :force => true do |t|

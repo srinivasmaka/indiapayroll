@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   
   include SessionsHelper 
   include ApplicationHelper
+  skip_before_filter :authenticate, :only => [:create,:new,:accept]
   protect_from_forgery
   
 

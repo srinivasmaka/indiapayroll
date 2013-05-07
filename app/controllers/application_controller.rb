@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper 
   protect_from_forgery
-  
+   before_filter :authenticate
   protected 
   
   def local_request?
