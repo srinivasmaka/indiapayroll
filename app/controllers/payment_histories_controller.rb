@@ -270,6 +270,7 @@ class PaymentHistoriesController < ApplicationController
       payment_history.net_monthly = params[:monthlypayconfirm][:"#{employee.emp_id}_net_monthly"]
       payment_history.tax_deducted = params[:monthlypayconfirm][:"#{employee.emp_id}_tax_deducted"]
       payment_history.loss_of_hours = params[:monthlypayconfirm][:"#{employee.emp_id}_sick"]
+      payment_history.period_type="M"
       payment_history.save
       end
     end

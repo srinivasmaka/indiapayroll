@@ -48,7 +48,7 @@ class ConsolidatedPayController < ApplicationController
 			@cp.ps4 = 0
 
 		else
-			@bonusPh= Bonu.where("emp_id= ? and period_type=? ", @emp_id, "Q").order(:period_id)
+			@bonusPh= Bonu.where("emp_id= ?  ", @emp_id).order(:period_id)
 			
 			for i in 0..@bonusPh.length-1 do 
 				@cp.ps1 = @bonusPh[i].ps_1  unless @bonusPh[i].ps_1.nil?
