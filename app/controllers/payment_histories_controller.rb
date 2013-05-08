@@ -122,9 +122,9 @@ class PaymentHistoriesController < ApplicationController
       
       @salary_info.each do |key, value|
       emp_id = key
-      @net_pay = params[:monthlysal][emp_id + "_net"].to_i
-      gross_ctc = params[:monthlysal][emp_id + "_gross"].to_i
-      loss_of_hours = params[:monthlysal][emp_id + "_sick"].to_i
+      @net_pay = params[:monthlysal][:"#{emp_id}_net"].to_i
+      gross_ctc = params[:monthlysal][:"#{emp_id}_gross"].to_i
+      loss_of_hours = params[:monthlysal][:"#{emp_id}_sick"].to_i
       tds = calculate_tds(emp_id)
       if tds > 0
       tds_per_month = tds/12
@@ -138,8 +138,8 @@ class PaymentHistoriesController < ApplicationController
       calculatehra(emp_id,gross_ctc)
       basic_per_year = (@basic_percent * gross_ctc)/100
       basic_per_month = basic_per_year/12
-      hra_per_year = @hra_per_year
-      @payment_history.hra =  @hra_per_year/12
+      hra_per_year = (hra_percent * gross_ctc)/100
+      @payment_history.hra =  hra_per_year/12
       @payment_history.basic = basic_per_month
       @payment_history.tds = tds_per_month
       @payment_history.period_id = @period_id
