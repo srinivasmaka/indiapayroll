@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
+
+u=UserLogin.find_by_user_name('admin')
+
+unless u
+  puts "    creating user : admin"
+  u = UserLogin.create!( user_name: "admin", 
+            password: "railsrocks", 
+            is_admin: "y")
+end
