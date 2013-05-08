@@ -7,6 +7,10 @@ gem 'rails', '3.2.9'
 
 #gem 'sqlite3'
 gem "mysql2"
+gem 'better_errors'
+gem 'binding_of_caller'
+gem 'meta_request'
+
 gem 'bootstrap-sass', '2.1'
 gem "jquery_datepicker"
 gem 'jquery-rails'
