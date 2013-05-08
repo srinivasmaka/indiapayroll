@@ -29,13 +29,13 @@ textarea, select {
   <tr class="success">
     <td><%=employee.emp_id %></td>
     <td><%= employee.first_name %></td>
-  	<td><%=text_field_tag :"#{employee.id}", "#{employee.grossCTC}" %></td>
+  	<td><%=text_field_tag :"#{employee.emp_id}_gross", "#{employee.grossCTC}" %></td>
     <td><%=text_field_tag :"#{employee.emp_id}", "#{employee.designation}" %></td>
-    <td><%=text_field_tag :"#{employee.emp_id}_b1", '0' %></td>
-    <td><%=text_field_tag :"#{employee.emp_id}_b2",'0' %></td>
-    <td><%=text_field_tag :"#{employee.emp_id}_b3", '0' %></td>
-    <td><%=text_field_tag :"#{employee.emp_id}_b4",'0'%></td>
-    <td><%=text_field_tag :"#{employee.emp_id}_b5",'0' %></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b1","#{employee.PS_1}" %></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b2", "#{employee.PS_2}"%></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b3", "#{employee.PS_3}"%></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b4", "#{employee.PS_4}"%></td>
+    <td><%=text_field_tag :"#{employee.emp_id}_b5","#{employee.others}" %></td>
   </tr>
 <% end %>
 </table>

@@ -1,17 +1,20 @@
 class BulkeditEmpController < ApplicationController
   
   def new
- @employees = Employee.all
- @periodID = PayPeriod.all
+     @periodID =  PayPeriod.all
+     @employees = Employee.find_by_sql("select emp_id,First_name,grossCTC,designation,(select  ps_1 from bonus where emp_id=emp.emp_id order by id desc limit 1) as PS_1,(select  ps_2 from bonus where emp_id=emp.emp_id order by id desc limit 1)  as PS_2, (select ps_3 from bonus where emp_id=emp.emp_id order by id desc limit 1)  as PS_3,
+                  (select ps_4 from bonus where emp_id=emp.emp_id order by id desc limit 1)  as PS_4,(select others from bonus where emp_id=emp.emp_id order by id desc limit 1)  as others  from employees emp")
 
- # find_by_sql("select emp.first_name, emp.emp_id, emp.designation, emp.grossCTC, b.ps_1, b.ps_2, b.ps_3, b.ps_4, b.others from Employees emp inner join bonus b on emp.emp_id = b.emp_id")
- end
+
+                 
+         
+  end
    
   def bulk_update
      @bulkemp_info = Hash.new
      @employees = Employee.all
      @employees.each do |employee|
-     gross = params[:"#{employee.id}"]
+     gross = params[:"#{employee.emp_id}_gross"]
      des =   params[:"#{employee.emp_id}"]
           
      bonus=Bonu.new     
