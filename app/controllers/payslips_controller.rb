@@ -6,7 +6,7 @@ class PayslipsController < ApplicationController
     @payperiod = PayPeriod.find_by_period_id(params[:id])
    
   	@employee=Employee.find_by_emp_id(employee_view)
-  	@paymentHis = PaymentHistory.where("emp_id=? and period_id=?", @employee.emp_id, @payperiod.period_id).first
+  	@paymentHis = PaymentHistory.where("emp_id=? ", @employee.emp_id).first
   	
     tds                = @paymentHis.tds ? @paymentHis.tds : 0
   	professional_tax   = @paymentHis.professional_tax ? @paymentHis.professional_tax : 0
