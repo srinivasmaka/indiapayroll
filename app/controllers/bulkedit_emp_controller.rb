@@ -2,7 +2,7 @@ class BulkeditEmpController < ApplicationController
   
   def new
      @periodID =  PayPeriod.all
-     @employees = Employee.find_by_sql("select emp_id,First_name,grossCTC,designation,(select  ps_1 from bonus where emp_id=emp.emp_id order by id desc limit 1) as PS_1,(select  ps_2 from bonus where emp_id=emp.emp_id order by id desc limit 1)  as PS_2, (select ps_3 from bonus where emp_id=emp.emp_id order by id desc limit 1)  as PS_3,
+     @employees = Employee.find_by_sql("select emp_id,first_name,grossCTC,designation,(select  ps_1 from bonus where emp_id=emp.emp_id order by id desc limit 1) as PS_1,(select  ps_2 from bonus where emp_id=emp.emp_id order by id desc limit 1)  as PS_2, (select ps_3 from bonus where emp_id=emp.emp_id order by id desc limit 1)  as PS_3,
                   (select ps_4 from bonus where emp_id=emp.emp_id order by id desc limit 1)  as PS_4,(select others from bonus where emp_id=emp.emp_id order by id desc limit 1)  as others  from employees emp")
 
 
