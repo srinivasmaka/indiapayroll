@@ -138,7 +138,7 @@ class PaymentHistoriesController < ApplicationController
       calculatehra(emp_id,gross_ctc)
       basic_per_year = (@basic_percent * gross_ctc)/100
       basic_per_month = basic_per_year/12
-      hra_per_year = (hra_percent * gross_ctc)/100
+      hra_per_year = (hra_percent * basic_per_year)/100
       @payment_history.hra =  hra_per_year/12
       @payment_history.basic = basic_per_month
       @payment_history.tds = tds_per_month
@@ -146,14 +146,25 @@ class PaymentHistoriesController < ApplicationController
       @payment_history.conveyance = conveyance/12
       @payment_history.professional_tax = p_tax/12
       @payment_history.loss_of_hours = loss_of_hours
+      @payment_history.gross_monthly=@net_pay
       @payment_history.medical_allowance = medical_allowance/12
       sum_allowances = 0
-      allowance_components = [basic_per_year,medical_allowance,@hra_per_year,conveyance]
+      allowance_components = [basic_per_year,medical_allowance,hra_per_year,conveyance]
       sum_allowances = allowance_components.inject{|sum_allowances,x| sum_allowances + x }
       @payment_history.special_allowance = (gross_ctc - sum_allowances)/12 
       taxble_income = gross_ctc - (@tds.to_i + p_tax)
+      puts "*********************************************************************taxble income"
+      puts "gross #{gross_ctc}"
+      puts "prof tax #{p_tax}"
+      puts "tds from emp #{@tds.to_i}"
+      
       @t_s = calculate_tax(taxble_income)
-      final_tax_amount = @t_s.to_i+((edu_cess_percent/100) * @t_s.to_i) 
+      puts "income tax #{@t_s}"
+      puts "education cess #{edu_cess_percent}"
+      final_tax_amount = @t_s.to_i + (edu_cess_percent* @t_s.to_i)/100 
+      
+      puts "deductions edu #{(edu_cess_percent/100) * @t_s.to_i}"
+      puts "final tax amount #{final_tax_amount}"
       monthly_tax = 0
       if final_tax_amount > 0
       monthly_tax = final_tax_amount/12
@@ -188,6 +199,7 @@ class PaymentHistoriesController < ApplicationController
     hra_cal1_per_year =  total_hra-(basic_sal_per_year*0.1)
     hra_cal2_per_year =  (0.4*basic_sal_per_year)
     @hra_per_year = [hra_cal1_per_year,hra_cal2_per_year,total_hra].min
+    puts "hra per year #{@hra_per_year}"
     end  
   end
   
@@ -200,6 +212,11 @@ class PaymentHistoriesController < ApplicationController
         percentage = slab.deduction_percent
         min_amount = slab.min_tax
         extra_amount = t.to_i - slab.slab_from.to_i
+        puts "tabxble income #{t.to_i}"
+        puts "slab from #{slab.slab_from.to_i}"
+        
+        puts "extra  amount#{extra_amount}"
+        puts "ldjasljdkls"
         @tax_slab = ((extra_amount/100)*percentage.to_i)+min_amount.to_i 
         end
      end
@@ -270,6 +287,7 @@ class PaymentHistoriesController < ApplicationController
       payment_history.net_monthly = params[:monthlypayconfirm][:"#{employee.emp_id}_net_monthly"]
       payment_history.tax_deducted = params[:monthlypayconfirm][:"#{employee.emp_id}_tax_deducted"]
       payment_history.loss_of_hours = params[:monthlypayconfirm][:"#{employee.emp_id}_sick"]
+      payment_history.gross_monthly =params[:monthlypayconfirm][:"#{employee.emp_id}_gross_monthly"]
       payment_history.period_type="M"
       payment_history.save
       end

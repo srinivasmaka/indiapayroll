@@ -4,8 +4,9 @@ module ApplicationHelper
     current_period
     pay_details=Hash.new
     pay_details[:current_month]  ="April May June July August September October \
-November December January February March " .split(" ")[@period_id[0..@period_id.length-7].to_i-1]
-   pay_details[:current_fyear] = @current_fyear
+    November December January February March " .split(" ")[@period_id[0..@period_id.length-7].to_i-1]
+    pay_details[:current_fyear] = @current_fyear
+    pay_details[:period_id]=@period_id
     pay_details
   end
  

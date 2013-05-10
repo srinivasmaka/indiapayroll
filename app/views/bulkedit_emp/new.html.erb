@@ -9,9 +9,17 @@ textarea, select {
 
 
 </style>
+<script type="text/javascript">
+<% @employees.each do |employee|%>
+$('#')
+
+<%end%>
+
+
+</script>
    <%= form_tag bulkupdate_emp_path do %>
-  <b>Pay Period</b>
-   <%= select_tag 'emp_period_id', options_from_collection_for_select(@periodID, "period_id", "period_id") %>
+   <h6> Running Payroll : <%= current_period_info[:current_month]%> </h6>
+  <h6> Current Financial Year : <%= current_period_info[:current_fyear]%> </h6>
     <table class="table table-bordered">
    <tr class="success">
     <th>Emp</th>
@@ -29,7 +37,7 @@ textarea, select {
   <tr class="success">
     <td><%=employee.emp_id %></td>
     <td><%= employee.first_name %></td>
-  	<td><%=text_field_tag :"#{employee.emp_id}_gross", "#{employee.grossCTC}" %></td>
+  	<td><%=text_field_tag :"#{employee.emp_id}_gross", "#{employee.grossCTC}" ,:id=>"" %></td>
     <td><%=text_field_tag :"#{employee.emp_id}", "#{employee.designation}" %></td>
     <td><%=text_field_tag :"#{employee.emp_id}_b1","#{employee.PS_1}" %></td>
     <td><%=text_field_tag :"#{employee.emp_id}_b2", "#{employee.PS_2}"%></td>

@@ -33,7 +33,7 @@ class ConsolidatedPayController < ApplicationController
 		else
 			@ph =PaymentHistory.where("emp_id= ? and period_type=? ", @emp_id,"M"). order(:period_id)
 			for i in 0..@ph.length-1 do 
-				@cp.instance_variable_set(@cp.instance_variables[i], @ph[i].net_monthly)
+				@cp.instance_variable_set(@cp.instance_variables[i], @ph[i].gross_monthly)
 			end
 			for i in @ph.length..11 do 
 				@cp.instance_variable_set(@cp.instance_variables[i], @gross_monthly)

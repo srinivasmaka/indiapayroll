@@ -54,7 +54,7 @@ textarea, select {
     <td><%= "#{employee.grossCTC}".to_i/12%></td>
     <td><%=f.text_field :"#{employee.emp_id}_sick", :placeholder =>'0' ,:id=>"#{employee.emp_id}_sick" , :onblur=>"calculateNetAmount()"%></td>
     <td><%=f.text_field :deducted_amount, :readonly=>true ,:id=>"#{employee.emp_id}_deducted"%></td>
-    <td><%=f.text_field :"#{employee.emp_id}",  :readonly=>true ,:id=>"#{employee.emp_id}_net"%></td>
+    <td><%=f.text_field :"#{employee.emp_id}_net",  :readonly=>true ,:id=>"#{employee.emp_id}_net"%></td>
     <td><a href="javascript:child_open('<%=employee.emp_id%>')">Employee View</a></td>
   
   </tr>
