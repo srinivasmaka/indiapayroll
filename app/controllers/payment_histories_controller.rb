@@ -1,4 +1,5 @@
 class PaymentHistoriesController < ApplicationController
+  include PaymentHistoriesHelper
   # GET /payment_histories
   # GET /payment_histories.json
   #before_filter :deny_payroll ,:only =>[:monthly_salaries] 
@@ -84,7 +85,10 @@ class PaymentHistoriesController < ApplicationController
   
   def current_period_info
     starting_period_id="1"+"#{Time.now.year}"+"#{(Time.now.year+1).to_s[2..4]}"
-    @current_fyear="#{Time.now.year}-""#{(Time.now.year+1).to_s[2..4]}"
+    payperiod_details=PayPeriod.find_by_period_id(starting_period_id)
+    prepare_fyear="#{Time.now.year}#{(Time.now.year+1).to_s[2..4]}"
+    @current_fyear=payperiod_details.current_fyear
+    #@current_fyear="#{Time.now.year}-""#{(Time.now.year+1).to_s[2..4]}"
     if PaymentHistory.find_by_period_id(starting_period_id).nil?
       @period_id=starting_period_id
     else
@@ -93,9 +97,15 @@ class PaymentHistoriesController < ApplicationController
         period_month=PaymentHistory.last.period_id[0..last_record.length-7].to_i+1
       else
         period_month =1
+        current_year=PayPeriod.find_by_period_id(last_record).current_fyear
+        fyear=current_year[0..3].to_i + 1
+        lyear =current_year[5..7].to_i + 1
+        prepare_fyear="#{fyear}#{lyear}"
       end 
-      @period_id="#{period_month}"+"#{Time.now.year}"+"#{(Time.now.year+1).to_s[2..4]}"
-      @current_fyear="#{Time.now.year}-""#{(Time.now.year+1).to_s[2..4]}"
+      @period_id="#{period_month}#{prepare_fyear}"
+      payperiod_details=PayPeriod.find_by_period_id(@period_id)
+      @current_fyear=payperiod_details.current_fyear
+      #@current_fyear="#{Time.now.year}-""#{(Time.now.year+1).to_s[2..4]}"
     end
   end
   
@@ -152,7 +162,8 @@ class PaymentHistoriesController < ApplicationController
       allowance_components = [basic_per_year,medical_allowance,hra_per_year,conveyance]
       sum_allowances = allowance_components.inject{|sum_allowances,x| sum_allowances + x }
       @payment_history.special_allowance = (gross_ctc - sum_allowances)/12 
-      taxble_income = gross_ctc - (@tds.to_i + p_tax)
+      calculate_gross(emp_id ,gross_ctc,@net_pay)
+      taxble_income = calculate_gross(emp_id ,gross_ctc,@net_pay) - (@tds.to_i + p_tax)
       puts "*********************************************************************taxble income"
       puts "gross #{gross_ctc}"
       puts "prof tax #{p_tax}"
@@ -161,13 +172,19 @@ class PaymentHistoriesController < ApplicationController
       @t_s = calculate_tax(taxble_income)
       puts "income tax #{@t_s}"
       puts "education cess #{edu_cess_percent}"
-      final_tax_amount = @t_s.to_i + (edu_cess_percent* @t_s.to_i)/100 
+      deducte_tax =PaymentHistory.where(:emp_id=>emp_id).sum(:tax_deducted)
       
+      final_tax_amount = @t_s.to_i + (edu_cess_percent* @t_s.to_i)/100 - deducte_tax
+      remaining_months =13 - @period_id[0..@period_id.length-7].to_i
+      
+       
+      puts "tax deducted #{PaymentHistory.where(:emp_id=>emp_id).sum(:tax_deducted)}"
       puts "deductions edu #{(edu_cess_percent/100) * @t_s.to_i}"
       puts "final tax amount #{final_tax_amount}"
+      puts "#{remaining_months}"
       monthly_tax = 0
       if final_tax_amount > 0
-      monthly_tax = final_tax_amount/12
+      monthly_tax = final_tax_amount/remaining_months
       else
         final_tax_amount = 0
       end
@@ -254,7 +271,17 @@ class PaymentHistoriesController < ApplicationController
      else
     end
   section6 = interest_on_hloan
-  @tds = [@section1,section2,section3,section4,sum_section5,section6,section7].sum
+  puts "sections start"
+  puts "section1 #{@section1}"
+  puts "section2 #{section2}"
+  puts "section3 #{section3}"
+  puts "section4 #{section4}"
+  puts "section5 #{sum_section5}"
+  puts "section6 #{section6}"
+  puts "section7 #{section7}"
+  puts "section end"
+  
+  @tds = [@section1,section2,section3,section4,sum_section5,section6].sum
   end
   end
   
