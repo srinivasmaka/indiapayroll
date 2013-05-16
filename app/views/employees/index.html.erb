@@ -28,6 +28,7 @@
     <td><%= employee.designation %></td>
     <td><%= employee.grossCTC %></td>
     <td><%= employee.date_of_joining %></td>
+    <td><%= link_to 'Destroy', employee, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

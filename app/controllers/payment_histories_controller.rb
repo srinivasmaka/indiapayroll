@@ -287,7 +287,7 @@ class PaymentHistoriesController < ApplicationController
   
   
   def monthly_salaries
-    @employees = Employee.all
+    @employees = Employee.where(:status=>true)
 
     respond_to do |format|
       format.html # index.html.erb

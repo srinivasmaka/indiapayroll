@@ -14,7 +14,9 @@ gem 'meta_request'
 gem 'bootstrap-sass', '2.1'
 gem "jquery_datepicker"
 gem 'jquery-rails'
-
+gem 'libv8'
+gem 'twitter-bootstrap-rails'
+gem 'bootswatch-rails'
 gem 'json'
 gem 'prawn', :git => "git://github.com/prawnpdf/prawn.git", :branch => "master"
 gem "prawnto_2", :require => "prawnto"
