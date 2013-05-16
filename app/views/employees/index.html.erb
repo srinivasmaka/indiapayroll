@@ -13,6 +13,7 @@
     <th>Designation</th>
     <th>Grossctc</th>
     <th>Date of joining</th>
+    <th>Status</th>
   </tr>
 
 <% @employees.each do |employee| %>
@@ -28,6 +29,7 @@
     <td><%= employee.designation %></td>
     <td><%= employee.grossCTC %></td>
     <td><%= employee.date_of_joining %></td>
+    <td><%= employee.status%></td>
     <td><%= link_to 'Destroy', employee, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

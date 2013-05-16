@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     if user.nil? 
       flash.now[:error] = "Invalid username/password combination."
       render 'new'
-    elsif  user.is_admin=='y'
+    elsif  user.is_admin
       sign_in(user)
       render "success"
     else

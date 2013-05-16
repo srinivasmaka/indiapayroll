@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516130834) do
+ActiveRecord::Schema.define(:version => 20130516134903) do
 
   create_table "bonus", :force => true do |t|
     t.string   "emp_id"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(:version => 20130516130834) do
     t.date     "last_logged_date"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.string   "is_admin"
+    t.boolean  "is_admin"
   end
 
 end

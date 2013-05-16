@@ -33,7 +33,7 @@ module SessionsHelper
     @login_as=='admin'
   end
   def is_admin?
-    @current_user.is_admin=='y'
+      @current_user.is_admin==true
   end
   def signed_in?
     !current_user.nil?
@@ -54,7 +54,7 @@ module SessionsHelper
   end
   
   def authenticate_admin
-    deny_access_for_employee unless @current_user.is_admin=='y'
+    deny_access_for_employee unless @current_user.is_admin
   end
   def deny_access_for_employee
     store_location
