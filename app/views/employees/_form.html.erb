@@ -56,11 +56,11 @@
   </div>
   <div class="field">
     <%= f.label :date_of_joining %>
-    <%= f.datepicker :date_of_joining , :dateformate=>"dd/mm/yy"%>
+    <%= f.datepicker :date_of_joining , :dateFormat=>'dd/mm/yy'%>
   </div>
   <div class="field">
     <%= f.label :date_of_birth %>
-    <%= f.datepicker :date_of_birth  , :dateformate=>"dd/mm/yy"%>
+    <%= f.datepicker :date_of_birth  , :dateFormat=> 'dd-mm-yy'%>
   </div>
   <div class="actions">
     <%= f.submit "create employee " , :class=> "btn btn-large btn-primary" %>
