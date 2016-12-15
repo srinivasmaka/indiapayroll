@@ -1,16 +1,21 @@
 Indiapayroll::Application.routes.draw do
   
-  
+  #get 'user_logins/new'
+  devise_for :user_logins
+
   match '/payslips/:id' => 'payslips#show', :as => 'show_payslips'
   match '/payslips' => 'payslips#index'
+   
+  root :to => "user_logins#show"
+  #root :to => "user_logins#new"
 
-  root :to => "sessions#new"
   resources :employees
-  resources :sessions
+  resources :user_logins
+  #resources :sessions
    resources :payment_histories
    get "employees/popupemployee"
   
-  match '/signout', :to => 'Sessions#destroy'
+  #match '/signout', :to => 'Sessions#destroy'
   match '/empinfo' => 'employees#employeeinfo'
   match '/employee_view_popup' => 'employees#admin_view'
   match '/monthly_Salaries' =>'payment_histories#monthly_salaries'

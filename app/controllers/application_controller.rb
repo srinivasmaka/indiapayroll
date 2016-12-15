@@ -1,11 +1,15 @@
 class ApplicationController < ActionController::Base
-  include SessionsHelper 
   protect_from_forgery
-   before_filter :authenticate
+  include FullHelper
+   #before_filter :authenticate
   protected 
   
   def local_request?
     false
+  end
+
+  def configure_permitted_parameters
+   devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:user_name, :password, :is_admin,:emp_id) }
   end
   
   def rescue_action_in_public(exception)
@@ -16,5 +20,8 @@ class ApplicationController < ActionController::Base
     super  
     end
   end
+  def after_sign_out_path_for(resource_or_scope)
+        user_login_session_path
+    end
   
  end

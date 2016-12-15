@@ -1,8 +1,8 @@
 class EmployeesController < ApplicationController
-  include SessionsHelper 
+  include FullHelper
    layout :resolve_layout
-   before_filter :authenticate  ,:except=>[:popup]
-   before_filter :authenticate_admin , :only=>[:new ,:create ,:index]
+   # before_filter :authenticate  ,:except=>[:popup]
+   # before_filter :authenticate_admin , :only=>[:new ,:create ,:index]
    
   
   # GET /employees
@@ -97,7 +97,7 @@ class EmployeesController < ApplicationController
   end
   # employee info 
   def employeeinfo
-   @employee=Employee.find_by_emp_id(current_user.emp_id)
+   @employee=Employee.find_by_emp_id(current_user_login.emp_id)
   end
   def admin_view
     employee_id=params[:emp_id]

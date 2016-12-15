@@ -1,7 +1,7 @@
 class EmpDeclarationsController < ApplicationController
   layout "employee"
-  include SessionsHelper
-  before_filter :authenticate
+  include FullHelper
+  #              before_filter :authenticate
   # GET /emp_declarations
   # GET /emp_declarations.json
   def index
@@ -131,7 +131,7 @@ class EmpDeclarationsController < ApplicationController
     @emp = Employee.find_by_emp_id(@emp_id)
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
     if @emp_declaration.nil?
-    @emp_id = current_user.emp_id
+    @emp_id = current_user_login.emp_id
     @emp_declaration = EmpDeclaration.new
     render :new
     else
