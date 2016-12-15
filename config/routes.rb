@@ -5,6 +5,7 @@ Indiapayroll::Application.routes.draw do
   match '/payslips' => 'payslips#index'
 
   root :to => "sessions#new"
+  #root :to => "sessions#index"
   resources :employees
   resources :sessions
    resources :payment_histories
