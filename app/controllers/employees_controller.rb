@@ -96,22 +96,23 @@ class EmployeesController < ApplicationController
     end
   end
   # employee info 
-  def employeeinfo
+  def profile
    @employee=Employee.find_by_emp_id(current_user_login.emp_id)
   end
   def admin_view
-    employee_id=params[:emp_id]
+
+    employee_id=params[:id]
     @employee=Employee.find_by_emp_id(employee_id)
     cookies.permanent[:employee] =employee_id
     login_as "admin"
-    render "employeeinfo"
+    render "profile"
   end
   
     private
 
   def resolve_layout
     case action_name
-    when "employeeinfo" ,"admin_view"
+    when "profile" ,"admin_view"
       "employee"
     else
       "application"

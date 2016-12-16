@@ -22,7 +22,7 @@ textarea, select {
 <script type="text/javascript">
 	var popupWindow=null;
     function child_open(emp_id){
-	popupWindow =window.open("employee_view_popup?emp_id=" + emp_id,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=750, height=300,top=250,left=100");
+	popupWindow =window.open("/employees/" +emp_id + "/admin_view","_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=750, height=300,top=250,left=100");
    }
    function parent_disable() {
    if(popupWindow && !popupWindow.closed)
@@ -31,7 +31,7 @@ textarea, select {
 </script>
 <body onFocus="parent_disable();" onclick="parent_disable();" , onload="calculateNetAmount()">
 <h1>Employees Salary Details </h1>
-  <%= form_for(:monthlysal, :url=> monthly_payroll_path , :class => 'carousel slide' ) do |f| %>
+  <%= form_for(:monthlysal, :url=> monthly_payroll_payment_histories_path , :class => 'carousel slide' ) do |f| %>
   <h6> Running Payroll : <%= current_period_info[:current_month]%> </h6>
   <h6> Current Financial Year : <%= current_period_info[:current_fyear]%> </h6> 
 <table class="table table-bordered">

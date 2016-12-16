@@ -6,7 +6,7 @@
       <nav>
         <ul class="nav pull-right">
         	<%unless is_admin?%>
-            <li><%= link_to "Employee Info", empinfo_path %></li>
+            <li><%= link_to "Employee Info",  profile_employee_path(:emp_id) %></li>
             <%end%>
             <li><%= link_to "Pay Slips", payslips_path %></li>
             
@@ -15,7 +15,8 @@
                 Declarations & Taxes <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "New DeclarationForm", emp_declaration_details_path(:emp_id => employee_view) %></li>
+
+                <li><%= link_to "New DeclarationForm", populate_declarations_emp_declaration_path(employee_view) %></li>
                 <%unless is_admin?%>
             <%= link_to "Logout", destroy_user_login_session_path, method: :delete, :class => 'navbar-link'  %>
             <%end%>
