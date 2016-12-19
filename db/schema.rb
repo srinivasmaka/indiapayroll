@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161213071322) do
+ActiveRecord::Schema.define(:version => 20161215073705) do
 
   create_table "bonus", :force => true do |t|
     t.string   "emp_id"

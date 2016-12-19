@@ -16,7 +16,7 @@ class EmpDeclarationsController < ApplicationController
   # GET /emp_declarations/1
   # GET /emp_declarations/1.json
   def show
-    @emp_declaration = EmpDeclaration.find(params[:id])
+    @emp_declaration = EmpDeclaration.find(params[:emp_id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -127,6 +127,7 @@ class EmpDeclarationsController < ApplicationController
   end
   
   def populate_declarations
+   
     @emp_id = employee_view
     @emp = Employee.find_by_emp_id(@emp_id)
     @emp_declaration = EmpDeclaration.where("emp_id" => @emp_id).order(:updated_at).reverse_order.first
