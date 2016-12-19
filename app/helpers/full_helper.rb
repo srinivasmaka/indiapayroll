@@ -21,7 +21,7 @@ module FullHelper
    if current_user_login.emp_id.nil?
      @employee=cookies[:employee]
    else
-     @current_user_login.emp_id
+     current_user_login.emp_id
    end
  end
 

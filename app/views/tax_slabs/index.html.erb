@@ -19,9 +19,9 @@
     <td><%= tax_slab.slab_to %></td>
     <td><%= tax_slab.min_tax %></td>
     <td><%= tax_slab.deduction_percent %></td>
-    <td><%= link_to 'Show', tax_slab %></td>
-    <td><%= link_to 'Edit', edit_tax_slab_path(tax_slab) %></td>
-    <td><%= link_to 'Destroy', tax_slab, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', tax_slab_path(tax_slab),{:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-windows'} %></td>
+    <td><%= link_to 'Edit', edit_tax_slab_path(tax_slab),{:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %></td>
+    <td><%= link_to 'Destroy', tax_slab, :method => :delete, :data => { :confirm => 'Are you sure?' }%></td>
   </tr>
 <% end %>
 </table>
@@ -29,3 +29,5 @@
 <br />
 
 <%= link_to 'New Tax slab', new_tax_slab_path %>
+<div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div id="modal-windows" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

@@ -10,6 +10,7 @@ class TaxSlabsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @tax_slabs }
+      format.js
     end
   end
 
@@ -21,6 +22,7 @@ class TaxSlabsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @tax_slab }
+      format.js
     end
   end
 
@@ -37,6 +39,10 @@ class TaxSlabsController < ApplicationController
   # GET /tax_slabs/1/edit
   def edit
     @tax_slab = TaxSlab.find(params[:id])
+     respond_to do |format|
+    format.html
+    format.js
+  end
   end
 
   # POST /tax_slabs
@@ -80,6 +86,7 @@ class TaxSlabsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tax_slabs_url }
       format.json { head :no_content }
+      format.js
     end
   end
 end

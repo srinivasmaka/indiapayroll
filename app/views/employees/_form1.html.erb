@@ -1,14 +1,13 @@
 <meta charset="utf-8" />
-<title>Add Employee</title>
+<title>Update Employee</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css" />
 <%= simple_form_for(@employee,remote: true) do |f| %>
-
   <div class="row">
   <div class="span6 offset3">
-    <%= f.error_notification %>
+
   <div class="field">
     <%= f.input :emp_id %>
   </div>
@@ -49,12 +48,8 @@
     <%= f.datepicker :date_of_birth  ,:as=>:date ,:dateFormat=> 'dd/mm/yy'%>
   </div>
   <div class="actions">
-    <%= f.button :submit ,"create employee " , :class=> "btn btn-large btn-primary" %>
+    <%= f.button :submit ,"Update employee " , :class=> "btn btn-large btn-primary" %>
   </div>
   </div>
   </div>
 <% end %>
-
-
-
-

@@ -4,14 +4,16 @@ class Employee < ActiveRecord::Base
   
   validates :first_name,:last_name , :presence => true,
                     :length   => { :maximum => 50 }
-  #validates :phone_number ,:presence=> true  ,:length => {:maximum=> 10 ,:minimum=>10}
-  validates :date_of_birth ,:date_of_joining ,:designation ,:bank_acc_no ,
+  validates :phone_number ,:presence=> true  ,:length => {:maximum=> 10 ,:minimum=>10}
+  validates :date_of_birth ,:date_of_joining ,:designation ,
                      :grossCTC ,:pan_number ,:address , :presence => true  
   validates :emp_id ,:presence=> true ,:uniqueness => true             
   validates :email_id, :presence   => true,
                     :format     => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false }
 
+  validates :bank_acc_no ,:presence=> true  ,:length => {:maximum=> 16 ,:minimum=>16}
+  
   has_many :payment_histories
   has_many :bonus
   
