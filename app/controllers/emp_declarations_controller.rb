@@ -16,7 +16,6 @@ class EmpDeclarationsController < ApplicationController
   # GET /emp_declarations/1
   # GET /emp_declarations/1.json
   def show
-    binding.pry
     @emp_declaration = EmpDeclaration.find(params[:emp_id])
 
     respond_to do |format|
