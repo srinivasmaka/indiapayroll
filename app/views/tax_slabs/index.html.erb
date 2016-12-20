@@ -1,31 +1,3 @@
-<h1>Listing Tax Slabs</h1>
-
-<table class="table table-striped">
-  <tr class ="thead">
-  	<th>Year</th>
-    <th>Slab from</th>
-    <th>Slab to</th>
-    <th>Min tax</th>
-    <th>Deduction percent</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @tax_slabs.each do |tax_slab| %>
-  <tr class="tdata">
-  	<td><%= tax_slab.year %></td>
-    <td><%= tax_slab.slab_from %></td>
-    <td><%= tax_slab.slab_to %></td>
-    <td><%= tax_slab.min_tax %></td>
-    <td><%= tax_slab.deduction_percent %></td>
-    <td><%= link_to 'Show', tax_slab %></td>
-    <td><%= link_to 'Edit', edit_tax_slab_path(tax_slab) %></td>
-    <td><%= link_to 'Destroy', tax_slab, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Tax slab', new_tax_slab_path %>
+<div id="index">
+<%= render "index" %>
+</div>

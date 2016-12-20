@@ -6,10 +6,9 @@ class ConfigTablesController < ApplicationController
   # GET /config_tables.json
   def index
     @config_tables = ConfigTable.all
-
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @config_tables }
+      format.js
     end
   end
 
@@ -17,10 +16,9 @@ class ConfigTablesController < ApplicationController
   # GET /config_tables/1.json
   def show
     @config_table = ConfigTable.find(params[:id])
-
     respond_to do |format|
+      format.js
       format.html # show.html.erb
-      format.json { render :json => @config_table }
     end
   end
 
@@ -28,10 +26,9 @@ class ConfigTablesController < ApplicationController
   # GET /config_tables/new.json
   def new
     @config_table = ConfigTable.new
-
     respond_to do |format|
+      format.js
       format.html # new.html.erb
-      format.json { render :json => @config_table }
     end
   end
 
@@ -47,11 +44,9 @@ class ConfigTablesController < ApplicationController
     @config_table.year = params[:config_table][:id] 
     respond_to do |format|
       if @config_table.save
-        format.html { redirect_to @config_table, :notice => 'Config table was successfully created.' }
-        format.json { render :json => @config_table, :status => :created, :location => @config_table }
+        format.html { redirect_to config_tables_path, :notice => 'Config table was successfully created.' }
       else
         format.html { render :action => "new" }
-        format.json { render :json => @config_table.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -63,11 +58,9 @@ class ConfigTablesController < ApplicationController
     @config_table.year = params[:config_table][:id] 
     respond_to do |format|
       if @config_table.update_attributes(params[:config_table])
-        format.html { redirect_to @config_table, :notice => 'Config table was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to config_tables_path, :notice => 'Config table was successfully updated.' }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @config_table.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -77,10 +70,9 @@ class ConfigTablesController < ApplicationController
   def destroy
     @config_table = ConfigTable.find(params[:id])
     @config_table.destroy
-
     respond_to do |format|
-      format.html { redirect_to config_tables_url }
-      format.json { head :no_content }
+      @config_tables = ConfigTable.all
+      format.js
     end
   end
 end
