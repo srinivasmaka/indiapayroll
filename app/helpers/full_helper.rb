@@ -18,6 +18,7 @@ module FullHelper
  #end
 
  def employee_view
+      
    if current_user_login.emp_id.nil?
      @employee=cookies[:employee]
    else
