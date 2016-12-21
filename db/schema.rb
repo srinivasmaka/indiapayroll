@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161215073705) do
+
+ActiveRecord::Schema.define(:version => 20161219054158) do
 
   create_table "bonus", :force => true do |t|
     t.string   "emp_id"
@@ -86,9 +87,9 @@ ActiveRecord::Schema.define(:version => 20161215073705) do
     t.string   "gender"
     t.string   "email_id"
     t.text     "address"
-    t.integer  "phone_number"
+    t.string   "phone_number"
     t.string   "pan_number"
-    t.integer  "bank_acc_no"
+    t.string   "bank_acc_no"
     t.string   "designation"
     t.string   "grossCTC"
     t.date     "date_of_joining"

@@ -5,7 +5,6 @@ class UserLoginsController < ApplicationController
    end
   def new 
     @user = UserLogin.new
-    render create
   end
 
   def show

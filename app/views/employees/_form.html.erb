@@ -1,13 +1,10 @@
 <meta charset="utf-8" />
 <title>Add Employee</title>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css" />
+
 <%= simple_form_for(@employee) do |f| %>
+
   <div class="row">
   <div class="span6 offset3">
-
   <div class="field">
     <%= f.input :emp_id %>
   </div>
@@ -34,7 +31,7 @@
     <%= f.input :bank_acc_no %>
   </div>
   <div class="field">
-    <%= f.input :designation %>
+    <%= f.input :designation, :collection => ["Manager","Senior_Developer","Junior_Developer","QA","HR"] %>
   </div>
   <div class="field">
     <%= f.input :grossCTC %>
@@ -48,10 +45,13 @@
     <%= f.datepicker :date_of_birth  ,:as=>:date ,:dateFormat=> 'dd/mm/yy'%>
   </div>
   <div class="actions">
-    <%= f.button :submit ,"create employee " , :class=> "btn btn-large btn-primary" %>
+    <%= f.submit name:button_tag  %>
   </div>
   </div>
   </div>
 <% end %>
+
+</div id = 'emp_show'></div>
+
 
 
