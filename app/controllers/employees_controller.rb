@@ -14,7 +14,6 @@ class EmployeesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json=> @employees }
-
     end
   end
 
@@ -26,6 +25,7 @@ class EmployeesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json=> @employee }
+      format.js
     end
   end
 
@@ -55,8 +55,7 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = Employee.new(params[:employee])
-   # binding.pry
-   
+
     respond_to do |format|
       user =UserLogin.new
       user.emp_id=@employee.emp_id
@@ -67,9 +66,9 @@ class EmployeesController < ApplicationController
       @employee.status=true
       if @employee.save && user.save
         UserMailer.emp_registration(@employee,user).deliver
-        format.html { redirect_to @employee, :error=> 'Employee was successfully created.' }
-        format.js #{render js: "window.location = #{employee_path(@employee)}"}
+        format.html { redirect_to @employee, :notice=> 'Employee was successfully created.' }
         format.json { render :json=> @employee, :status=>created, :location=> @employee }
+        format.js
       else
         format.html { render :action=> "new" }
         format.json { render :json=> @employee.errors, :status=>unprocessable_entity }
@@ -82,11 +81,12 @@ class EmployeesController < ApplicationController
   # PUT /employees/1.json
   def update
     @employee = Employee.find(params[:id])
+    @employees = Employee.all
+
     respond_to do |format|
       if @employee.update_attributes(params[:employee])
         format.html { redirect_to @employee, :notice=> 'Employee was successfully updated.' }
         format.json { head :no_content }
-        format.js
       else
         format.html { render :action=> "edit" }
         format.json { render :json=> @employee.errors, :status=>unprocessable_entity }
@@ -115,6 +115,8 @@ class EmployeesController < ApplicationController
    @employee=Employee.find_by_emp_id(current_user_login.emp_id)
   end
   def admin_view
+
+binding.pry
     employee_id=params[:emp_id]
     @employee=Employee.find_by_emp_id(employee_id)
     cookies.permanent[:employee] =employee_id

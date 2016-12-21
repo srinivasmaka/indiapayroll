@@ -18,7 +18,7 @@
 
 <% @employees.each do |employee| %>
   <tr class="tdata">
-    <td><%= link_to "#{employee.emp_id}", edit_employee_path(employee),   {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#details'} %></td>
+    <td><%= link_to "#{employee.emp_id}", edit_employee_path(employee),   {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#emp_details'} %></td>
     <td><%= employee.first_name %></td>
     <td><%= employee.last_name %></td>
     <td><%= employee.gender %></td>
@@ -35,11 +35,11 @@
 <% end %>
 </table>
 
-<br />
+<br/>
 
 <%= link_to 'New Employee', new_employee_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#new'} %>
 
-<div id="details" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  "></div>
+<div id="emp_details" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  "></div>
 <div id="new" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  "></div>
 
 
