@@ -9,7 +9,6 @@ class TaxSlabsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @tax_slabs }
       format.js
     end
   end
@@ -21,7 +20,6 @@ class TaxSlabsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @tax_slab }
       format.js
     end
   end
@@ -32,7 +30,7 @@ class TaxSlabsController < ApplicationController
     @tax_slab = TaxSlab.new
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @tax_slab }
+      format.js
     end
   end
 
@@ -52,11 +50,9 @@ class TaxSlabsController < ApplicationController
     @tax_slab.year = params[:tax_slab][:id] 
     respond_to do |format|
       if @tax_slab.save
-        format.html { redirect_to @tax_slab, :notice => 'Tax slab was successfully created.' }
-        format.json { render :json => @tax_slab, :status => :created, :location => @tax_slab }
+        format.html { redirect_to tax_slabs_path, :notice => 'Tax slab was successfully created.' }
       else
         format.html { render :action => "new" }
-        format.json { render :json => @tax_slab.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -68,11 +64,9 @@ class TaxSlabsController < ApplicationController
     @tax_slab.year = params[:tax_slab][:id] 
     respond_to do |format|
       if @tax_slab.update_attributes(params[:tax_slab])
-        format.html { redirect_to @tax_slab, :notice => 'Tax slab was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to tax_slabs_path, :notice => 'Tax slab was successfully updated.' }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @tax_slab.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -82,7 +76,6 @@ class TaxSlabsController < ApplicationController
   def destroy
     @tax_slab = TaxSlab.find(params[:id])
     @tax_slab.destroy
-
     respond_to do |format|
       format.html { redirect_to tax_slabs_url }
       format.json { head :no_content }
