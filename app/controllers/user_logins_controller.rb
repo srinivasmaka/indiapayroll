@@ -5,7 +5,6 @@ class UserLoginsController < ApplicationController
    end
   def new 
     @user = UserLogin.new
-    render create
   end
 
   def show
@@ -28,7 +27,8 @@ end
 
   def employeelogin
     flash[:success] ="Hi #{current_user_login.user_name} welcome to India Payroll app"
-     redirect_to empinfo_path
+     redirect_to profile_employee_path(:emp_id)
+     #render 'employeeinfo'
   end
 
 end

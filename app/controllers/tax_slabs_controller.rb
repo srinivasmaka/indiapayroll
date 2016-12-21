@@ -37,6 +37,10 @@ class TaxSlabsController < ApplicationController
   # GET /tax_slabs/1/edit
   def edit
     @tax_slab = TaxSlab.find(params[:id])
+     respond_to do |format|
+    format.html
+    format.js
+  end
   end
 
   # POST /tax_slabs
@@ -73,7 +77,8 @@ class TaxSlabsController < ApplicationController
     @tax_slab = TaxSlab.find(params[:id])
     @tax_slab.destroy
     respond_to do |format|
-      @tax_slabs = TaxSlab.all
+      format.html { redirect_to tax_slabs_url }
+      format.json { head :no_content }
       format.js
     end
   end

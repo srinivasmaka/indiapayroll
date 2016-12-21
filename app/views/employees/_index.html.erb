@@ -1,0 +1,49 @@
+<h1>Listing employees</h1>
+
+<table class="table table-striped">
+  <tr class="thead">
+    <th>Emp</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Gender</th>
+    <th>Email</th>
+    <th>Phone number</th>
+    <th>Pan number</th>
+    <th>Bank acc no</th>
+    <th>Designation</th>
+    <th>Grossctc</th>
+    <th>Date of joining</th>
+    <th>Status</th>
+  </tr>
+
+<% @employees.each do |employee| %>
+  <tr class="tdata">
+    <td><%= link_to "#{employee.emp_id}", edit_employee_path(employee),   {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#emp_details'} %></td>
+    <td><%= employee.first_name %></td>
+    <td><%= employee.last_name %></td>
+    <td><%= employee.gender %></td>
+    <td><%= employee.email_id %></td>
+    <td><%= employee.phone_number %></td>
+    <td><%= employee.pan_number %></td>
+    <td><%= employee.bank_acc_no %></td>
+    <td><%= employee.designation %></td>
+    <td><%= employee.grossCTC %></td>
+    <td><%= employee.date_of_joining %></td>
+    <td><%= employee.status%></td>
+     <td><%= link_to 'Destroy', employee, :confirm => 'Are you sure?', :method => :delete, remote: true, :class => "delete_emp" %> </td>
+  </tr>
+<% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New Employee', new_employee_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#new'} %>
+
+<div id="emp_details" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  "></div>
+<div id="new" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  "></div>
+
+
+
+
+
+<!-- <div id="new" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div> -->
